@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  group: 4,
+  group: 0,
   addBank: false,
   showLoginModal: false,
   showRegisterModal: false,

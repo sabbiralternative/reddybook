@@ -19,7 +19,7 @@ const NavMenu = () => {
           </Link>
         </li>
         <li>
-          <Link to="/inplay" className>
+          <Link to="/sports/inplay/0" className>
             <img
               loading="lazy"
               src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAB2AAAAdgB+lymcgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAKySURBVHic7Zs9aFNRGIbfc3tNmiYGTFGSmkEFddEudRBsaUbbVVCH4mIQxEGCOhQcUiqIDkZUcBAnqQVBcBFBEDtUJ8XFwbQUC4H0Vq3F/LT5ae5xuvEGUttAcr5Dz3m2Q7/k/fKcnybkBNBolIbFTicPUDaQL+SjlPkmDHynbKC4nqeMh0GaLgHKCzDdg2CwB8ePHWxa+OnzHMrlKgDA692FEwNH2lbHmIG+vr1N67LZn+DcbqnOYAYim9RZ1i/UarX6uEFAJBJC/OJI0wd+S2fqDQcCvrbWmWYXbk3Em9ZdunwX1ardtrqriQfI5f+dO8pvAeUFsNhokjsDijPAWs6SngENAiiwlrOU8XoLKC/AhI36ph8PzZzs9yxNi2xgYbUgMg6L/sjDVGn4hTNm7j/yeDQG2O9FNvTnq9gzwNPrT/S8Lt53xspvAS2AugFqtABRQaXRa9g4OiQqbtsIE8BDURSvTGP9/B3w7oCo2C0RuwUYQ+XUGArj76RZDSRngO2shrO3wffso2ihDt0hyBgqQxeQezqPjTMJsjbI/wvYrAv5sUmsPf4C3hsWnk8uwKEcPozck7Tw1SCNAIBmNUglwEHkapBSACBuNUgrwKHTq0F6AZ3G3LqEFq81D9/NEbAVqyPPL60Ag9fgn0rCfJnqaI6UAjo9626kEiBq1t1II0DkrLshF0Ax627oBHAOz+wzBFM3wFZ/kLVBIsD4nYHv+XWY6VlUCF88IFoA5/B8nEL3q0mwkthvhDZDmABjJQP/o3Mw5z6IitwWwgR439wTFdUSyn8W0AKoG6BGeQGm+7L027WZcL9nSWgDC2y/0LzFcuTQwODwoDPWl6RI0yVAeQE78rL0/+r0ZWl9WboR5QXsyMvSrZwB+n0AaboEKC+g4bI0BX7fbtIfTmo0ivMXhCuLgBuxMvIAAAAASUVORK5CYII="

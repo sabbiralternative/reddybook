@@ -13,6 +13,7 @@ import Dropdown from "./Dropdown";
 import NavMenu from "./NavMenu";
 import { useRef, useState } from "react";
 import useCloseModalClickOutside from "../../../hooks/closeModal";
+import SearchBox from "./SearchBox";
 
 const Navbar = () => {
   const ref = useRef();
@@ -63,27 +64,7 @@ const Navbar = () => {
                     />
                   </Link>
                 </li>
-                <li className="input-form">
-                  <div className="search-bar">
-                    <form autoComplete="off">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Search Events"
-                        autoComplete="off"
-                        autoCorrect="off"
-                        autoCapitalize="off"
-                        spellCheck="false"
-                      />
-                    </form>
-                    <span className="search-icon">
-                      <i className="fa-solid fa-magnifying-glass" />
-                      {/**/}
-                    </span>
-                  </div>
-                  {/**/}
-                  {/**/}
-                </li>
+                <SearchBox />
                 {token && (
                   <li className="rules-box">
                     <div className="d-w-box">

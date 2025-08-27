@@ -20,7 +20,7 @@ const Home = () => {
                 <CasinoProvider />
                 <div />
 
-                <section className="upcoming-section">
+                {/* <section className="upcoming-section">
                   <div className="bet-details-header">
                     <div className="row">
                       <div className="col-12">
@@ -36,7 +36,7 @@ const Home = () => {
                     </div>
                   </div>
                   <Sports />
-                </section>
+                </section> */}
               </div>
             </div>
           </div>
