@@ -112,7 +112,7 @@ const ForgotPassword = () => {
       if (token && user) {
         dispatch(setShowRegisterModal(false));
         toast.success("Register successful");
-        navigate("/dashboard");
+        navigate("/");
       }
     } else {
       toast.error(result?.error?.description);

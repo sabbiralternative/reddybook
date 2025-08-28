@@ -1,11 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
   const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
+    setShowDropdown(false);
+  };
+
+  const handleNavigate = (link) => {
+    navigate(link);
     setShowDropdown(false);
   };
   return (
@@ -128,7 +135,10 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
           </a>
         </li>
         <li className="menu-rgt-icons">
-          <a href="/profile/PROFILE_OVERVIEW" className="dropdown-item">
+          <a
+            onClick={() => handleNavigate("/profile/overview")}
+            className="dropdown-item"
+          >
             <i className="bi bi-person" />
             <span className="menu-rgt-text">My Profile</span>
           </a>
@@ -158,7 +168,10 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
           </a>
         </li>
         <li className="menu-rgt-icons">
-          <a href="stake.html" className="dropdown-item">
+          <a
+            onClick={() => handleNavigate("/profile/stake-setting")}
+            className="dropdown-item"
+          >
             <i className="bi bi-bullseye" />
             <span className="menu-rgt-text">Stake Settings</span>
           </a>
@@ -180,7 +193,10 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
           </a>
         </li>
         <li className="menu-rgt-icons">
-          <a href="change-password.html" className="dropdown-item">
+          <a
+            onClick={() => handleNavigate("/profile/change-password")}
+            className="dropdown-item"
+          >
             <i className="bi bi-lock" />
             <span className="menu-rgt-text">Change Password</span>
           </a>

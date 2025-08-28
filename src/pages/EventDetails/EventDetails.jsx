@@ -7,6 +7,7 @@ import { setPredictOdd } from "../../redux/features/events/eventSlice";
 import MatchOddsBookmaker from "../../components/modules/EventDetails/MatchOddsBookmaker";
 import RightSidebar from "../../components/modules/EventDetails/RightSidebar";
 import Fancy from "../../components/modules/EventDetails/Fancy";
+import Score from "../../components/modules/EventDetails/Score";
 
 const EventDetails = () => {
   const { eventTypeId, eventId } = useParams();
@@ -149,7 +150,9 @@ const EventDetails = () => {
                         </ul>
                       </div>
                     </div>
-
+                    {eventTypeId == 4 && data?.iscore && (
+                      <Score iscore={data?.iscore} />
+                    )}
                     <section
                       data-v-4efaf06d
                       className="match-odd-bookmaker-sec"
@@ -167,7 +170,7 @@ const EventDetails = () => {
                     {data?.result?.length > 0 && <Fancy data={data?.result} />}
                   </div>
                 </div>
-                <RightSidebar />
+                <RightSidebar score={data?.score} />
               </div>
             </section>
           </div>
