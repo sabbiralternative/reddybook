@@ -183,7 +183,7 @@ html * {
   }
   .sc_cw-overs-info-mobile {
     display: flex !important;
-    border-top: 0.5px solid var(--color-bg-primary) !important;
+    border-top: 0.5px solid var(--primary-color) !important;
     padding-top: 2px !important;
     padding-bottom: 2px !important;
     color: #fff !important;
@@ -428,14 +428,16 @@ html * {
 }
 
 .shadow-passwordRulesBox {
-  --tw-shadow: -4px -9px 63px 3px rgba(0, 0, 0, 0.1),
-    0px 8px 10px -6px rgba(0, 0, 0, 0.1);
-  --tw-shadow-colored: -4px -9px 63px 3px var(--tw-shadow-color),
+  --tw-shadow:
+    -4px -9px 63px 3px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --tw-shadow-colored:
+    -4px -9px 63px 3px var(--tw-shadow-color),
     0px 8px 10px -6px var(--tw-shadow-color);
 }
 .shadow-passwordRulesBox {
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow:
+    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -502,4 +504,89 @@ html * {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+.bg-bg_color_bonusInfo {
+  background-image: linear-gradient(91deg, #535252 -1.96%, #312626 110.45%);
+}
+
+.bg-bg_color_lossback_card_bg {
+  background-image: linear-gradient(90deg, #15803d, #000, #000);
+}
+
+.text-text_color_lossback_amt {
+  color: #facc15;
+}
+
+.bg-bg_color_avlnowLossback {
+  background-color: #eab30833;
+}
+
+.bg-bg_color_lossbackSeeAll {
+  background-color: #16a34a;
+}
+
+.bg-bg_color_GiftCardBg {
+  background-image: linear-gradient(90deg, #743899, #9b1d39);
+}
+
+.bg-bg_color_giftCardInputBg {
+  background-color: #ffffff26;
+}
+
+.bg-bg_color_quaternary2 {
+  background-color: #545454;
+}
+
+.bg-bg_color_tertiary {
+  background-color: #48494b;
+}
+
+.bg-bg_color_quaternary {
+  background-color: #545454;
+}
+
+.bg-bg_Primary {
+  background: var(--primary-color);
+}
+.bg-primary {
+  background: var(--primary-color);
+}
+.border-primary {
+  border-color: var(--primary-color);
+}
+.text-primary {
+  color: #000;
+}
+
+.text-text_Danger {
+  color: #dc2626;
+}
+.bg-bg_Success {
+  background-color: #16a34a;
+}
+.popUpOpenAnimation {
+  animation: popUpOpenAnimation 0.3s ease-in-out;
+}
+
+@keyframes popUpOpenAnimation {
+  0% {
+    opacity: 0.5;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.bg-bg_transactionSuccessBg {
+  background-image: linear-gradient(89deg, #40af52, #2e924b 89.28%);
+}
+.bg-bg_transactionPendingBg {
+  background-image: linear-gradient(89deg, #fbc439, #fd9b07 89.28%);
+}
+
+.bg-bg_transactionFailedBg {
+  background-image: linear-gradient(89deg, #eb244f, #a90f31 89.28%);
 }

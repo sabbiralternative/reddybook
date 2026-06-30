@@ -303,7 +303,6 @@ const Register = () => {
                       {referralCode && (
                         <div className="mak-gin password-inpt">
                           <input
-                            {...register("confirmPassword", { required: true })}
                             type="text"
                             className="form-control toggle-password"
                             {...register("referralCode")}

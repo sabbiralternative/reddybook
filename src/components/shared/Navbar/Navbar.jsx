@@ -14,8 +14,10 @@ import NavMenu from "./NavMenu";
 import { useRef, useState } from "react";
 import useCloseModalClickOutside from "../../../hooks/closeModal";
 import SearchBox from "./SearchBox";
+import { useLogo } from "../../../context/ApiProvider";
 
 const Navbar = () => {
+  const { logo } = useLogo();
   const ref = useRef();
   const [showDropdown, setShowDropdown] = useState(false);
   const { data } = useBalance();
@@ -34,7 +36,7 @@ const Navbar = () => {
       {showLoginModal && <Login />}
       {showRegisterModal && <Register />}
       {showForgotPasswordModal && <ForgotPassword />}
-      <header className="header-wapper header-search" loading="lazy">
+      <header className="header-wapper header-search " loading="lazy">
         <div className="container">
           <div className="navbar-sec">
             <div className="nav-left">
@@ -45,11 +47,7 @@ const Navbar = () => {
                     className="router-link-active router-link-exact-active desktop-logo"
                     aria-current="page"
                   >
-                    <img
-                      loading="lazy"
-                      src="https://newprojectclick.s3.ap-south-1.amazonaws.com/site_logo/Reddysbook.png"
-                      alt=""
-                    />
+                    <img loading="lazy" src={logo} alt="Site logo" />
                   </Link>
                   <Link
                     to="/"
@@ -57,20 +55,16 @@ const Navbar = () => {
                     aria-label="Home"
                     aria-current="page"
                   >
-                    <img
-                      loading="lazy"
-                      src="https://newprojectclick.s3.ap-south-1.amazonaws.com/site_logo/Reddysbook.png"
-                      alt="Site logo"
-                    />
+                    <img loading="lazy" src={logo} alt="Site logo" />
                   </Link>
                 </li>
-                <SearchBox />
+                {/* <SearchBox /> */}
                 {token && (
                   <li className="rules-box">
                     <div className="d-w-box">
                       <ul>
                         <li>
-                          <a href="/wallet-withdraw" className>
+                          <Link to="/withdraw" className>
                             <img
                               loading="lazy"
                               src="/icon/withdrawal-icon.0cb9bbfd.svg"
@@ -78,17 +72,17 @@ const Navbar = () => {
                               style={{ height: "15px" }}
                             />
                             <span>Withdrawal</span>
-                          </a>
+                          </Link>
                         </li>
                         <li className="cnm-deposit-wdr-btn">
-                          <a href="/wallet-deposit" className="deposit-btn">
+                          <Link to="/deposit" className="deposit-btn">
                             <img
                               loading="lazy"
                               src="data:image/webp;base64,UklGRhwEAABXRUJQVlA4WAoAAAAwAAAAHwAAHwAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZBTFBIAAIAAA2QKNu2aUcztm2rbdu2bdu2bdu2bdu2EdvJzTvndH9BREwA/729+++f/yLPnMI4fR16TlnR+cS/8qk4c+MWRYab2DqE712nL5/8RcY6MRmowosZkDwnqH2TTUIm4zqZGz+bv4U8HEd7qF6BB0L1c5OsX2xgZN8UI6MUjTHJCB+MbR2bq+riYV+Hlmp6NhwMO3BVLKlz25YNS19eYPoooemWcXeDJ/DjpBjsalb66q5u0HpisyWFIbwLNQyOipRsyme0X+o3bub96+gy2GG+a4su6zVsvZ4D0TN3fUI7durqFbdzaFbPlUur7J+6d12H6OLU4fN7a0blh+SBKBzTo6HpZaAv/X6+gfD832Ti97RrtguwZi2KT9SoYh99K/yTt/87RRF2oROtQ7p89PH5qMiM8LMudSe8Dqr89le8krycXe86x2dbi8H90ouGq2jPoedw5PrcwSG5ukxR0JCos0FGFx+yf7bR6aF/t0iFDGUkHR6jfbJh3vqL6yTyLOXYR3Qvfrtged9UsSkcW4/owlYe9g1bnLzx9Ccm+YpU/9zXiwmIf/Vwy0f1Erld0gH0DjjzXeKHq2e5xDGFQB+Se94xt0wOlzhfcbnZ+XgqPzX78CasXZH8XEJycXC7cqTPhwQ6zq3tyZdJMkn1vwbxEO3ldv6O338i/+Q1OqPv/EEUVlA4ICYAAADQAgCdASogACAAPm00lkekIyIhKAgAgA2JaQAAPaOgAP77nMAAAA=="
                               alt="deposit-icon"
                             />
                             <span>Deposit</span>
-                          </a>
+                          </Link>
                         </li>
                       </ul>
                     </div>
@@ -107,7 +101,7 @@ const Navbar = () => {
                     </a>
                   </li>
                   <li>
-                    <a href="/market-analysis" className="bal-exp exp-bal-show">
+                    <a to="/market-analysis" className="bal-exp exp-bal-show">
                       <span>EXP</span>
                       <b>{data?.deductedExposure}</b>
                     </a>

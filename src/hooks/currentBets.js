@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 
 export const useCurrentBets = (eventId) => {
   const { token } = useSelector((state) => state.auth);
-  return useQuery({
+  const { data = [], ...rest } = useQuery({
     queryKey: ["currentBets", token],
     queryFn: async () => {
       const { data } = await AxiosSecure.post(
-        `${API.currentBets}/${eventId || "sports"}`
+        `${API.currentBets}/${eventId || "sports"}`,
       );
 
       if (data.success) {
@@ -18,4 +18,5 @@ export const useCurrentBets = (eventId) => {
     },
     gcTime: 0,
   });
+  return { data, ...rest };
 };

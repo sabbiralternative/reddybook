@@ -1,9 +1,30 @@
-const FirstTab = ({ categories, setSelectedCategory, selectedCategory }) => {
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+
+const FirstTab = ({ categories, selectedCategory }) => {
+  const navigate = useNavigate();
+  const activeRef = useRef(null);
+
+  useEffect(() => {
+    if (activeRef.current) {
+      activeRef.current.scrollIntoView({
+        behavior: "smooth",
+        inline: "center", // key part
+        block: "nearest",
+      });
+    }
+  }, [selectedCategory, categories]);
   return (
     <ul className="nav nav-pills" id="pills-tab" role="tablist">
-      <li className="nav-item" role="presentation">
+      <li
+        ref={selectedCategory === "All" ? activeRef : null}
+        onClick={() => {
+          navigate(`/casino?product=All&category=All`);
+        }}
+        className="nav-item"
+        role="presentation"
+      >
         <button
-          onClick={() => setSelectedCategory("All")}
           className={`nav-link  ${selectedCategory === "All" ? "active" : ""}`}
           id="pills-all11-tab"
         >
@@ -13,7 +34,10 @@ const FirstTab = ({ categories, setSelectedCategory, selectedCategory }) => {
       {categories?.map((category) => {
         return (
           <li
-            onClick={() => setSelectedCategory(category)}
+            onClick={() => {
+              navigate(`/casino?product=${category}&category=All`);
+            }}
+            ref={category === selectedCategory ? activeRef : null}
             key={category}
             className="nav-item"
             role="presentation"

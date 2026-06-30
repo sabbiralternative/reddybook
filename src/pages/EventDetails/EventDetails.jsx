@@ -19,7 +19,7 @@ const EventDetails = () => {
     { eventTypeId, eventId },
     {
       pollingInterval: 1000,
-    }
+    },
   );
 
   useEffect(() => {
@@ -112,7 +112,7 @@ const EventDetails = () => {
                 <div data-v-4efaf06d className="col-sm-12 col-md-12 col-lg-8">
                   <div data-v-4efaf06d className="comentry-box-sec">
                     <div data-v-4efaf06d className="comenrty-head">
-                      <div data-v-4efaf06d className="country-vs-country">
+                      <div data-v-4efaf06d className="country-vs-country ">
                         <span data-v-4efaf06d>
                           {" "}
                           {data?.result?.[0]?.eventName}

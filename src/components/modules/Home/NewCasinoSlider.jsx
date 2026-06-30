@@ -1,50 +1,29 @@
-const NewCasinoSlider = () => {
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+const NewCasinoSlider = ({ data }) => {
+  const { token } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const handleNavigateToIFrame = (casino) => {
+    if (!token) return navigate("/login");
+    navigate(`/casino/${casino?.name?.replace(/ /g, "")}/${casino?.id}`);
+  };
+
   return (
     <div className="new-launch-game-wrapper">
       <div className="list-sport-title">
         <span>new launch</span>
       </div>
       <div className="new-launch-game-sec">
-        <div className="new-launch-game-img">
-          <a href="javascript:void(0);">
-            <img
-              src="https://dmsiqm5w4tvid.cloudfront.net/casino_games/81456-1-1754471805.webp"
-              alt="nw-lch-trade"
-            />
-          </a>
-        </div>
-        <div className="new-launch-game-img">
-          <a href="javascript:void(0);">
-            <img
-              src="https://dmsiqm5w4tvid.cloudfront.net/casino_games/53810-1-1754471865.webp"
-              alt="nw-lch-trade"
-            />
-          </a>
-        </div>
-        <div className="new-launch-game-img">
-          <a href="javascript:void(0);">
-            <img
-              src="https://dmsiqm5w4tvid.cloudfront.net/casino_games/90720-1-1754471881.webp"
-              alt="nw-lch-trade"
-            />
-          </a>
-        </div>
-        <div className="new-launch-game-img">
-          <a href="javascript:void(0);">
-            <img
-              src="https://dmsiqm5w4tvid.cloudfront.net/casino_games/47523-1-1756239948.webp"
-              alt="nw-lch-trade"
-            />
-          </a>
-        </div>
-        <div className="new-launch-game-img">
-          <a href="javascript:void(0);">
-            <img
-              src="https://dmsiqm5w4tvid.cloudfront.net/casino_games/3644-1-1754471839.webp"
-              alt="nw-lch-trade"
-            />
-          </a>
-        </div>
+        {data?.map((casino) => {
+          return (
+            <div key={casino?.id} className="new-launch-game-img">
+              <a onClick={() => handleNavigateToIFrame(casino)}>
+                <img src={casino?.url_thumb} alt={casino?.name} />
+              </a>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

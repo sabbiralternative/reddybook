@@ -1,13 +1,27 @@
-const SecondTab = ({
-  categories,
-  setSelectedSubCategory,
-  selectedSubCategory,
-}) => {
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+
+const SecondTab = ({ subCategories, product, selectedSubCategory }) => {
+  const activeRef = useRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (activeRef.current) {
+      activeRef.current.scrollIntoView({
+        behavior: "smooth",
+        inline: "center", // key part
+        block: "nearest",
+      });
+    }
+  }, [selectedSubCategory, subCategories, product]);
   return (
     <ul className="nav nav-pills" id="pills-tab" role="tablist">
       {/**/}
       <li
-        onClick={() => setSelectedSubCategory("All")}
+        onClick={() => {
+          navigate(`/casino?product=${product}&category=All`);
+        }}
+        ref={selectedSubCategory === "All" ? activeRef : null}
         className="nav-item"
         role="presentation"
       >
@@ -25,10 +39,13 @@ const SecondTab = ({
         </button>
       </li>
 
-      {categories?.map((category) => {
+      {subCategories?.map((category) => {
         return (
           <li
-            onClick={() => setSelectedSubCategory(category)}
+            ref={category === selectedSubCategory ? activeRef : null}
+            onClick={() => {
+              navigate(`/casino?product=${product}&category=${category}`);
+            }}
             key={category}
             className="nav-item"
             role="presentation"
@@ -43,10 +60,26 @@ const SecondTab = ({
               <span>
                 <img
                   loading="lazy"
-                  src={`/icon/${category
-                    ?.split(" ")
-                    .join("")
-                    .toLowerCase()}.svg`}
+                  src={`/icon/${category?.split(" ").join("").toLowerCase()}.svg`}
+                  onError={(e) => {
+                    if (e.target.src.endsWith(".svg")) {
+                      // Try webp only once after svg fails
+                      e.target.src = `/icon/${category
+                        ?.split(" ")
+                        .join("")
+                        .toLowerCase()}.webp`;
+                    } else if (e.target.src.endsWith(".webp")) {
+                      // Try webp only once after svg fails
+                      e.target.src = `/icon/${category
+                        ?.split(" ")
+                        .join("")
+                        .toLowerCase()}.png`;
+                    } else {
+                      // If webp fails, do nothing (leave broken img)
+                      // e.target.onerror = null;
+                      e.target.src = `/icon/all.svg`;
+                    }
+                  }}
                   alt="More Slots"
                 />
               </span>

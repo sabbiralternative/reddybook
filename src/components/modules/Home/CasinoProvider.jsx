@@ -1,4 +1,13 @@
-const CasinoProvider = () => {
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+const CasinoProvider = ({ our_provider }) => {
+  const { token } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const handleNavigateToIFrame = (casino) => {
+    if (!token) return navigate("/login");
+    navigate(`/casino?product=${casino?.product}&category=${casino?.category}`);
+  };
   return (
     <section className="exchange-game-conetent-sec-in-mobile">
       <div className="bet-details-header">
@@ -19,276 +28,23 @@ const CasinoProvider = () => {
         </div>
       </div>
       <div className="home-casino-img">
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/more_slots_lobby.webp"
-              alt="Nkc Lobby"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/ezugi.webp"
-              alt="Ezugi"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/betgames_tv.webp"
-              alt="Betgames"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/betgames.webp"
-              alt="Betgames"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/vivo_gaming.webp"
-              alt="Vivo Gaming"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/sexybcrt.webp"
-              alt="Sexybcrt"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/kalamba_games.webp"
-              alt="Kalamba Games"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/smartsoft_gaming.webp"
-              alt="Smartsoft"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/royal_virtual.webp"
-              alt="Royal Virtual"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/gamzix.webp"
-              alt="Gamzix"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/royal_gaming.webp"
-              alt="Royal Gaming"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/playtech.webp"
-              alt="Playtech"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/evoplay_entertainment.webp"
-              alt="Evoplay"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/tvbet.webp"
-              alt="TvBet"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/creedroomz.webp"
-              alt="Creedroomz"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/betsoft.webp"
-              alt="Betsoft"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/pascal.webp"
-              alt="Pascal"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/spribe.webp"
-              alt="Spribe"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/wazdan.webp"
-              alt="Wazdan"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/jili_gaming.webp"
-              alt="Jili Gaming"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/asia_gaming.webp"
-              alt="Asia Gaming"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/playn_go.webp"
-              alt="Play'n Go"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/tangente.webp"
-              alt="Tangente"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/playtech_live.webp"
-              alt="Playtech Live"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/turbogames.webp"
-              alt="Turbogames"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/hacksaw_gaming.webp"
-              alt="Hacksaw"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/kingmidas_gaming.webp"
-              alt="Kingmidas"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/bombay_live.webp"
-              alt="Bombay Live"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/beter_live.webp"
-              alt="Beter Live"
-            />
-          </div>
-        </div>
-        <div className="home-star-model-img">
-          <div className="casinoicons">
-            <img
-              loading="lazy"
-              src="https://d3lqxvczzwhhy7.cloudfront.net/laser/relax_gaming.webp"
-              alt="Relax Gaming"
-            />
-          </div>
-        </div>
+        {our_provider?.map((item) => {
+          return (
+            <div
+              onClick={() => handleNavigateToIFrame(item)}
+              key={item?.id}
+              className="home-star-model-img"
+            >
+              <div className="casinoicons">
+                <img
+                  loading="lazy"
+                  src={`/${item?.url_thumb}`}
+                  alt={item?.name}
+                />
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

@@ -1,11 +1,12 @@
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const CasinoThumbnail = ({ casinoData }) => {
+  const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const handleNavigateToIFrame = (casino) => {
-    navigate(
-      `/casino/${casino?.name?.replace(/ /g, "")}/${casino?.event_type_id}`
-    );
+    if (!token) return navigate("/login");
+    navigate(`/casino/${casino?.name?.replace(/ /g, "")}/${casino?.id}`);
   };
   return (
     <div className="tab-content" id="pills-tabContent">
@@ -16,11 +17,11 @@ const CasinoThumbnail = ({ casinoData }) => {
         aria-labelledby="pills-all11-tab"
       >
         <div className="all-in-casino-img">
-          {casinoData?.map((casino) => {
+          {casinoData?.map((casino, i) => {
             return (
               <div
                 onClick={() => handleNavigateToIFrame(casino)}
-                key={casino?.id}
+                key={`${casino?.id}-${casino?.category}-${casino?.product}-${i}`}
                 className="all-star-model-img"
               >
                 <a>

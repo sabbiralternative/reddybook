@@ -2,22 +2,26 @@ import CasinoProvider from "../../components/modules/Home/CasinoProvider";
 import CasinoSlider from "../../components/modules/Home/CasinoSlider";
 import NewCasinoSlider from "../../components/modules/Home/NewCasinoSlider";
 import Sports from "../../components/modules/Home/Sports";
+import { useIndexQuery } from "../../hooks";
 import SidebarLayout from "../../layout/SidebarLayout";
 
 const Home = () => {
+  const { data } = useIndexQuery({
+    type: "99_casino_dashboard",
+  });
   return (
     <SidebarLayout>
-      <div className="col-12 col-sm-12 col-md-12 col-lg-10">
+      <div className="col-12 col-sm-12 col-md-12 col-lg-10 ">
         <div>
           <div className>
             <div className="right-side-bar-main-sec">
               <div className="section-listing-page">
-                <CasinoSlider />
-                <NewCasinoSlider />
+                <CasinoSlider highlight_casino={data?.highlight_casino} />
+                <NewCasinoSlider data={data?.new_launch} title="New Launch" />
                 <Sports />
 
                 <div id="casinosection" />
-                <CasinoProvider />
+                <CasinoProvider our_provider={data?.our_provider} />
                 <div />
 
                 {/* <section className="upcoming-section">

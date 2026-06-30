@@ -16,7 +16,11 @@ export const eventsApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (data) => {
-        return handleDecryptData(JSON.stringify(data));
+        if (data?.ct) {
+          return handleDecryptData(JSON.stringify(data));
+        } else {
+          return data;
+        }
       },
     }),
     getEventDetails: builder.query({
@@ -31,7 +35,11 @@ export const eventsApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (data) => {
-        return handleDecryptData(JSON.stringify(data));
+        if (data?.ct) {
+          return handleDecryptData(JSON.stringify(data));
+        } else {
+          return data;
+        }
       },
     }),
     mac88: builder.query({

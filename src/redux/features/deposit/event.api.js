@@ -12,7 +12,16 @@ export const depositApi = baseApi.injectEndpoints({
         };
       },
     }),
+    pgPayment: builder.mutation({
+      query: (payload) => {
+        return {
+          url: `${API.pg}`,
+          method: "POST",
+          body: payload,
+        };
+      },
+    }),
   }),
 });
 
-export const { useBankAccountMutation } = depositApi;
+export const { useBankAccountMutation, usePgPaymentMutation } = depositApi;
