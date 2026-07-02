@@ -15,8 +15,12 @@ import { API, Settings } from "../../../api";
 import { AxiosSecure } from "../../../lib/AxiosSecure";
 import toast from "react-hot-toast";
 import { setUser } from "../../../redux/features/auth/authSlice";
+import { useLanguage } from "../../../context/LanguageProvider";
+import { languageValue } from "../../../utils/language";
+import { LanguageKey } from "../../../const";
 
 const Register = () => {
+  const { valueByLanguage } = useLanguage();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [handleRegister] = useRegisterMutation();
@@ -327,13 +331,22 @@ const Register = () => {
                         className="btn thm-but main-btn"
                         id="submitBtn"
                       >
-                        <span>register</span>
+                        <span>
+                          {" "}
+                          {languageValue(
+                            valueByLanguage,
+                            LanguageKey.REGISTER,
+                          )}{" "}
+                        </span>
                       </button>
 
                       <p className="forpass-in">
                         Already have an account?{" "}
                         <a onClick={showLogin} data-bs-toggle="modal">
-                          Log in
+                          {languageValue(
+                            valueByLanguage,
+                            LanguageKey.LOGIN,
+                          )}{" "}
                         </a>
                       </p>
                     </div>

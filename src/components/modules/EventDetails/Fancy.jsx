@@ -352,9 +352,12 @@ const Fancy = ({ data }) => {
                               </div>
                             </div>
                           </div>
-                          <div data-v-4efaf06d className="col-4 col-md-6">
+                          <div
+                            data-v-4efaf06d
+                            className="col-4 col-md-6 relative"
+                          >
                             <div data-v-4efaf06d className="fancy-group-box">
-                              <div data-v-4efaf06d className="fancy-box-1">
+                              <div data-v-4efaf06d className="fancy-box-1 ">
                                 <button
                                   onClick={() =>
                                     handleBetSlip(
@@ -415,14 +418,22 @@ const Fancy = ({ data }) => {
                                   className="max-min-bet-rgt-box"
                                 >
                                   <span data-v-4efaf06d>
-                                    Max Bet: {game?.maxLiabilityPerBet}
+                                    Min : {game?.minLiabilityPerBet}
                                   </span>
                                   <span data-v-4efaf06d>
-                                    Max Market: 100000
+                                    Max : {game?.maxLiabilityPerBet}
                                   </span>
                                 </div>
                               </div>
                             </div>
+                            {game?.status !== "SUSPENDED" && (
+                              <span
+                                className="suspended__div"
+                                style={{ right: "unset" }}
+                              >
+                                <b>SUSPENDED</b>
+                              </span>
+                            )}
                           </div>
                         </div>
                         {game?.id === runnerId && windowWidth < 500 && (

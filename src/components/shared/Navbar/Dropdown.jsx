@@ -6,6 +6,7 @@ import { useLanguage } from "../../../context/LanguageProvider";
 import { languageValue } from "../../../utils/language";
 import { LanguageKey } from "../../../const";
 import { handleCopyToClipBoard } from "../../../utils/handleCopyToClipBoard";
+import { setShowLanguageModal } from "../../../redux/features/global/globalSlice";
 
 const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
   const closePopupForForever = localStorage.getItem("closePopupForForever");
@@ -326,20 +327,32 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             <span className="menu-rgt-text">Stake Settings</span>
           </a>
         </li>
+        {Settings.language && (
+          <li className="menu-rgt-icons">
+            <a
+              onClick={() => {
+                setShowDropdown(false);
+                dispatch(setShowLanguageModal(true));
+              }}
+              data-bs-toggle="modal"
+              data-bs-target="#language_selection_pop_up"
+            >
+              <i className="bi bi-globe" />
+              <span className="menu-rgt-text">Language</span>
+            </a>
+          </li>
+        )}
 
-        <li className="menu-rgt-icons">
-          <a data-bs-toggle="modal" data-bs-target="#language_selection_pop_up">
-            <i className="bi bi-globe" />
-            <span className="menu-rgt-text">Language</span>
-          </a>
-        </li>
         <li className="menu-rgt-icons">
           <a
             onClick={() => handleNavigate("/profile/change-password")}
             className="dropdown-item"
           >
             <i className="bi bi-lock" />
-            <span className="menu-rgt-text">Change Password</span>
+            <span className="menu-rgt-text">
+              {" "}
+              {languageValue(valueByLanguage, LanguageKey.CHANGE_PASSWORD)}{" "}
+            </span>
           </a>
         </li>
         {Settings.apk_link && (

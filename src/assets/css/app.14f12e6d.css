@@ -2904,7 +2904,7 @@ textarea.form-control.is-invalid {
   display: inline-block;
   font-weight: 400;
   line-height: 1.5;
-  color: #212529;
+  color: #fff;
   text-align: center;
   text-decoration: none;
   vertical-align: middle;
@@ -7381,13 +7381,13 @@ fieldset:disabled .btn {
 .text-opacity-100 {
   --bs-text-opacity: 1;
 }
-.bg-primary {
+/* .bg-primary {
   --bs-bg-opacity: 1;
   background-color: rgba(
     var(--bs-primary-rgb),
     var(--bs-bg-opacity)
   ) !important;
-}
+} */
 .bg-secondary {
   --bs-bg-opacity: 1;
   background-color: rgba(
@@ -10174,8 +10174,7 @@ fieldset:disabled .btn {
   --gray-700-color: #495057;
   --gray-800-color: #343a40;
   --gray-900-color: #212529;
-  --primary-color: #c10930;
-  --secondary-color: #6d081d;
+
   --success-color: #27ae60;
   --info-color: #0dcaf0;
   --warning-color: #ffc107;
@@ -10260,7 +10259,7 @@ input:-webkit-autofill:hover {
   z-index: 997;
   height: 60px;
   box-shadow: 0 2px 20px rgba(1, 41, 112, 0.1);
-  background-color: #fff !important;
+  background-color: var(--header-bg) !important;
   background-image: url(/img/banner-mask.0f120a7e.webp);
   background-size: cover;
   background-position: 50%;
@@ -11491,7 +11490,7 @@ section.events-details-sec {
   font-size: 14px;
 }
 .bet-details-btn-group button {
-  width: 15.6%;
+  width: 16.6%;
   text-align: center;
   border: 0;
   height: 45px;
@@ -16010,7 +16009,7 @@ tr.back-color {
 .dropdown.open-menu-btn button {
   background: var(--primary-color);
   border: 0;
-  color: #000;
+  color: #fff;
   width: 100%;
   font-size: 12px;
   font-weight: 600;
@@ -16036,7 +16035,7 @@ tr.back-color {
 li.mobile-num {
   width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.175);
-  background: #c10930;
+  background: var(--primary-color);
 }
 .mobile-num span {
   width: 100%;
@@ -22379,6 +22378,7 @@ section.sub-header-wrapper.las-pl-ui-design {
   justify-content: center;
   width: 100%;
   position: relative;
+  background: var(--header-bg);
 }
 .left-close-btn .right-colse-icon {
   position: absolute;
@@ -22403,6 +22403,7 @@ section.sub-header-wrapper.las-pl-ui-design {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "";
+  color: #fff;
 }
 .cmn-btn-cashout.cashout-value {
   background-color: transparent !important;
@@ -23247,7 +23248,7 @@ header.show {
     width: 100%;
   }
   .header-wapper {
-    background-color: #000 !important;
+    background-color: var(--header-bg) !important;
     background-image: none;
     padding-left: 0;
     height: 60px;

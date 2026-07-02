@@ -134,7 +134,7 @@ const OpenBets = ({ sportsBook }) => {
                     <div
                       onClick={() => navigateGameList(bet)}
                       key={i}
-                      className={`bet-row ${bet?.betType === "Back" ? "back" : "lay"}`}
+                      className={`bet-row ${bet?.betType === "Back" ? "stake-light-blue-box" : "stake-light-pink-box"}`}
                     >
                       <span className="bet-cell-nation">
                         <span>{bet?.nation}</span>

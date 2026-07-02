@@ -15,8 +15,12 @@ import {
 import { useForm } from "react-hook-form";
 import { setUser } from "../../../redux/features/auth/authSlice";
 import toast from "react-hot-toast";
+import { useLanguage } from "../../../context/LanguageProvider";
+import { languageValue } from "../../../utils/language";
+import { LanguageKey } from "../../../const";
 
 const Login = () => {
+  const { valueByLanguage } = useLanguage();
   const [userName, setUserName] = useState(null);
   const [password, setPassword] = useState(null);
   const navigate = useNavigate();
@@ -484,7 +488,13 @@ const Login = () => {
                         {/**/}
                       </button>
                       <button data-v-39abe11c type="submit">
-                        <span data-v-39abe11c>Log In</span>
+                        <span data-v-39abe11c>
+                          {" "}
+                          {languageValue(
+                            valueByLanguage,
+                            LanguageKey.LOGIN,
+                          )}{" "}
+                        </span>
                         {/**/}
                       </button>
                     </div>

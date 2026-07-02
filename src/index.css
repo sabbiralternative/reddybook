@@ -470,7 +470,7 @@ html * {
 }
 /*!  Footer Games*/
 .text-primary {
-  color: var(--text-primary) !important;
+  color: #fff !important;
 }
 
 .bg-bg_ballRunning {
@@ -701,7 +701,7 @@ span.lm_icon {
 .latest-event-item a {
   display: inline-flex;
   align-items: center;
-  background: #900;
+  background: var(--primary-color);
   border-radius: 8px;
   padding: 3px 10px;
   text-decoration: none;
@@ -843,3 +843,35 @@ span.lm_icon {
   }
 }
 /*! Download apk css end  */
+.suspended__div {
+  width: 33.33333333%;
+  margin: 0 auto;
+}
+.suspended__div {
+  position: absolute;
+  /* left: 0; */
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  vertical-align: middle;
+  height: 38px;
+  background-color: #0a0a0abf;
+  border-radius: 0.4rem;
+}
+.suspended__div {
+  height: 100%;
+  z-index: 9;
+}
+.suspended__div b {
+  background: none;
+  border-radius: 30px;
+  color: red;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 5px 13px;
+  text-transform: uppercase;
+}

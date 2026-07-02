@@ -63,7 +63,7 @@ const ChooseAmount = ({ setShowBanks, setAmount, amount }) => {
       >
         <div className="rounded-lg bg-bg_Quaternary py-2 px-3.5 pb-5 flex flex-col items-start justify-start w-full gap-y-2">
           <div className="w-full flex items-start justify-start gap-y-[0.5] flex-col">
-            <span className="text-sm mt-1 bg-primary rounded  shadow-md text-black px-2 py-1 my-1">
+            <span className="text-sm mt-1 bg-primary rounded  shadow-md text-primary px-2 py-1 my-1">
               Available to withdrawal : ₹ {withdrawBreakdown?.mainWallet}
             </span>
             <div className="flex flex-col w-full">

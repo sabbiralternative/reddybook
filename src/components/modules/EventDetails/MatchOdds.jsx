@@ -390,7 +390,7 @@ const MatchOdds = ({ data }) => {
                         data-v-4efaf06d
                         className="app-market-details-sec bet-slip-area"
                       >
-                        <div data-v-4efaf06d className="row g-0">
+                        <div data-v-4efaf06d className="row g-0 relative">
                           <div data-v-4efaf06d className="col-8">
                             <div data-v-4efaf06d className="market-event-name">
                               <span data-v-4efaf06d> {runner?.name}</span>
@@ -573,6 +573,11 @@ const MatchOdds = ({ data }) => {
                               </button>
                             </div>
                           </div>
+                          {runner?.status === "SUSPENDED" && (
+                            <span className="suspended__div">
+                              <b>SUSPENDED</b>
+                            </span>
+                          )}
                         </div>
                         {runner?.id === runnerId && windowWidth < 500 && (
                           <BetSlip currentPlaceBetEvent={game} />

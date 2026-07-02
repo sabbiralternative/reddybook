@@ -106,7 +106,7 @@ const MyBankDetails = () => {
 
         <div className="h-full w-full overflow-auto hide-scrollbar mb-6 md:mb-0 md:px-2 md:pl-[15px] md:pr-3">
           <div className="w-full router-ctn max-md:pb-9">
-            <main className="flex w-full">
+            <main className="flex flex-col w-full">
               <div
                 onClick={() => navigate(-1)}
                 className="lg:hidden flex flex-col w-fit cursor-pointer"

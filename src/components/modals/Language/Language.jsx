@@ -90,7 +90,9 @@ const Language = () => {
                       <button
                         onClick={() => setSelectedLag(language)}
                         className={`relative overflow-hidden w-full px-3 py-2 text-sm font-medium rounded-md focus:outline-none focus:border-border_color_brand_primary  text-text_color_primary1 border-border_color_brand_primary ${
-                          selectedLan === language ? "bg-primary" : ""
+                          selectedLan === language
+                            ? "bg-primary text-primary"
+                            : ""
                         }`}
                         type="button"
                       >
@@ -101,7 +103,7 @@ const Language = () => {
                               xmlns="http://www.w3.org/2000/svg"
                               width="16"
                               height="18"
-                              fill="var(--bg-active-primary)"
+                              fill="#fff"
                               viewBox="0 0 448 512"
                               className="w-5 h-5"
                             >
@@ -127,7 +129,7 @@ const Language = () => {
           <button
             onClick={closeModal}
             type="button"
-            className="relative overflow-hidden inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-text_color_primary1 bg-primary  rounded-md shadow-sm hover:bg-bg_color_secondary hover:border-border_color_brand_primary focus:outline-none focus:ring-2 focus:ring-offset-2  sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+            className="relative overflow-hidden inline-flex justify-center w-full px-4 py-2  text-base font-medium text-primary bg-primary  rounded-md shadow-sm hover:bg-bg_color_secondary hover:border-border_color_brand_primary focus:outline-none focus:ring-2 focus:ring-offset-2  sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
           >
             Cancel
           </button>

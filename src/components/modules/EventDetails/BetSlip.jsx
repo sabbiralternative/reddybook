@@ -49,8 +49,8 @@ const BetSlip = () => {
       setStake(
         placeBetValues?.totalSize > 0
           ? placeBetValues?.totalSize.toFixed(2)
-          : null
-      )
+          : null,
+      ),
     );
   }, [placeBetValues, betDelay, dispatch]);
 
@@ -145,7 +145,7 @@ const BetSlip = () => {
       } else {
         setLoading(false);
         toast.error(
-          res?.error?.status?.[0]?.description || res?.error?.errorMessage
+          res?.error?.status?.[0]?.description || res?.error?.errorMessage,
         );
         setBetDelay(null);
       }
@@ -191,7 +191,7 @@ const BetSlip = () => {
       {placeBetValues && (
         <div
           data-v-4efaf06d
-          className="stake-placed-bet stake-light-blue-box"
+          className={`stake-placed-bet ${placeBetValues?.back ? "stake-light-blue-box" : "stake-light-pink-box"}`}
           style={{ display: "block" }}
         >
           <div data-v-4efaf06d className="bets-odd-sec">
@@ -204,7 +204,7 @@ const BetSlip = () => {
                         price,
                         placeBetValues,
                         dispatch,
-                        setPrice
+                        setPrice,
                       )
                     }
                     data-v-4efaf06d
@@ -233,7 +233,7 @@ const BetSlip = () => {
                         price,
                         placeBetValues,
                         dispatch,
-                        setPrice
+                        setPrice,
                       )
                     }
                     data-v-4efaf06d
@@ -282,7 +282,15 @@ const BetSlip = () => {
               </button>
             </div>
             <div
-              onClick={() => dispatch(setStake(10000))}
+              onClick={() =>
+                dispatch(
+                  setStake(
+                    Number(
+                      placeBetValues?.maxLiabilityPerBet?.replace(/k$/i, "000"),
+                    ),
+                  ),
+                )
+              }
               data-v-4efaf06d
               className="stake-small-box"
             >

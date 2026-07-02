@@ -8,8 +8,12 @@ import { handleDownloadAPK } from "../utils/handleDownloadAPK";
 import { setShowMobileSidebar } from "../redux/features/global/globalSlice";
 import useCloseModalClickOutside from "../hooks/closeModal";
 import { useLogo } from "../context/ApiProvider";
+import { useLanguage } from "../context/LanguageProvider";
+import { languageValue } from "../utils/language";
+import { LanguageKey } from "../const";
 
 const LeftSidebar = () => {
+  const { valueByLanguage } = useLanguage();
   const { logo } = useLogo();
   const ref = useRef();
   const dispatch = useDispatch();
@@ -47,12 +51,7 @@ const LeftSidebar = () => {
     }
   });
   return (
-    <div
-      className="left-side-bar-sec"
-      id="show-m-toggle"
-      ref={ref}
-      style={{ paddingTop: "20px" }}
-    >
+    <div className="left-side-bar-sec" id="show-m-toggle" ref={ref}>
       {showWarning && (
         <WarningCondition gameInfo={gameInfo} setShowWarning={setShowWarning} />
       )}
@@ -98,7 +97,10 @@ const LeftSidebar = () => {
                       alt="menu-tennis"
                     />
                   </span>
-                  <span className="sports-name-h">cricket</span>
+                  <span className="sports-name-h">
+                    {" "}
+                    {languageValue(valueByLanguage, LanguageKey.HOME)}{" "}
+                  </span>
                 </span>
               </button>
             </h2>
@@ -130,7 +132,10 @@ const LeftSidebar = () => {
                       alt="menu-tennis"
                     />
                   </span>
-                  <span className="sports-name-h">football</span>
+                  <span className="sports-name-h">
+                    {" "}
+                    {languageValue(valueByLanguage, LanguageKey.FOOTBALL)}{" "}
+                  </span>
                 </span>
               </button>
             </h2>
@@ -162,7 +167,10 @@ const LeftSidebar = () => {
                       alt="menu-tennis"
                     />
                   </span>
-                  <span className="sports-name-h">tennis</span>
+                  <span className="sports-name-h">
+                    {" "}
+                    {languageValue(valueByLanguage, LanguageKey.CRICKET)}{" "}
+                  </span>
                 </span>
               </button>
             </h2>
@@ -294,7 +302,10 @@ const LeftSidebar = () => {
                       alt="menu-tennis"
                     />
                   </span>
-                  <span className="sports-name-h">Kabaddi </span>
+                  <span className="sports-name-h">
+                    {" "}
+                    {languageValue(valueByLanguage, LanguageKey.KABADDI)}{" "}
+                  </span>
                 </span>
               </button>
             </h2>

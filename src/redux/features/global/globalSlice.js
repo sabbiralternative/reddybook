@@ -15,6 +15,7 @@ const initialState = {
   showAppPopUp: false,
   showAPKModal: false,
   closePopupForForever: false,
+  headerHeight: 0,
 };
 
 const stateSlice = createSlice({
@@ -63,6 +64,9 @@ const stateSlice = createSlice({
     setClosePopUpForForever: (state, action) => {
       state.closePopupForForever = action.payload;
     },
+    setHeaderHeight: (state, action) => {
+      state.headerHeight = action.payload;
+    },
   },
 });
 
@@ -81,6 +85,7 @@ export const {
   setClosePopUpForForever,
   setShowAPKModal,
   setShowAppPopUp,
+  setHeaderHeight,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;
