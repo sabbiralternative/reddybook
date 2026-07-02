@@ -507,7 +507,7 @@ a:hover {
 }
 a:not([href]):not([class]),
 a:not([href]):not([class]):hover {
-  color: inherit;
+  /* color: inherit; */
   text-decoration: none;
 }
 code,
@@ -23229,7 +23229,7 @@ header.show {
   }
   .padding-top-101,
   .padding-top-105 {
-    padding-top: 132px !important;
+    padding-top: 180px !important;
   }
   .nav-middle-menu ul {
     background-color: #fff;

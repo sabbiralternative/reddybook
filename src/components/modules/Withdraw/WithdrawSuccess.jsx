@@ -490,7 +490,7 @@ const WithdrawSuccess = ({ setWithdrawSuccess, amount }) => {
                 setWithdrawSuccess(false);
                 navigate("/");
               }}
-              className="inline-block leading-normal relative overflow-hidden transition duration-150 ease-in-out  bg-[var(--color-bg-primary)] text-primary w-full py-2 px-2.5 text-base shadow-lg rounded-[4px] font-medium leading-4 cursor-pointer"
+              className="inline-block leading-normal relative overflow-hidden transition duration-150 ease-in-out  bg-[var(--primary-color)] text-primary w-full py-2 px-2.5 text-base shadow-lg rounded-[4px] font-medium leading-4 cursor-pointer"
               type="button"
             >
               Go Back

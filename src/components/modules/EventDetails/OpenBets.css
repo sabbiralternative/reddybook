@@ -1,0 +1,193 @@
+/* OpenBets Component Styles */
+
+#openBetsRightSide {
+  width: 100%;
+}
+
+.open-bets-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 4px;
+}
+
+/* Toggle Header */
+.open-bets-header {
+  padding: 8px 12px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--primary-color);
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+
+.open-bets-header-title {
+  color: #fff;
+  font-size: 12px;
+}
+
+.open-bets-header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: transform 0.2s ease;
+}
+
+/* Bets Container */
+.bets-container {
+  width: 100%;
+  transform-origin: top;
+  animation: scaleVerticalOpen 0.2s ease forwards;
+}
+
+@keyframes scaleVerticalOpen {
+  from {
+    opacity: 0;
+    transform: scaleY(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+.bets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+/* Column Headers */
+.bets-column-headers {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border: 1px solid var(--color-border, #e0e0e0);
+  padding: 4px 8px;
+  background-color: var(--color-bg-ternary8, #f5f5f5);
+  border-radius: 4px;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  font-size: 12px;
+  text-transform: capitalize;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.col-header {
+  color: var(--color-text-ternary, #666666);
+}
+
+.col-header.market {
+  grid-column: span 2;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.col-header.center {
+  grid-column: span 2;
+  text-align: center;
+}
+
+/* Bet Rows */
+.bets-rows {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bet-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  font-weight: 600;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 12px;
+  text-transform: capitalize;
+  box-sizing: border-box;
+}
+
+.bet-row.back {
+  background-color: #a5d9fe;
+}
+
+.bet-row.lay {
+  background-color: #f8d0ce;
+}
+
+.bet-cell-nation {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bet-cell-center {
+  grid-column: span 2;
+  text-align: center;
+}
+
+/* Cashout Button */
+.cashout-btn {
+  width: auto;
+  background-color: #f3f3f3;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+  gap: 0 2px;
+  border-radius: 2px;
+  padding: 3px 5px;
+  border: none;
+  outline: none;
+}
+
+.cashout-label {
+  font-size: 10px;
+  color: black;
+}
+
+.cashout-separator {
+  color: black;
+  font-size: 10px;
+}
+
+.cashout-price {
+  font-size: 10px;
+}
+
+.cashout-price.positive {
+  color: green;
+}
+
+.cashout-price.negative {
+  color: red;
+}
+
+/* Empty State */
+.empty-bets {
+  width: 100%;
+  transform-origin: top;
+  animation: scaleVerticalOpen 0.2s ease forwards;
+}
+
+.empty-bets-message {
+  width: 100%;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: var(--color-bg-quaternary, #eeeeee);
+  border-radius: 4px;
+  padding: 12px 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  color: var(--color-text-ternary, #666666);
+  box-sizing: border-box;
+}

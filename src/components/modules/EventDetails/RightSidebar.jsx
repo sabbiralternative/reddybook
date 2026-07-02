@@ -1,44 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useVideoMutation } from "../../../redux/features/events/events";
 import { useParams } from "react-router-dom";
 import { Settings } from "../../../api";
 import BetSlip from "./BetSlip";
+import OpenBets from "./OpenBets";
 
-const RightSidebar = ({ score }) => {
+const RightSidebar = ({ score, showTv }) => {
   const { eventId, eventTypeId } = useParams();
-  const [sportsVideo] = useVideoMutation();
-  const [iFrame, setIFrame] = useState("");
-  const handleGetVideo = async () => {
-    const payload = {
-      eventTypeId: eventTypeId,
-      eventId: eventId,
-      type: "video",
-      casinoCurrency: Settings.casinoCurrency,
-    };
-    const res = await sportsVideo(payload).unwrap();
-    if (res?.success) {
-      setIFrame(res?.result?.url);
-    }
-  };
-
+  const [sportsVideo, { data: iframe }] = useVideoMutation();
   useEffect(() => {
-    if (score?.hasVideo) {
-      handleGetVideo();
-    }
+    const handleGetVideo = async () => {
+      const payload = {
+        eventTypeId: eventTypeId,
+        eventId: eventId,
+        type: "video",
+        casinoCurrency: Settings.casino_currency,
+      };
+      await sportsVideo(payload).unwrap();
+    };
+    handleGetVideo();
   }, []);
   return (
     <div data-v-4efaf06d className="col-sm-0 col-md-0 col-lg-4">
       <div data-v-4efaf06d className="placed-bet-sec">
-        {score && iFrame && score?.hasVideo && (
+        {score && iframe?.result?.url && score?.hasVideo && showTv && (
           <div data-v-4efaf06d="" className="placed-bet-head open-bet">
             <span data-v-4efaf06d="">Live Stream</span>
           </div>
         )}
-        {score && iFrame && score?.hasVideo && (
+        {score && iframe?.result?.url && score?.hasVideo && showTv && (
           <div data-v-4efaf06d="" className="live-match-sec">
             <iframe
               data-v-4efaf06d=""
-              src={iFrame}
+              src={iframe?.result?.url}
               scrolling="no"
               frameBorder="0"
               className="tv-iframe"
@@ -52,6 +46,8 @@ const RightSidebar = ({ score }) => {
         </div>
 
         <BetSlip />
+
+        <OpenBets />
       </div>
     </div>
   );

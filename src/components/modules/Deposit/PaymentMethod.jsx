@@ -39,7 +39,8 @@ const PaymentMethod = ({
       method?.type === "upigateway" ||
       method?.type === "toitgateway" ||
       method?.type === "i100gateway" ||
-      method?.type === "upiclick"
+      method?.type === "upiclick" ||
+      method?.gateway === 1
     ) {
       const pgPayload = {
         paymentId: method?.paymentId,

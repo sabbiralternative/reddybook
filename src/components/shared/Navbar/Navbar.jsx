@@ -1,29 +1,52 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Login from "../../modals/Login/Login";
 import ForgotPassword from "../../modals/ForgotPassword/ForgotPassword";
 import Register from "../../modals/Register/Register";
 import { Settings } from "../../../api";
 import {
+  setClosePopUpForForever,
+  setShowAPKModal,
+  setShowAppPopUp,
   setShowLoginModal,
+  setShowMobileSidebar,
   setShowRegisterModal,
 } from "../../../redux/features/global/globalSlice";
 import useBalance from "../../../hooks/balance";
 import Dropdown from "./Dropdown";
 import NavMenu from "./NavMenu";
-import { useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import useCloseModalClickOutside from "../../../hooks/closeModal";
 import SearchBox from "./SearchBox";
 import { useLogo } from "../../../context/ApiProvider";
+import { useLatestEvent } from "../../../hooks/latestEvent";
+import Marquee from "react-fast-marquee";
+import { useLanguage } from "../../../context/LanguageProvider";
+import Error from "../../modals/Error/Error";
+import Language from "../../modals/Language/Language";
+import AppPopup from "./AppPopUp";
+import DownloadAPK from "../../modals/DownloadAPK/DownloadAPK";
 
 const Navbar = () => {
+  const { setLanguage } = useLanguage();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { data: latestEvent } = useLatestEvent();
   const { logo } = useLogo();
   const ref = useRef();
   const [showDropdown, setShowDropdown] = useState(false);
   const { data } = useBalance();
   const dispatch = useDispatch();
-  const { showRegisterModal, showLoginModal, showForgotPasswordModal } =
-    useSelector((state) => state.global);
+  const {
+    showRegisterModal,
+    showLoginModal,
+    showForgotPasswordModal,
+    windowWidth,
+    showLanguageModal,
+    showAppPopUp,
+    closePopupForForever,
+    showAPKModal,
+  } = useSelector((state) => state.global);
   const { token, user } = useSelector((state) => state.auth);
 
   useCloseModalClickOutside(ref, () => {
@@ -31,12 +54,59 @@ const Navbar = () => {
       setShowDropdown(false);
     }
   });
+
+  useEffect(() => {
+    const apk_modal_shown = sessionStorage.getItem("apk_modal_shown");
+    const closePopupForForever = localStorage.getItem("closePopupForForever");
+    dispatch(setClosePopUpForForever(closePopupForForever ? true : false));
+    if (location?.state?.pathname === "/apk" || location.pathname === "/apk") {
+      sessionStorage.setItem("apk_modal_shown", true);
+      localStorage.setItem("closePopupForForever", true);
+      dispatch(setClosePopUpForForever(true));
+      localStorage.removeItem("installPromptExpiryTime");
+    } else {
+      if (!apk_modal_shown) {
+        dispatch(setShowAPKModal(true));
+      }
+      if (!closePopupForForever) {
+        const expiryTime = localStorage.getItem("installPromptExpiryTime");
+        const currentTime = new Date().getTime();
+
+        if ((!expiryTime || currentTime > expiryTime) && Settings.apk_link) {
+          localStorage.removeItem("installPromptExpiryTime");
+
+          dispatch(setShowAppPopUp(true));
+        }
+      }
+    }
+  }, [
+    dispatch,
+    windowWidth,
+    showAppPopUp,
+    location?.state?.pathname,
+    location.pathname,
+  ]);
+  useEffect(() => {
+    setLanguage(localStorage.getItem("language") || "english");
+  }, [setLanguage]);
+  if (Settings.app_only && !closePopupForForever) {
+    return <Error />;
+  }
   return (
     <>
       {showLoginModal && <Login />}
       {showRegisterModal && <Register />}
       {showForgotPasswordModal && <ForgotPassword />}
-      <header className="header-wapper header-search " loading="lazy">
+      <header
+        className="header-wapper header-search "
+        loading="lazy"
+        style={{ height: "auto" }}
+      >
+        {showLanguageModal && <Language />}
+        {Settings.apk_link && showAppPopUp && windowWidth < 1040 && (
+          <AppPopup />
+        )}
+        {Settings.apk_link && showAPKModal && <DownloadAPK />}
         <div className="container">
           <div className="navbar-sec">
             <div className="nav-left">
@@ -58,7 +128,8 @@ const Navbar = () => {
                     <img loading="lazy" src={logo} alt="Site logo" />
                   </Link>
                 </li>
-                {/* <SearchBox /> */}
+                {windowWidth > 800 && <SearchBox />}
+
                 {token && (
                   <li className="rules-box">
                     <div className="d-w-box">
@@ -165,31 +236,77 @@ const Navbar = () => {
             )}
           </div>
         </div>
-        {/**/}
-        <section className="nav-new-bar-sec">
-          <NavMenu />
-          <div className="mobile-toggle-btn-sec">
-            <div className="mobile-search-menu">
-              <button
-                type="button"
-                data-bs-toggle="offcanvas"
-                to="#offcanvasExample11"
-                role="button"
-                aria-controls="offcanvasExample11"
-                aria-label="Toggle menu"
-              >
-                <span id="menu-toggle1" className="menu-toggle">
+        {!location.pathname.includes("/casino/") && (
+          <Fragment>
+            <section className="nav-new-bar-sec">
+              <NavMenu />
+              <div className="mobile-toggle-btn-sec">
+                <div className="mobile-search-menu">
+                  <button
+                    onClick={() => dispatch(setShowMobileSidebar(true))}
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    to="#offcanvasExample11"
+                    role="button"
+                    aria-controls="offcanvasExample11"
+                    aria-label="Toggle menu"
+                  >
+                    <span id="menu-toggle1" className="menu-toggle">
+                      <img
+                        loading="lazy"
+                        src="data:image/webp;base64,UklGRt4CAABXRUJQVlA4WAoAAAAwAAAAPwAAPwAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZBTFBInQAAAA1wVdu2sX1qogTO4h9n/JnsLh8T/Ery4XWPz3iJCIVt2zbsA1M5glmEl3gzhVrkYfAHHes6nmD5W5BZ3wXpCSjRa5Oi29mQxteiSE+on5MW8+D8UJ5AgGin7hudH/XlT4TupzvzI0G3Qzu1Jtke9bazWah+8aXxtShS5wc61XU8XqNN0/VbISgyEegG4frXJluLKoHr/ztRxSyniwEAVlA4IEoAAAAwBQCdASpAAEAAPl0kjUWjoiEb9AA4BcS0gAtuI6k+q/Og2fHPx653+rYgPOH76lvMAAD9Mf//5ezp/Kqx//t0EUZP///LkAAAAA=="
+                        alt="Open menu"
+                        className="group-toggle-icon"
+                      />
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </section>
+            {latestEvent?.length > 0 && (
+              <div data-v-97263362 className="livematch">
+                <span className="lm_icon">
                   <img
-                    loading="lazy"
-                    src="data:image/webp;base64,UklGRt4CAABXRUJQVlA4WAoAAAAwAAAAPwAAPwAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZBTFBInQAAAA1wVdu2sX1qogTO4h9n/JnsLh8T/Ery4XWPz3iJCIVt2zbsA1M5glmEl3gzhVrkYfAHHes6nmD5W5BZ3wXpCSjRa5Oi29mQxteiSE+on5MW8+D8UJ5AgGin7hudH/XlT4TupzvzI0G3Qzu1Jtke9bazWah+8aXxtShS5wc61XU8XqNN0/VbISgyEegG4frXJluLKoHr/ztRxSyniwEAVlA4IEoAAAAwBQCdASpAAEAAPl0kjUWjoiEb9AA4BcS0gAtuI6k+q/Og2fHPx653+rYgPOH76lvMAAD9Mf//5ezp/Kqx//t0EUZP///LkAAAAA=="
-                    alt="Open menu"
-                    className="group-toggle-icon"
+                    style={{ height: "20px", width: "20px" }}
+                    src="/icon/download.png"
+                    className="img-fluid"
                   />
                 </span>
-              </button>
-            </div>
-          </div>
-        </section>
+                <div className="custom-marquee lm_datas">
+                  <div
+                    className="custom-marquee__track------"
+                    // style={{ animationDuration: "4s" }}
+                  >
+                    <Marquee>
+                      {latestEvent?.map((event) => {
+                        return (
+                          <div
+                            key={event?.eventId}
+                            className="latest-event-item"
+                            style={{ marginRight: "20px" }}
+                          >
+                            <a
+                              onClick={() =>
+                                navigate(
+                                  `/event-details/${event?.eventTypeId}/${event?.eventId}`,
+                                )
+                              }
+                              className="new-launch-text"
+                            >
+                              <div>
+                                <b tabIndex={0}>{event?.eventName}</b>
+                              </div>
+                            </a>
+                          </div>
+                        );
+                      })}
+                    </Marquee>
+                  </div>
+                </div>
+              </div>
+            )}
+          </Fragment>
+        )}
       </header>
     </>
   );

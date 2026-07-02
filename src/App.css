@@ -1,23 +1,26 @@
 .site-font {
-  font-family: Helvetica Neue, sans-serif, BBAlpha Sans;
+  font-family:
+    Helvetica Neue,
+    sans-serif,
+    BBAlpha Sans;
 }
 .primary-icon-color svg,
 .back-from-iframe svg {
-  stroke: var(--color-bg-primary);
+  stroke: var(--primary-color);
 }
 
 .change-password svg,
 .primary-icons svg {
-  fill: var(--color-bg-primary);
+  fill: var(--primary-color);
 }
 .text-primary {
-  color: var(--color-bg-primary);
+  color: var(--primary-color);
 }
 .text-secondary {
   color: var(--color-bg-secondary);
 }
 .bg-primary {
-  background-color: var(--color-bg-primary);
+  background-color: var(--primary-color);
 }
 
 .white-icon-color svg {
@@ -542,7 +545,7 @@ input:-moz-autofill {
 }
 
 .dropdownBG {
-  background-color: var(--color-bg-primary) !important;
+  background-color: var(--primary-color) !important;
 }
 
 .swal2-container:has(.alert-dialog) {
@@ -563,10 +566,9 @@ div:where(.swal2-container).swal2-noanimation {
     "top-start top top-end"
     "center-start center center-end"
     "bottom-start bottom-center bottom-end";
-  grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(
-      min-content,
-      auto
-    );
+  grid-template-rows:
+    minmax(min-content, auto) minmax(min-content, auto)
+    minmax(min-content, auto);
   height: 100%;
   padding: 0.625em;
   overflow-x: hidden;
@@ -673,7 +675,7 @@ div:where(.swal2-container) div:where(.swal2-actions) {
 }
 
 .border-primary {
-  border-color: var(--color-bg-primary) !important;
+  border-color: var(--primary-color) !important;
 }
 
 .page-body[_ngcontent-ng-c943649379] {
@@ -696,13 +698,11 @@ div:where(.swal2-container) div:where(.swal2-actions) {
   .casino-section[_ngcontent-ng-c943649379] {
   margin-bottom: 15px;
 }
-
 /* App pop up */
 .android-popup {
   width: 100%;
-  font-family: Helvetica Neue, sans-serif, BBAlpha Sans;
-  background: var(--color-bg-secondary);
-  padding: 16px;
+  background: var(--secondary-color);
+  padding: 5px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -746,7 +746,6 @@ div:where(.swal2-container) div:where(.swal2-actions) {
 }
 
 .android-card {
-  font-family: Helvetica Neue, sans-serif, BBAlpha Sans;
   display: flex;
   width: 282px;
   align-items: center;
@@ -783,8 +782,8 @@ div:where(.swal2-container) div:where(.swal2-actions) {
   gap: 2px;
 }
 .app-text h2 {
-  color: #fff;
-  font-family: Helvetica Neue, sans-serif, BBAlpha Sans;
+  color: #000;
+
   font-size: 11px;
   font-style: normal;
   font-weight: 700;
@@ -794,7 +793,10 @@ div:where(.swal2-container) div:where(.swal2-actions) {
 
 .app-text span {
   color: #fff;
-  font-family: Helvetica Neue, sans-serif, BBAlpha Sans;
+  font-family:
+    Helvetica Neue,
+    sans-serif,
+    BBAlpha Sans;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
@@ -821,7 +823,7 @@ div:where(.swal2-container) div:where(.swal2-actions) {
 
 .install-btn button {
   color: #fff;
-  font-family: Helvetica Neue, sans-serif, BBAlpha Sans;
+
   font-size: 12px;
   font-style: normal;
   font-weight: 600;
@@ -842,7 +844,10 @@ div:where(.swal2-container) div:where(.swal2-actions) {
   background-size: cover !important;
   color: #fff !important;
   z-index: 1 !important;
-  font-family: Helvetica Neue, sans-serif, BBAlpha Sans !important;
+  font-family:
+    Helvetica Neue,
+    sans-serif,
+    BBAlpha Sans !important;
   /* margin-left: 4px !important;
   margin-right: 4px !important; */
 }
@@ -973,7 +978,7 @@ div:where(.swal2-container) div:where(.swal2-actions) {
   width: 30px;
   height: 45px;
   top: 0;
-  background-color: var(--color-bg-primary);
+  background-color: var(--primary-color);
 }
 
 button.btn {
@@ -1289,7 +1294,7 @@ html * {
   }
   .sc_cw-overs-info-mobile {
     display: flex !important;
-    border-top: 0.5px solid var(--color-bg-primary) !important;
+    border-top: 0.5px solid var(--primary-color) !important;
     padding-top: 2px !important;
     padding-bottom: 2px !important;
     color: #fff !important;

@@ -590,3 +590,256 @@ html * {
 .bg-bg_transactionFailedBg {
   background-image: linear-gradient(89deg, #eb244f, #a90f31 89.28%);
 }
+@media screen and (max-width: 991px) {
+  .livematch {
+    display: flex;
+  }
+}
+
+.livematch {
+  display: flex;
+  align-items: center;
+  /* position: absolute;
+  left: 0;
+  top: 55px; */
+  width: 100%;
+  height: 38px;
+  background-color: #000;
+  overflow: hidden;
+  z-index: 10;
+  background-image: url(/icon/marquee-banner-CeR-zwuv.png);
+  background-repeat: no-repeat;
+}
+span.lm_icon {
+  background: #fff;
+  padding: 4px 10px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+@media screen and (max-width: 479px) {
+  span.lm_icon img {
+    width: 27.75px;
+    height: 27.75px;
+  }
+}
+
+.custom-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  position: relative;
+  display: block;
+}
+
+.custom-marquee {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+.lm_datas {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+  height: 100%;
+}
+.lm_datas div {
+  display: inline-flex;
+  align-items: center;
+}
+
+.custom-marquee__track {
+  display: inline-block;
+  min-width: 100%;
+  padding-left: 100%;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-name: custom-marquee-left;
+}
+.custom-marquee__track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 8px;
+  height: 100%;
+  animation: marquee-scroll linear infinite;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translate(0);
+  }
+
+  to {
+    transform: translate(-100%);
+  }
+}
+
+@keyframes custom-marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.lm_datas div {
+  display: inline-flex;
+  align-items: center;
+}
+
+.latest-event-item {
+  flex-shrink: 0;
+}
+.latest-event-item a {
+  display: inline-flex;
+  align-items: center;
+  background: #900;
+  border-radius: 8px;
+  padding: 3px 10px;
+  text-decoration: none;
+}
+.lm_datas div {
+  display: inline-flex;
+  align-items: center;
+}
+.latest-event-item a b,
+.new-launch-text b {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+/*! Download apk css start  */
+
+.promo-card {
+  max-width: 500px;
+  color: #000;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  padding: 5px 20px;
+  background: var(--primary-color);
+}
+
+.header-content img {
+  width: 70px;
+}
+
+.main-title {
+  font-size: 18px;
+  color: #000;
+  line-height: 1.2;
+}
+
+.promo-body {
+  padding: 5px 20px;
+}
+
+.intro-text,
+.closing-text {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 5px;
+  color: #000;
+}
+
+.benefits-title {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+}
+
+.benefits-list li {
+  margin-bottom: 3px;
+  padding-left: 30px;
+  position: relative;
+  font-size: 14px;
+  color: #000;
+}
+
+/* Custom Checkmark */
+.benefits-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  background: var(--primary-color);
+  color: #000;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.benefits-list strong {
+  color: #000;
+  font-weight: 600;
+}
+
+.download-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-color);
+  text-decoration: none;
+  padding: 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  transition: transform 0.2s;
+}
+
+.download-button:hover {
+  transform: scale(1.02);
+}
+
+.android-icon {
+  width: 16px;
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .benefits-list li {
+    font-size: 12px;
+  }
+  .benefits-title {
+    font-size: 12px;
+  }
+  .main-title {
+    font-size: 16px;
+  }
+  .intro-text,
+  .closing-text {
+    font-size: 12px;
+  }
+  .download-button {
+    margin-bottom: 5px;
+  }
+}
+/*! Download apk css end  */

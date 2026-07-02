@@ -102,7 +102,7 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             <div className="balance-price">{deductedExposure}</div>
           </div>
         </li>
-        <li className="bonus-information-bx">
+        {/* <li className="bonus-information-bx">
           <div
             className="credits-chackn-box"
             data-bs-toggle="modal"
@@ -157,7 +157,7 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
               </div>
             </div>
           </div>
-        </li>
+        </li> */}
         {Settings?.branchWhatsapplink && (
           <li className="menu-rgt-icons">
             <a

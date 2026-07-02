@@ -1,8 +1,8 @@
+import toast from "react-hot-toast";
 import {
   setPlaceBetValues,
   setRunnerId,
 } from "../redux/features/events/eventSlice";
-import { setShowLoginModal } from "../redux/features/global/globalSlice";
 
 /* handle place bet */
 export const handleCashOutPlaceBet = (
@@ -11,7 +11,7 @@ export const handleCashOutPlaceBet = (
   dispatch,
   pnlBySelection,
   token,
-  team
+  team,
 ) => {
   if (token) {
     if (games?.status === "OPEN" && team?.runner?.status === "OPEN") {
@@ -62,11 +62,12 @@ export const handleCashOutPlaceBet = (
           marketName: games?.name,
           eventId: games?.eventId,
           totalSize: team?.newStakeValue,
-        })
+          cashout: true,
+        }),
       );
       dispatch(setRunnerId(team?.runner?.id));
     }
   } else {
-    dispatch(setShowLoginModal(true));
+    toast.error("Please login to place bet");
   }
 };

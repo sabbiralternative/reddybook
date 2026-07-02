@@ -7,14 +7,16 @@ import {
   setPlaceBetValues,
   setRunnerId,
 } from "../../../redux/features/events/eventSlice";
-import { setShowLoginModal } from "../../../redux/features/global/globalSlice";
+import toast from "react-hot-toast";
+import Ladder from "../../modals/Ladder/Ladder";
+import BetSlip from "./BetSlip";
 
 const Fancy = ({ data }) => {
   const fancyData = data?.filter(
     (fancy) =>
       fancy.btype === "FANCY" &&
       fancy.tabGroupName === "Normal" &&
-      fancy?.visible == true
+      fancy?.visible == true,
   );
   const [marketName, setMarketName] = useState("");
   const [ladderData, setLadderData] = useState([]);
@@ -23,6 +25,7 @@ const Fancy = ({ data }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
   const { runnerId } = useSelector((state) => state.event);
+  const { windowWidth } = useSelector((state) => state.global);
   const { data: exposure } = useExposure(eventId);
   const [getLadder] = useGetLadderMutation();
 
@@ -31,6 +34,7 @@ const Fancy = ({ data }) => {
       let selectionId;
       let runnerId;
       let eventTypeId;
+      if (games?.status !== "OPEN") return;
       if (!price) {
         return;
       }
@@ -62,7 +66,7 @@ const Fancy = ({ data }) => {
         eventTypeId = games?.marketId;
         games?.runners?.forEach((runner) => {
           const pnl = pnlBySelection?.find(
-            (p) => p?.RunnerId === runner?.selectionId
+            (p) => p?.RunnerId === runner?.selectionId,
           );
           if (pnl) {
             updatedPnl.push(pnl?.pnl);
@@ -93,6 +97,7 @@ const Fancy = ({ data }) => {
         totalSize: 0,
         bottomValue,
       };
+
       if (games?.btype == "FANCY") {
         dispatch(setRunnerId(games?.id));
       } else if (games?.btype && games?.btype !== "FANCY") {
@@ -103,7 +108,7 @@ const Fancy = ({ data }) => {
 
       dispatch(setPlaceBetValues(betData));
     } else {
-      dispatch(setShowLoginModal(true));
+      toast.error("Please login to place a bet.");
     }
   };
 
@@ -126,6 +131,13 @@ const Fancy = ({ data }) => {
   };
   return (
     <>
+      {ladderData?.length > 0 && (
+        <Ladder
+          ladderData={ladderData}
+          setLadderData={setLadderData}
+          marketName={marketName}
+        />
+      )}
       {fancyData?.length > 0 && (
         <section data-v-4efaf06d className="fancy-tab-sec">
           <div data-v-4efaf06d className="fancy-tab-list">
@@ -145,138 +157,6 @@ const Fancy = ({ data }) => {
                   role="tab"
                 >
                   Fancy
-                </button>
-              </li>
-              <li data-v-4efaf06d className="nav-item" role="presentation">
-                <button
-                  data-v-4efaf06d
-                  className="nav-link"
-                  id="premium_fancy-tab"
-                  data-bs-toggle="tab"
-                  type="button"
-                  role="tab"
-                >
-                  Premium Fancy
-                </button>
-              </li>
-              <li data-v-4efaf06d className="nav-item" role="presentation">
-                <button
-                  data-v-4efaf06d
-                  className="nav-link"
-                  id="line_markets-tab"
-                  data-bs-toggle="tab"
-                  type="button"
-                  role="tab"
-                >
-                  Line Markets
-                </button>
-              </li>
-              <li data-v-4efaf06d className="nav-item" role="presentation">
-                <button
-                  data-v-4efaf06d
-                  className="nav-link"
-                  id="session_markets-tab"
-                  data-bs-toggle="tab"
-                  type="button"
-                  role="tab"
-                >
-                  Session Markets
-                </button>
-              </li>
-              <li data-v-4efaf06d className="nav-item" role="presentation">
-                <button
-                  data-v-4efaf06d
-                  className="nav-link"
-                  id="over_by_over_session_markets-tab"
-                  data-bs-toggle="tab"
-                  type="button"
-                  role="tab"
-                >
-                  Over Session Market
-                </button>
-              </li>
-              <li data-v-4efaf06d className="nav-item" role="presentation">
-                <button
-                  data-v-4efaf06d
-                  className="nav-link"
-                  id="ball_by_ball-tab"
-                  data-bs-toggle="tab"
-                  type="button"
-                  role="tab"
-                >
-                  Ball By Ball
-                </button>
-              </li>
-              <li data-v-4efaf06d className="nav-item" role="presentation">
-                <button
-                  data-v-4efaf06d
-                  className="nav-link"
-                  id="fall_of_wicket-tab"
-                  data-bs-toggle="tab"
-                  type="button"
-                  role="tab"
-                >
-                  Fall Of Wicket
-                </button>
-              </li>
-              <li data-v-4efaf06d className="nav-item" role="presentation">
-                <button
-                  data-v-4efaf06d
-                  className="nav-link"
-                  id="other_markets-tab"
-                  data-bs-toggle="tab"
-                  type="button"
-                  role="tab"
-                >
-                  Other Markets
-                </button>
-              </li>
-              <li data-v-4efaf06d className="nav-item" role="presentation">
-                <button
-                  data-v-4efaf06d
-                  className="nav-link"
-                  id="total_advance-tab"
-                  data-bs-toggle="tab"
-                  type="button"
-                  role="tab"
-                >
-                  Total Advance
-                </button>
-              </li>
-              <li data-v-4efaf06d className="nav-item" role="presentation">
-                <button
-                  data-v-4efaf06d
-                  className="nav-link"
-                  id="meter_markets-tab"
-                  data-bs-toggle="tab"
-                  type="button"
-                  role="tab"
-                >
-                  Meter Markets
-                </button>
-              </li>
-              <li data-v-4efaf06d className="nav-item" role="presentation">
-                <button
-                  data-v-4efaf06d
-                  className="nav-link"
-                  id="khado_markets-tab"
-                  data-bs-toggle="tab"
-                  type="button"
-                  role="tab"
-                >
-                  Khado Markets
-                </button>
-              </li>
-              <li data-v-4efaf06d className="nav-item" role="presentation">
-                <button
-                  data-v-4efaf06d
-                  className="nav-link"
-                  id="odd_even_markets-tab"
-                  data-bs-toggle="tab"
-                  type="button"
-                  role="tab"
-                >
-                  Odd Event Markets
                 </button>
               </li>
             </ul>
@@ -299,21 +179,14 @@ const Fancy = ({ data }) => {
                 role="tabpanel"
                 aria-labelledby="all-tab"
               >
-                <div data-v-4efaf06d className="fancyMarket-details-list"></div>
-                <div data-v-4efaf06d className="fancyMarket-details-list"></div>
-                <div data-v-4efaf06d className="fancyMarket-details-list"></div>
                 <div data-v-4efaf06d className="fancyMarket-details-list">
                   <div
                     data-v-4efaf06d
                     className="fancy-market-tabs-details-sec"
                   >
                     <div data-v-4efaf06d className="row g-0">
-                      <div data-v-4efaf06d className="col-8">
-                        <span data-v-4efaf06d className="mrkname">
-                          Session Markets
-                        </span>
-                      </div>
-                      <div data-v-4efaf06d className="col-4">
+                      <div data-v-4efaf06d className="col-8 col-md-6"></div>
+                      <div data-v-4efaf06d className="col-4 col-md-6">
                         <div data-v-4efaf06d className="fancy-group-box">
                           <div data-v-4efaf06d className="fancy-box-1">
                             <button
@@ -343,10 +216,9 @@ const Fancy = ({ data }) => {
                     </div>
                   </div>
                   {fancyData?.map((game) => {
-                    const pnl =
-                      pnlBySelection?.find(
-                        (pnl) => pnl?.MarketId === game?.id
-                      ) || {};
+                    const pnl = pnlBySelection?.find(
+                      (pnl) => pnl?.MarketId === game?.id,
+                    );
 
                     return (
                       <div
@@ -360,15 +232,13 @@ const Fancy = ({ data }) => {
                               data-v-4efaf06d
                               className="fancy-tab-lft-content"
                             >
-                              <span
-                                data-v-4efaf06d
-                                className="fav-pin-bookmark"
-                              >
-                                <i data-v-4efaf06d className="bi bi-bookmark" />
-                              </span>
                               <div
                                 data-v-4efaf06d
                                 className="fancy-left-title-info"
+                                style={{
+                                  flexDirection: "row",
+                                  justifyContent: "space-between",
+                                }}
                               >
                                 <span
                                   data-v-4efaf06d
@@ -379,14 +249,107 @@ const Fancy = ({ data }) => {
                                 <div
                                   data-v-4efaf06d
                                   className="back-lay-status"
-                                />
+                                >
+                                  {" "}
+                                  {pnl ? (
+                                    <span
+                                      onClick={() =>
+                                        handleGetLadder(pnl, game?.name)
+                                      }
+                                      className="col-span-2 md:col-span-2 flex flex-row items-center justify-end"
+                                    >
+                                      <div className="opacity-100 cursor-pointer">
+                                        <svg
+                                          height="18"
+                                          width="18"
+                                          viewBox="0 0 16 16"
+                                          fill="none"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <g id="63d691358b4e4026f6539708_stairs 1">
+                                            <path
+                                              id="Vector"
+                                              d="M5.21875 3.13672V13.1367"
+                                              stroke="var(--primary-color)"
+                                            ></path>
+                                            <path
+                                              id="Vector_2"
+                                              d="M5.21875 5.48047H10.5312"
+                                              stroke="var(--primary-color)"
+                                            ></path>
+                                            <path
+                                              id="Vector_3"
+                                              d="M5.21875 8.13672H10.5312"
+                                              stroke="var(--primary-color)"
+                                            ></path>
+                                            <path
+                                              id="Vector_4"
+                                              d="M5.21875 11.1055H10.5312"
+                                              stroke="var(--primary-color)"
+                                            ></path>
+                                            <path
+                                              id="Vector_5"
+                                              d="M10.5312 3.13672V13.1367"
+                                              stroke="var(--primary-color)"
+                                            ></path>
+                                          </g>
+                                        </svg>
+                                      </div>
+                                    </span>
+                                  ) : (
+                                    <span className="col-span-2 md:col-span-2 flex flex-row items-center justify-end">
+                                      <div className="opacity-50 cursor-not-allowed">
+                                        <svg
+                                          height="18"
+                                          width="18"
+                                          viewBox="0 0 16 16"
+                                          fill="none"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <g id="63d691358b4e4026f6539708_stairs 1">
+                                            <path
+                                              id="Vector"
+                                              d="M5.21875 3.13672V13.1367"
+                                              stroke="var(--secondary-color)"
+                                            ></path>
+                                            <path
+                                              id="Vector_2"
+                                              d="M5.21875 5.48047H10.5312"
+                                              stroke="var(--secondary-color)"
+                                            ></path>
+                                            <path
+                                              id="Vector_3"
+                                              d="M5.21875 8.13672H10.5312"
+                                              stroke="var(--secondary-color)"
+                                            ></path>
+                                            <path
+                                              id="Vector_4"
+                                              d="M5.21875 11.1055H10.5312"
+                                              stroke="var(--secondary-color)"
+                                            ></path>
+                                            <path
+                                              id="Vector_5"
+                                              d="M10.5312 3.13672V13.1367"
+                                              stroke="var(--secondary-color)"
+                                            ></path>
+                                          </g>
+                                        </svg>
+                                      </div>
+                                    </span>
+                                  )}
+                                  {pnl && (
+                                    <div
+                                      className={`  ${
+                                        pnl?.pnl > 0
+                                          ? "text-green-500"
+                                          : "text-red-500"
+                                      }`}
+                                    >
+                                      {pnl?.pnl}
+                                    </div>
+                                  )}
+                                </div>
                               </div>
-                              <img
-                                data-v-4efaf06d
-                                loading="lazy"
-                                className="has-com-icon"
-                                src="data:image/webp;base64,UklGRp4DAABXRUJQVlA4WAoAAAAwAAAAEgAAEQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZBTFBIqQAAAA2AYmvb4uYJRzLIWUY4sTlRDC6RVG4dM/MCppJbyahqR1aOjCyzG9pCREwAhusrJUPpyvO/kfQQUtdAegJq6BdEvhfRL2zA076BU3gfAxCEe7VHeL4GSO88hyMycPgMrpziEKvzbOCeiWf4zqDtEqWHMCA9q4zMOMFVzQLUUN31xV0QAr4X0RwZcrpQPm9pyc0zlN8NdMoDogvYQ/e91LFCQx9TltFuDZ0AVlA4IP4AAAAwBwCdASoTABIAPm0ukkakIqGhKA1QgA2JbACdM0ckmmA4AG2AsADpQ/IAKYB4rSF5d71bMK0C9dKVKyw3XKJaPYAA/uMtbXB9C3tKaUrXb3XuZUU+pzzqxYnOqsbJVZrICjys5Fpk60N18L8i6cb1Jt4Pbiat9XivPvCG8z2plCurmN4bz3kEAe7dkl4qzlENI7oWLx697ZMlwVQz3JsqFuFmd3KSGtJ+U+8kJZ5gZ/n3xqv/85kZqUKlIVCsd91nC/6TKMh7H33+5yZP9gFPZTN8xLAOpPWbxZY1Y7G/Es9/4Fn+5tJXsX3/yFv/gWf7m0lexff/Ji9ZtHAAAA=="
-                              />
                             </div>
                           </div>
                           <div data-v-4efaf06d className="col-4 col-md-6">
@@ -399,7 +362,7 @@ const Fancy = ({ data }) => {
                                       game,
                                       game?.runners?.[0],
                                       game?.runners?.[0]?.lay?.[0]?.line,
-                                      game?.runners?.[0]?.lay?.[0]?.price
+                                      game?.runners?.[0]?.lay?.[0]?.price,
                                     )
                                   }
                                   data-v-4efaf06d
@@ -424,7 +387,7 @@ const Fancy = ({ data }) => {
                                       game,
                                       game?.runners?.[0],
                                       game?.runners?.[0]?.back?.[0]?.line,
-                                      game?.runners?.[0]?.back?.[0]?.price
+                                      game?.runners?.[0]?.back?.[0]?.price,
                                     )
                                   }
                                   data-v-4efaf06d
@@ -462,6 +425,9 @@ const Fancy = ({ data }) => {
                             </div>
                           </div>
                         </div>
+                        {game?.id === runnerId && windowWidth < 500 && (
+                          <BetSlip currentPlaceBetEvent={game} />
+                        )}
                       </div>
                     );
                   })}

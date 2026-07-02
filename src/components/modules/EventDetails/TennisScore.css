@@ -1,0 +1,111 @@
+/* TennisScore.css */
+
+/* ── Outer Wrapper ── */
+.tennis-score-wrapper {
+  color: #fff;
+  width: 100%;
+  background-color: var(--auth-bg);
+  padding: 0px 10px;
+  margin: 10px 0px;
+}
+
+/* ── Inner Column ── */
+.tennis-score-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  width: 100%;
+  gap: 5px;
+}
+
+/* ── Player Row ── */
+.tennis-player-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* ── Player Name ── */
+.tennis-player-name {
+  font-size: 12px;
+  width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  line-height: 20px;
+  color: #000;
+}
+
+@media (min-width: 640px) {
+  .tennis-player-name {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .tennis-player-name {
+    font-size: 14px;
+  }
+}
+
+/* ── Score Side (sets + game score) ── */
+.tennis-score-side {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+/* ── Sets Group ── */
+.tennis-sets-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ── Service Dot ── */
+.tennis-service-dot {
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+/* ── Set Score Badge ── */
+.tennis-set-badge {
+  min-width: 24px;
+  min-height: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  background-color: var(--primary-color);
+  text-align: center;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Game Score Badge ── */
+.tennis-game-score {
+  min-width: 24px;
+  min-height: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  background-color: var(--primary-color);
+  margin-right: 8px;
+  text-align: center;
+  border-radius: 4px;
+  color: #000;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  color: #21a8f7;
+}

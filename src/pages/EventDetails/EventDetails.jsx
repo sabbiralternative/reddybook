@@ -1,19 +1,32 @@
 import { useParams } from "react-router-dom";
 import SidebarLayout from "../../layout/SidebarLayout";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetEventDetailsQuery } from "../../redux/features/events/events";
+import {
+  useGetEventDetailsQuery,
+  useVideoMutation,
+} from "../../redux/features/events/events";
 import { setPredictOdd } from "../../redux/features/events/eventSlice";
-import MatchOddsBookmaker from "../../components/modules/EventDetails/MatchOddsBookmaker";
+import MatchOdds from "../../components/modules/EventDetails/MatchOdds";
 import RightSidebar from "../../components/modules/EventDetails/RightSidebar";
 import Fancy from "../../components/modules/EventDetails/Fancy";
 import Score from "../../components/modules/EventDetails/Score";
+import HorseGreyhoundEventDetails from "../../components/modules/EventDetails/HorseGreyhoundEventDetails";
+import Bookmaker from "../../components/modules/EventDetails/Bookmaker";
+import { Settings } from "../../api";
+import TennisScore from "../../components/modules/EventDetails/TennisScore";
+import FootballScore from "../../components/modules/EventDetails/FootballScore";
+import OpenBets from "../../components/modules/EventDetails/OpenBets";
 
 const EventDetails = () => {
+  const [showTv, setShowTv] = useState(true);
+  const [tab, setTab] = useState("market");
+  const [sportsVideo, { data: iframe }] = useVideoMutation();
   const { eventTypeId, eventId } = useParams();
   const [profit, setProfit] = useState(0);
   const dispatch = useDispatch();
   const { placeBetValues, price, stake } = useSelector((state) => state.event);
+  const { windowWidth } = useSelector((state) => state.global);
 
   const { data } = useGetEventDetailsQuery(
     { eventTypeId, eventId },
@@ -102,6 +115,39 @@ const EventDetails = () => {
     // value?.toFixed(2)
     return hasDecimal ? parseFloat(value?.toFixed(2)) : value;
   };
+
+  const matchOdds = data?.result?.filter(
+    (game) =>
+      game.btype === "MATCH_ODDS" &&
+      game?.visible == true &&
+      game?.name !== "tied match",
+  );
+  const bookmaker = data?.result?.filter(
+    (game) =>
+      game.btype === "BOOKMAKER" &&
+      game?.visible == true &&
+      game?.name !== "tied match",
+  );
+
+  const tiedMatch = data?.result?.filter(
+    (game) =>
+      (game.btype === "MATCH_ODDS" || game.btype === "BOOKMAKER") &&
+      game?.visible == true &&
+      game?.name === "tied match",
+  );
+
+  useEffect(() => {
+    const handleGetVideo = async () => {
+      const payload = {
+        eventTypeId: eventTypeId,
+        eventId: eventId,
+        type: "video",
+        casinoCurrency: Settings.casino_currency,
+      };
+      await sportsVideo(payload).unwrap();
+    };
+    handleGetVideo();
+  }, []);
   return (
     <SidebarLayout>
       <div className="col-12 col-sm-12 col-md-12 col-lg-10">
@@ -120,7 +166,7 @@ const EventDetails = () => {
                       </div>
                       <div data-v-4efaf06d className="open-bet-tv-sec">
                         <ul data-v-4efaf06d>
-                          <li data-v-4efaf06d>
+                          {/* <li data-v-4efaf06d>
                             <button
                               data-v-4efaf06d
                               className="hide-show-filter-btn"
@@ -134,10 +180,14 @@ const EventDetails = () => {
                                 alt="filter-fill"
                               />
                             </button>
-                          </li>
+                          </li> */}
 
                           <li data-v-4efaf06d>
-                            <button data-v-4efaf06d className="score-icon-btn">
+                            <button
+                              onClick={() => setShowTv((prev) => !prev)}
+                              data-v-4efaf06d
+                              className="score-icon-btn"
+                            >
                               <img
                                 data-v-4efaf06d
                                 loading="lazy"
@@ -150,27 +200,102 @@ const EventDetails = () => {
                         </ul>
                       </div>
                     </div>
-                    {eventTypeId == 4 && data?.iscore && (
-                      <Score iscore={data?.iscore} />
-                    )}
-                    <section
-                      data-v-4efaf06d
-                      className="match-odd-bookmaker-sec"
-                    >
-                      <div
-                        data-v-4efaf06d
-                        className="accordion"
-                        id="accordionPanelsStayOpenExample"
-                      >
-                        {data?.result?.length > 0 && (
-                          <MatchOddsBookmaker data={data?.result} />
-                        )}
+                    {windowWidth < 500 && (
+                      <div className="flex items-center my-2 gap-x-2">
+                        <button
+                          className={`active:opacity-70 px-2 tracking-wide text-white font-bold leading-none relative overflow-hidden text-[11px] transition-all duration-150 ease-in-out rounded-md text-center flex items-center justify-center flex-row h-[26px]  shadow-[0_2px_6px_rgba(0,0,0,0.35)] border border-white/20 loss ${
+                            tab === "market"
+                              ? "bg-[var(--primary-color)]"
+                              : "bg-gray-500"
+                          }`}
+                          onClick={() => setTab("market")}
+                        >
+                          Market
+                        </button>
+                        <button
+                          className={`active:opacity-70 px-2 tracking-wide text-white font-bold leading-none relative overflow-hidden text-[11px] transition-all duration-150 ease-in-out rounded-md text-center flex items-center justify-center flex-row h-[26px]  shadow-[0_2px_6px_rgba(0,0,0,0.35)] border border-white/20 loss ${
+                            tab === "open-bets"
+                              ? "bg-[var(--primary-color)]"
+                              : "bg-gray-500"
+                          }`}
+                          onClick={() => setTab("open-bets")}
+                        >
+                          Open Bets
+                        </button>
                       </div>
-                    </section>
-                    {data?.result?.length > 0 && <Fancy data={data?.result} />}
+                    )}
+                    {tab === "market" && (
+                      <Fragment>
+                        {eventTypeId == 2 && data?.score && (
+                          <TennisScore
+                            eventTypeId={eventTypeId}
+                            score={data?.score}
+                          />
+                        )}
+                        {eventTypeId == 1 && data?.score && (
+                          <FootballScore score={data?.score} />
+                        )}
+
+                        {eventTypeId == 4 && data?.iscore && (
+                          <Score iscore={data?.iscore} />
+                        )}
+                        {data?.score && data?.score?.tracker !== null && (
+                          <div className="w-full overflow-hidden h-[125px]">
+                            <iframe
+                              id="videoComponent"
+                              className="w-full h-auto relative overflow-hidden   bg-transparent"
+                              src={data?.score?.tracker}
+                              width="100%"
+                              allowfullscreen=""
+                            ></iframe>
+                          </div>
+                        )}
+                        {iframe?.result?.url &&
+                          data?.score?.hasVideo &&
+                          showTv &&
+                          windowWidth < 500 && (
+                            <iframe
+                              id="videoComponent"
+                              className="w-full max-h-[309px] sm:max-h-[144px] lg:max-h-[309px] relative overflow-hidden h-[55vw] md:h-[58vw] bg-transparent mt-2"
+                              src={iframe?.result?.url}
+                              width="100%"
+                              allowfullscreen=""
+                            ></iframe>
+                          )}
+                        <section
+                          data-v-4efaf06d
+                          className="match-odd-bookmaker-sec"
+                        >
+                          <div
+                            data-v-4efaf06d
+                            className="accordion"
+                            id="accordionPanelsStayOpenExample"
+                          >
+                            {matchOdds?.length > 0 && (
+                              <MatchOdds data={matchOdds} />
+                            )}
+                            {bookmaker?.length > 0 && (
+                              <Bookmaker data={bookmaker} />
+                            )}
+                          </div>
+                        </section>
+
+                        {data?.result?.length > 0 && (
+                          <Fancy data={data?.result} />
+                        )}
+                        {eventTypeId == 7 || eventTypeId == 4339 ? (
+                          <HorseGreyhoundEventDetails data={data?.result} />
+                        ) : null}
+                        {tiedMatch?.length > 0 && (
+                          <MatchOdds data={tiedMatch} />
+                        )}
+                      </Fragment>
+                    )}
+
+                    {tab === "open-bets" && <OpenBets />}
                   </div>
                 </div>
-                <RightSidebar score={data?.score} />
+                <RightSidebar score={data?.score} showTv={showTv} />
               </div>
             </section>
           </div>
