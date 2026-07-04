@@ -129,6 +129,7 @@ const Fancy = ({ data }) => {
       setLadderData(res.result);
     }
   };
+
   return (
     <>
       {ladderData?.length > 0 && (
@@ -429,7 +430,11 @@ const Fancy = ({ data }) => {
                             {game?.status !== "SUSPENDED" && (
                               <span
                                 className="suspended__div"
-                                style={{ right: "unset" }}
+                                style={{
+                                  right: "unset",
+                                  width:
+                                    windowWidth < 768 ? "100%" : "33.33333333%",
+                                }}
                               >
                                 <b>SUSPENDED</b>
                               </span>
