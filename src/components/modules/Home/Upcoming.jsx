@@ -1,18 +1,13 @@
 import { useSelector } from "react-redux";
-import { useGroupQuery } from "../../../redux/features/events/events";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useGroupQuery } from "../../../hooks/group";
 
-const Sports = () => {
+const Upcoming = () => {
   const { id } = useParams();
   const { group } = useSelector((state) => state.global);
   const eventId = id || id == 0 ? Number(id) : group;
-  const { data } = useGroupQuery(
-    { sportsType: eventId },
-    {
-      pollingInterval: 1000,
-    },
-  );
+  const { data } = useGroupQuery({ sportsType: eventId });
 
   const [categories, setCategories] = useState([]);
   const eventName = { 4: "Cricket", 2: "Tennis", 1: "Football" };
@@ -26,7 +21,7 @@ const Sports = () => {
       const categories = Array.from(
         new Set(
           Object.values(data)
-            .filter((item) => item.visible)
+            .filter((item) => item.visible && item?.inPlay === 0)
             .map((item) => item.eventTypeId),
         ),
       );
@@ -41,7 +36,7 @@ const Sports = () => {
   return (
     <>
       <div style={{ width: "100%" }} className="list-sport-title">
-        <span> Inplay</span>
+        <span> Upcoming</span>
       </div>
       {categories?.map((category) => {
         const filteredData = Object.entries(data)
@@ -106,7 +101,7 @@ const Sports = () => {
                 Object.keys(filteredData)
                   .sort((keyA, keyB) => data[keyA].sort - data[keyB].sort)
                   .map((keys, index) => {
-                    if (!data?.[keys]?.visible) {
+                    if (!data?.[keys]?.visible || data?.[keys]?.inPlay === 1) {
                       return null;
                     }
 
@@ -235,4 +230,4 @@ const Sports = () => {
   );
 };
 
-export default Sports;
+export default Upcoming;

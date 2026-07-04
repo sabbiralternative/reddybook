@@ -2,6 +2,7 @@ import CasinoProvider from "../../components/modules/Home/CasinoProvider";
 import CasinoSlider from "../../components/modules/Home/CasinoSlider";
 import NewCasinoSlider from "../../components/modules/Home/NewCasinoSlider";
 import Sports from "../../components/modules/Home/Sports";
+import Upcoming from "../../components/modules/Home/Upcoming";
 import { useIndexQuery } from "../../hooks";
 import SidebarLayout from "../../layout/SidebarLayout";
 
@@ -23,7 +24,7 @@ const Home = () => {
                 <div id="casinosection" />
                 <CasinoProvider our_provider={data?.our_provider} />
                 <div />
-
+                <Upcoming />
                 {/* <section className="upcoming-section">
                   <div className="bet-details-header">
                     <div className="row">
