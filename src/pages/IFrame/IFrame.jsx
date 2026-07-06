@@ -12,6 +12,7 @@ const IFrame = () => {
   const [iFrame, setIFrame] = useState("");
   const { gameId } = useParams();
   const token = useSelector(userToken);
+  const { headerHeight } = useSelector((state) => state.global);
 
   /* get iframe url */
   useEffect(() => {
@@ -49,7 +50,10 @@ const IFrame = () => {
   }
 
   return (
-    <div className="flex-1 flex white bg-gray1 mt-28">
+    <div
+      className={`flex-1 flex white bg-gray1`}
+      style={{ marginTop: `${headerHeight}px` }}
+    >
       <div className="h-full w-full overflow-auto hide-scrollbar">
         <div className="w-full router-ctn">
           <div className="flex flex-col transition-all  ease-in-out duration-100 pt-0 h-full min-h-screen">

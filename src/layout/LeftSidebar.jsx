@@ -62,7 +62,15 @@ const LeftSidebar = () => {
               className="router-link-active router-link-exact-active"
               aria-current="page"
             >
-              <img loading="lazy" src={logo} alt="Site logo" />
+              <img
+                loading="lazy"
+                src={logo}
+                style={{
+                  height: Settings.logo_height,
+                  width: Settings.logo_width,
+                }}
+                alt="Site logo"
+              />
             </a>
           </div>
           <button

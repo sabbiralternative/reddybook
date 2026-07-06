@@ -132,7 +132,7 @@ const Sports = () => {
                                     </p> */}
                                   </a>
                                 </div>
-                                {data?.[keys]?.isTv === 1 && (
+                                {data?.[keys]?.inPlay === 1 && (
                                   <div className="game-date-inplay-box">
                                     <span>Live</span>
                                   </div>
