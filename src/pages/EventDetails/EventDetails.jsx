@@ -17,6 +17,7 @@ import { Settings } from "../../api";
 import TennisScore from "../../components/modules/EventDetails/TennisScore";
 import FootballScore from "../../components/modules/EventDetails/FootballScore";
 import OpenBets from "../../components/modules/EventDetails/OpenBets";
+import Premium from "../../components/modules/EventDetails/Premium";
 
 const EventDetails = () => {
   const [showTv, setShowTv] = useState(true);
@@ -226,12 +227,14 @@ const EventDetails = () => {
                     )}
                     {tab === "market" && (
                       <Fragment>
-                        {eventTypeId == 2 && data?.score && (
-                          <TennisScore
-                            eventTypeId={eventTypeId}
-                            score={data?.score}
-                          />
-                        )}
+                        {eventTypeId == 2 &&
+                          data?.score &&
+                          Object.keys(data?.score).length > 1 && (
+                            <TennisScore
+                              eventTypeId={eventTypeId}
+                              score={data?.score}
+                            />
+                          )}
                         {eventTypeId == 1 && data?.score && (
                           <FootballScore score={data?.score} />
                         )}
@@ -239,7 +242,7 @@ const EventDetails = () => {
                         {eventTypeId == 4 && data?.iscore && (
                           <Score iscore={data?.iscore} />
                         )}
-                        {data?.score && data?.score?.tracker !== null && (
+                        {data?.score && data?.score?.tracker && (
                           <div className="w-full overflow-hidden h-[125px]">
                             <iframe
                               id="videoComponent"
@@ -273,6 +276,9 @@ const EventDetails = () => {
                           >
                             {matchOdds?.length > 0 && (
                               <MatchOdds data={matchOdds} />
+                            )}
+                            {data?.premium && data?.premium?.eventId && (
+                              <Premium premium={data?.premium} />
                             )}
                             {bookmaker?.length > 0 && (
                               <Bookmaker data={bookmaker} />
