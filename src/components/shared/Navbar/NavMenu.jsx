@@ -7,6 +7,7 @@ import WarningCondition from "../WarningCondition/WarningCondition";
 import { useLanguage } from "../../../context/LanguageProvider";
 import { languageValue } from "../../../utils/language";
 import { LanguageKey } from "../../../const";
+import { eventNameList } from "../../../static/event-name-list";
 
 const NavMenu = () => {
   const { valueByLanguage } = useLanguage();
@@ -176,6 +177,16 @@ const NavMenu = () => {
             <span> {languageValue(valueByLanguage, LanguageKey.KABADDI)} </span>
           </Link>
         </li>
+        {eventNameList.map((item) => {
+          return (
+            <li key={item.id}>
+              <Link to={`/sports/${item.name}/${item.id}`} className>
+                <img loading="lazy" src={item.image} alt="menu-tennis" />
+                <span> {item.name}</span>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

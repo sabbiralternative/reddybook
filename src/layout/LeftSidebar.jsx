@@ -11,6 +11,7 @@ import { useLogo } from "../context/ApiProvider";
 import { useLanguage } from "../context/LanguageProvider";
 import { languageValue } from "../utils/language";
 import { LanguageKey } from "../const";
+import { eventNameList } from "../static/event-name-list";
 
 const LeftSidebar = () => {
   const { valueByLanguage } = useLanguage();
@@ -324,7 +325,45 @@ const LeftSidebar = () => {
               data-bs-parent="#accordionExample"
             ></div>
           </div>
-
+          {eventNameList.map((item) => {
+            return (
+              <div
+                key={item?.id}
+                onClick={() =>
+                  handleNavigate(`/sports/${item?.name}/${item?.id}`)
+                }
+                className="accordion-item"
+              >
+                <h2 className="accordion-header" id="headingOne4">
+                  <button
+                    className="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne43"
+                    aria-expanded="true"
+                    aria-controls="collapseOne43"
+                  >
+                    <span className="side-menu-heading">
+                      <span className="img-side-logo">
+                        <img
+                          loading="lazy"
+                          src={item?.image}
+                          alt="menu-tennis"
+                        />
+                      </span>
+                      <span className="sports-name-h"> {item.name}</span>
+                    </span>
+                  </button>
+                </h2>
+                <div
+                  id="collapseOne43"
+                  className="accordion-collapse collapse"
+                  aria-labelledby="headingOne4"
+                  data-bs-parent="#accordionExample"
+                ></div>
+              </div>
+            );
+          })}
           {Settings.apk_link && (
             <div onClick={handleDownloadAPK} className="download-apk-bx">
               <a data-bs-toggle="modal">
