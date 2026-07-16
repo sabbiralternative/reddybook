@@ -101,10 +101,11 @@ const Navbar = () => {
 
       dispatch(setHeaderHeight(headerHeight));
     }
-  }, [headerRef, dispatch, location.pathname, windowWidth]);
+  }, [headerRef, dispatch, location.pathname, windowWidth, latestEvent]);
   if (Settings.app_only && !closePopupForForever) {
     return <Error />;
   }
+
   return (
     <>
       {showLoginModal && <Login />}
