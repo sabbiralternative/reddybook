@@ -1,12 +1,11 @@
 import toast from "react-hot-toast";
 import { Settings } from "../api";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import WarningCondition from "../components/shared/WarningCondition/WarningCondition";
 import { useDispatch, useSelector } from "react-redux";
 import { handleDownloadAPK } from "../utils/handleDownloadAPK";
 import { setShowMobileSidebar } from "../redux/features/global/globalSlice";
-import useCloseModalClickOutside from "../hooks/closeModal";
 import { useLogo } from "../context/ApiProvider";
 import { useLanguage } from "../context/LanguageProvider";
 import { languageValue } from "../utils/language";
@@ -16,12 +15,10 @@ import { eventNameList } from "../static/event-name-list";
 const LeftSidebar = () => {
   const { valueByLanguage } = useLanguage();
   const { logo } = useLogo();
-  const ref = useRef();
   const dispatch = useDispatch();
   const [showWarning, setShowWarning] = useState(false);
   const [gameInfo, setGameInfo] = useState({ gameName: "", gameId: "" });
   const { token, bonusToken } = useSelector((state) => state.auth);
-  const { showMobileSidebar } = useSelector((state) => state.global);
   const navigate = useNavigate();
   const handleNavigate = (link) => {
     navigate(link);
@@ -46,13 +43,8 @@ const LeftSidebar = () => {
     }
   };
 
-  useCloseModalClickOutside(ref, () => {
-    if (showMobileSidebar) {
-      dispatch(setShowMobileSidebar(false));
-    }
-  });
   return (
-    <div className="left-side-bar-sec" id="show-m-toggle" ref={ref}>
+    <div className="left-side-bar-sec" id="show-m-toggle">
       {showWarning && (
         <WarningCondition gameInfo={gameInfo} setShowWarning={setShowWarning} />
       )}
@@ -108,7 +100,7 @@ const LeftSidebar = () => {
                   </span>
                   <span className="sports-name-h">
                     {" "}
-                    {languageValue(valueByLanguage, LanguageKey.HOME)}{" "}
+                    {languageValue(valueByLanguage, LanguageKey.CRICKET)}{" "}
                   </span>
                 </span>
               </button>

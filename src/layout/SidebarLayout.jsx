@@ -4,7 +4,6 @@ import LeftSidebar from "./LeftSidebar";
 const SidebarLayout = ({ children }) => {
   const { headerHeight } = useSelector((state) => state.global);
 
-  console.log(headerHeight);
   return (
     <section
       className=" main-body-container-sec"

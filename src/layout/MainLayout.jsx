@@ -1,23 +1,31 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/shared/Navbar/Navbar";
 import LeftSidebar from "./LeftSidebar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Settings } from "../api";
 import images from "../assets/images";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import MiniGames from "../components/modals/MiniGames/MiniGames";
+import useCloseModalClickOutside from "../hooks/closeModal";
+import { setShowMobileSidebar } from "../redux/features/global/globalSlice";
 
 const MainLayout = () => {
+  const ref = useRef();
+  const dispatch = useDispatch();
   const [showMiniGamesModal, setShowMiniGamesModal] = useState(false);
   const { showMobileSidebar } = useSelector((state) => state.global);
   const handleNavigateToSocialLink = (link) => {
     window.open(link, "_blank");
   };
+
+  useCloseModalClickOutside(ref, () => {
+    dispatch(setShowMobileSidebar(false));
+  });
   return (
     <div>
       {showMobileSidebar && (
         <div className="mobile-offcanvass">
-          <div className="offcanvas offcanvas-start show">
+          <div className="offcanvas offcanvas-start show" ref={ref}>
             <LeftSidebar />
           </div>
         </div>
