@@ -1,12 +1,17 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setShowLoginModal } from "../../../redux/features/global/globalSlice";
 
 const NewCasinoSlider = ({ data }) => {
   const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleNavigateToIFrame = (casino) => {
-    if (!token) return navigate("/login");
-    navigate(`/casino/${casino?.name?.replace(/ /g, "")}/${casino?.id}`);
+    if (!token) {
+      dispatch(setShowLoginModal(true));
+    } else {
+      navigate(`/casino/${casino?.name?.replace(/ /g, "")}/${casino?.id}`);
+    }
   };
 
   return (

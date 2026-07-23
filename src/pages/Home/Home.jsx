@@ -10,6 +10,7 @@ const Home = () => {
   const { data } = useIndexQuery({
     type: "99_casino_dashboard",
   });
+
   return (
     <SidebarLayout>
       <div className="col-12 col-sm-12 col-md-12 col-lg-10 ">
