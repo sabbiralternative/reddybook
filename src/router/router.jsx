@@ -19,6 +19,7 @@ import BonusStatement from "../pages/BonusStatement/BonusStatement";
 import LossbackBonus from "../pages/LossbackBonus/LossbackBonus";
 import AppOnlyBonus from "../pages/AppOnlyBonus/AppOnlyBonus";
 import IFrame from "../pages/IFrame/IFrame";
+import APK from "../pages/APK/APK";
 
 export const router = createBrowserRouter(
   [
@@ -102,6 +103,10 @@ export const router = createBrowserRouter(
         {
           path: "/:route/:name/:gameId",
           element: <IFrame />,
+        },
+        {
+          path: "/apk",
+          element: <APK />,
         },
       ],
     },
