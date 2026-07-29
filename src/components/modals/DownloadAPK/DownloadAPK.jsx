@@ -65,63 +65,73 @@ const DownloadAPK = () => {
             </g>
           </svg>
         </button>
+        {Settings?.apk_banner ? (
+          <img
+            onClick={handleDownload}
+            style={{ borderRadius: "12px" }}
+            src={Settings.apk_banner}
+            alt="apk_banner"
+          />
+        ) : (
+          <div className="promo-card ">
+            <header className="promo-header">
+              <div className="header-content">
+                <img
+                  src={images.install_android}
+                  className="size-20"
+                  alt="install_android"
+                />
 
-        <div className="promo-card ">
-          <header className="promo-header">
-            <div className="header-content">
-              <img
-                src={images.install_android}
-                className="size-20"
-                alt="install_android"
-              />
+                <h1 className="main-title">
+                  Download APK for Premium Gaming Experience
+                </h1>
+              </div>
+            </header>
 
-              <h1 className="main-title">
-                Download APK for Premium Gaming Experience
-              </h1>
-            </div>
-          </header>
+            <main className="promo-body">
+              <p className="intro-text">
+                Kabhi-kabhi website slow ho sakti hai ya link update ho jata
+                hai, lekin hamara Official App aapko hamesha connected rakhega
+                🚀
+              </p>
 
-          <main className="promo-body">
-            <p className="intro-text">
-              Kabhi-kabhi website slow ho sakti hai ya link update ho jata hai,
-              lekin hamara Official App aapko hamesha connected rakhega 🚀
-            </p>
+              <h2 className="benefits-title">App ke saath aapko milega:</h2>
 
-            <h2 className="benefits-title">App ke saath aapko milega:</h2>
+              <ul className="benefits-list mb-2">
+                <li>
+                  <strong>24×7 Instant Access</strong> – Har waqt khelo bina
+                  rukawat
+                </li>
+                <li>
+                  <strong>2X Faster Speed</strong> – Website se bhi double fast
+                  loading
+                </li>
+                <li>
+                  <strong>Secure Login</strong> – Aapka data hamesha safe &
+                  protected
+                </li>
+                <li>
+                  <strong>Non-Stop Gaming</strong> – No waiting, no
+                  interruptions
+                </li>
+              </ul>
 
-            <ul className="benefits-list mb-2">
-              <li>
-                <strong>24×7 Instant Access</strong> – Har waqt khelo bina
-                rukawat
-              </li>
-              <li>
-                <strong>2X Faster Speed</strong> – Website se bhi double fast
-                loading
-              </li>
-              <li>
-                <strong>Secure Login</strong> – Aapka data hamesha safe &
-                protected
-              </li>
-              <li>
-                <strong>Non-Stop Gaming</strong> – No waiting, no interruptions
-              </li>
-            </ul>
+              <p className="closing-text">
+                Yehi wajah hai ki sabse zyada serious players App prefer karte
+                hain. Aap bhi join karo unme aur pao ek premium lifestyle
+                experience 💎
+              </p>
 
-            <p className="closing-text">
-              Yehi wajah hai ki sabse zyada serious players App prefer karte
-              hain. Aap bhi join karo unme aur pao ek premium lifestyle
-              experience 💎
-            </p>
-
-            <a
-              onClick={handleDownload}
-              className="download-button text-primary"
-            >
-              <GrAndroid className="android-icon" />
-              <span>Download Official App Now ↓</span>
-            </a>
-          </main>
-        </div>
+              <a
+                onClick={handleDownload}
+                className="download-button text-primary"
+              >
+                <GrAndroid className="android-icon" />
+                <span>Download Official App Now ↓</span>
+              </a>
+            </main>
+          </div>
+        )}
       </div>
     </div>
   );
