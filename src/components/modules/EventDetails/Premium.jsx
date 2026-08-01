@@ -15,7 +15,7 @@ const Premium = ({ premium }) => {
 
   return (
     <>
-      <button
+      {/* <button
         className="btn mb-2"
         style={{
           background: "var(--primary-color)",
@@ -28,7 +28,7 @@ const Premium = ({ premium }) => {
         }}
       >
         Premium
-      </button>
+      </button> */}
       {premium && (
         <div
           className="w-full h-full min-h-screen"

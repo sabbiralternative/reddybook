@@ -18,8 +18,10 @@ import TennisScore from "../../components/modules/EventDetails/TennisScore";
 import FootballScore from "../../components/modules/EventDetails/FootballScore";
 import OpenBets from "../../components/modules/EventDetails/OpenBets";
 import Premium from "../../components/modules/EventDetails/Premium";
+import ToggleButtons from "../../components/modules/EventDetails/ToggleButtons";
 
 const EventDetails = () => {
+  const [fancyPremiumTab, setFancyPremiumTab] = useState("");
   const [showTv, setShowTv] = useState(true);
   const [tab, setTab] = useState("market");
   const [sportsVideo, { data: iframe }] = useVideoMutation();
@@ -137,6 +139,12 @@ const EventDetails = () => {
       game?.name === "tied match",
   );
 
+  const fancy = data?.result?.filter(
+    (normal) =>
+      normal.btype === "FANCY" &&
+      normal.tabGroupName === "Normal" &&
+      normal?.visible == true,
+  );
   useEffect(() => {
     const handleGetVideo = async () => {
       const payload = {
@@ -281,20 +289,31 @@ const EventDetails = () => {
                             {bookmaker?.length > 0 && (
                               <Bookmaker data={bookmaker} />
                             )}
+                            {data && (
+                              <ToggleButtons
+                                data={data}
+                                fancy={fancy}
+                                setFancyPremiumTab={setFancyPremiumTab}
+                                fancyPremiumTab={fancyPremiumTab}
+                              />
+                            )}
                           </div>
                         </section>
 
-                        {data?.result?.length > 0 && (
-                          <Fancy data={data?.result} />
-                        )}
+                        {data?.result?.length > 0 &&
+                          fancyPremiumTab === "fancy" && (
+                            <Fancy data={data?.result} />
+                          )}
+                        {data?.premium &&
+                          data?.premium?.eventId &&
+                          fancyPremiumTab === "premium" && (
+                            <Premium premium={data?.premium} />
+                          )}
                         {eventTypeId == 7 || eventTypeId == 4339 ? (
                           <HorseGreyhoundEventDetails data={data?.result} />
                         ) : null}
                         {tiedMatch?.length > 0 && (
                           <MatchOdds data={tiedMatch} />
-                        )}
-                        {data?.premium && data?.premium?.eventId && (
-                          <Premium premium={data?.premium} />
                         )}
                       </Fragment>
                     )}
