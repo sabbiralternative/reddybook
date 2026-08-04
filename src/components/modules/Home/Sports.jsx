@@ -2,8 +2,11 @@ import { useSelector } from "react-redux";
 import { useGroupQuery } from "../../../redux/features/events/events";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { filterLiveVirtual } from "../../../utils/filter-live-virtual";
+import LiveVirtual from "./LiveVirtual";
 
 const Sports = () => {
+  const [liveVirtual, setLiveVirtual] = useState([]);
   const { id } = useParams();
   const { group } = useSelector((state) => state.global);
   const eventId = id || id == 0 ? Number(id) : group;
@@ -44,15 +47,16 @@ const Sports = () => {
         <span> Inplay</span>
       </div>
       {categories?.map((category) => {
-        const filteredData = Object.entries(data)
-          .filter(
-            ([, value]) =>
-              value.eventTypeId === category && value.visible === true,
-          )
-          .reduce((obj, [key, value]) => {
-            obj[key] = value;
-            return obj;
-          }, {});
+        // const filteredData = Object.entries(data)
+        //   .filter(
+        //     ([, value]) =>
+        //       value.eventTypeId === category && value.visible === true,
+        //   )
+        //   .reduce((obj, [key, value]) => {
+        //     obj[key] = value;
+        //     return obj;
+        //   }, {});
+        const groupedData = filterLiveVirtual(liveVirtual, category, data, 1);
         return (
           <section key={category} className="bet-details-sec">
             <div className="bet-details-header">
@@ -66,24 +70,10 @@ const Sports = () => {
                     />
                     <span> {eventName[category]}</span>
                   </div>
-                  <ul className="live_virtual">
-                    <li>
-                      <input
-                        type="checkbox"
-                        className="filter-checkbox"
-                        defaultValue="Order one"
-                      />
-                      <label>LIVE</label>
-                    </li>
-                    <li>
-                      <input
-                        type="checkbox"
-                        className="filter-checkbox"
-                        defaultValue="Order Two"
-                      />
-                      <label>VIRTUAL</label>
-                    </li>
-                  </ul>
+                  <LiveVirtual
+                    setLiveVirtual={setLiveVirtual}
+                    category={category}
+                  />
                 </div>
                 <div className="col-12 col-md-6">
                   <div className="add-even-sec">
@@ -102,131 +92,127 @@ const Sports = () => {
             </div>
             <div>
               {data &&
-                Object.values(data).length > 0 &&
-                Object.keys(filteredData)
-                  .sort((keyA, keyB) => data[keyA].sort - data[keyB].sort)
-                  .map((keys, index) => {
-                    if (!data?.[keys]?.visible) {
-                      return null;
-                    }
+                groupedData.map(([keys], index) => {
+                  if (!data?.[keys]?.visible) {
+                    return null;
+                  }
 
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => navigateGameList(keys)}
-                        className="bets-details-page"
-                      >
-                        <div className="row">
-                          <div className="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <div className="game-left-box">
-                              <div className="game-left-col">
-                                {/**/}
-                                <div className="game-box">
-                                  <a href="javascript:void(0);">
-                                    <p>
-                                      {data[keys]?.player1} v
-                                      {data[keys]?.player2}
-                                    </p>
-                                    {/* <p className="team-event-name">
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => navigateGameList(keys)}
+                      className="bets-details-page"
+                    >
+                      <div className="row">
+                        <div className="col-12 col-sm-12 col-md-6 col-lg-6">
+                          <div className="game-left-box">
+                            <div className="game-left-col">
+                              {/**/}
+                              <div className="game-box">
+                                <a href="javascript:void(0);">
+                                  <p>
+                                    {data[keys]?.player1} v{data[keys]?.player2}
+                                  </p>
+                                  {/* <p className="team-event-name">
                                       (The Hundred - Womens)
                                     </p> */}
-                                  </a>
-                                </div>
-                                {data?.[keys]?.inPlay === 1 && (
-                                  <div className="game-date-inplay-box">
-                                    <span>Live</span>
-                                  </div>
-                                )}
-
-                                <div className="game-date">
-                                  {/* <p>27 Aug</p> */}
-                                  {data?.[keys]?.date}
-                                  {/* <p>8:00 PM</p> */}
-                                </div>
+                                </a>
                               </div>
-                              <div className="game-icons">
-                                {data?.[keys]?.isFancy === 1 && (
-                                  <a>
-                                    <img
-                                      loading="lazy"
-                                      src="data:image/webp;base64,UklGRngEAABXRUJQVlA4WAoAAAAwAAAAUwAAUwAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZBTFBIrgEAAA0kAUmKyoiIRhIk2aZt9bNt27bfzP/PbNu2bdu2bdu2bdvee521vxERMQEAQfy3G4iICVATSQrj6JXjAAPUmMqpjIgJwK9jQ/dAHzdbPRnH+hunzJoWkPxuIKhz0/S3kH5xLw+HWiVA+HIkWBZoC9ItR1g0SgdtHzDUq+YN2uPnGRg0tgftuz5g2NwExAdOMojJB/VYaN+0A6jvLGVQ4R1ZX2jfrB6odx5jUBnU73pC+xa1yQ7fYFAQwm+PTd/16N3XOINhIaGrVS+CvbWXyPVqUKCTjkhHqNAFgudXKcFNZC6UaCOyTw0GIo/UoCvyVg1qnjZIwEYNVy8IKDLpgOEZe7oH6Yc1ZjF3Ym26+brQtkHzbkNzPale9oTWE6M6rihPNQvabzhodAlDmiezGfhntFlfkWaQPgPUntS1lDXFzQXgGBHaZl1tHYLx4Flp3PCCrvJeTWGSaD12TTl588C1VZ8ulaxlPR7MJslt9OyqspbqsTFo1b9vYUtJg8A3IKbzgSJyJoNz035dHOWcYOWX1bCbHOa17fHp1JNKCSj5meknlPL/pCoG9MBk+H9WUDgg1AAAALAHAJ0BKlQAVAA+bSyTRaQioZgONDhABsSzgGmEwZBHiz7MZy1kS8JBu++DIR5NIHA8Cc0z5KWipHJCJPpEP8425kxHywAA/vuc1Z6Izz2rq+2UeFJsIf39Ek2GLIc88tGAQ8AIP0L3Vto/BH/gfUlLplAL+SYD6pTxwwEvxg60xzObdxjLJpyyfsIgxRjJ8OBbjMBuWjABXPfzyO1D3v0fFrZRkSM1UOSBx+PgWrLTawoiADXcMo4BkBejRDT3fo16lyukrazhxoo+tbNogAAAAAAA"
-                                      alt="Fancy icon"
-                                    />
-                                  </a>
-                                )}
-                                {data?.[keys]?.isTv === 1 && (
-                                  <a>
-                                    <img
-                                      loading="lazy"
-                                      src="data:image/webp;base64,UklGRrICAABXRUJQVlA4WAoAAAAwAAAAFwAAFwAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZBTFBIXgAAAAFHIBBI4SYXEREGMK2tvclHtx0sIzACMhKFDhsk7h8g5d87dBggov8TgCdlf0ZRVK4HpR82OoAmVwSz50NqDZ8UHONwIsZJ/icfHY1k+KRY/IkUkhCWPgdUvgOd435WUDggXgAAABAEAJ0BKhgAGAA+bSqRRaQioZv6rABABsSygFiPZTt+TsDptcvnPhmAAP772WJ79pOFwuhd4F59ntZMqtnZHrEhW98RWozqa5ZzsJlXFQV5ArFbIOssgB6OGuAAAAA="
-                                      alt="TV icon"
-                                    />
-                                  </a>
-                                )}
-                                {data?.[keys]?.isBookmaker === 1 && (
-                                  <a>
-                                    <span className="game-bm">BM</span>
-                                  </a>
-                                )}
+                              {data?.[keys]?.inPlay === 1 && (
+                                <div className="game-date-inplay-box">
+                                  <span>Live</span>
+                                </div>
+                              )}
+
+                              <div className="game-date">
+                                {/* <p>27 Aug</p> */}
+                                {data?.[keys]?.date}
+                                {/* <p>8:00 PM</p> */}
                               </div>
                             </div>
+                            <div className="game-icons">
+                              {data?.[keys]?.isFancy === 1 && (
+                                <a>
+                                  <img
+                                    loading="lazy"
+                                    src="data:image/webp;base64,UklGRngEAABXRUJQVlA4WAoAAAAwAAAAUwAAUwAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZBTFBIrgEAAA0kAUmKyoiIRhIk2aZt9bNt27bfzP/PbNu2bdu2bdu2bdvee521vxERMQEAQfy3G4iICVATSQrj6JXjAAPUmMqpjIgJwK9jQ/dAHzdbPRnH+hunzJoWkPxuIKhz0/S3kH5xLw+HWiVA+HIkWBZoC9ItR1g0SgdtHzDUq+YN2uPnGRg0tgftuz5g2NwExAdOMojJB/VYaN+0A6jvLGVQ4R1ZX2jfrB6odx5jUBnU73pC+xa1yQ7fYFAQwm+PTd/16N3XOINhIaGrVS+CvbWXyPVqUKCTjkhHqNAFgudXKcFNZC6UaCOyTw0GIo/UoCvyVg1qnjZIwEYNVy8IKDLpgOEZe7oH6Yc1ZjF3Ym26+brQtkHzbkNzPale9oTWE6M6rihPNQvabzhodAlDmiezGfhntFlfkWaQPgPUntS1lDXFzQXgGBHaZl1tHYLx4Flp3PCCrvJeTWGSaD12TTl588C1VZ8ulaxlPR7MJslt9OyqspbqsTFo1b9vYUtJg8A3IKbzgSJyJoNz035dHOWcYOWX1bCbHOa17fHp1JNKCSj5meknlPL/pCoG9MBk+H9WUDgg1AAAALAHAJ0BKlQAVAA+bSyTRaQioZgONDhABsSzgGmEwZBHiz7MZy1kS8JBu++DIR5NIHA8Cc0z5KWipHJCJPpEP8425kxHywAA/vuc1Z6Izz2rq+2UeFJsIf39Ek2GLIc88tGAQ8AIP0L3Vto/BH/gfUlLplAL+SYD6pTxwwEvxg60xzObdxjLJpyyfsIgxRjJ8OBbjMBuWjABXPfzyO1D3v0fFrZRkSM1UOSBx+PgWrLTawoiADXcMo4BkBejRDT3fo16lyukrazhxoo+tbNogAAAAAAA"
+                                    alt="Fancy icon"
+                                  />
+                                </a>
+                              )}
+                              {data?.[keys]?.isTv === 1 && (
+                                <a>
+                                  <img
+                                    loading="lazy"
+                                    src="data:image/webp;base64,UklGRrICAABXRUJQVlA4WAoAAAAwAAAAFwAAFwAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZBTFBIXgAAAAFHIBBI4SYXEREGMK2tvclHtx0sIzACMhKFDhsk7h8g5d87dBggov8TgCdlf0ZRVK4HpR82OoAmVwSz50NqDZ8UHONwIsZJ/icfHY1k+KRY/IkUkhCWPgdUvgOd435WUDggXgAAABAEAJ0BKhgAGAA+bSqRRaQioZv6rABABsSygFiPZTt+TsDptcvnPhmAAP772WJ79pOFwuhd4F59ntZMqtnZHrEhW98RWozqa5ZzsJlXFQV5ArFbIOssgB6OGuAAAAA="
+                                    alt="TV icon"
+                                  />
+                                </a>
+                              )}
+                              {data?.[keys]?.isBookmaker === 1 && (
+                                <a>
+                                  <span className="game-bm">BM</span>
+                                </a>
+                              )}
+                            </div>
                           </div>
-                          <div className="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <div className="game-box-rgt">
-                              <div className="open-bet-box">
-                                <button type="button" className="sky-color-box">
-                                  <span>
-                                    {data?.[keys]?.[0]?.ex?.availableToBack[0]
-                                      ?.price || "-"}
-                                  </span>
-                                  <br />
-                                </button>
-                                <button type="button">
-                                  <span>
-                                    {data?.[keys]?.[0]?.ex?.availableToLay?.[0]
-                                      ?.price || "-"}
-                                  </span>
-                                  <br />
-                                </button>
-                              </div>
-                              <div className="open-bet-box">
-                                <button type="button" className="sky-color-box">
-                                  <span>
-                                    {data?.[keys]?.[2]?.ex?.availableToBack?.[0]
-                                      ?.price || "-"}
-                                  </span>
-                                  <br />
-                                </button>
-                                <button type="button">
-                                  <span>
-                                    {data?.[keys]?.[2]?.ex?.availableToLay?.[0]
-                                      ?.price || "-"}
-                                  </span>
-                                  <br />
-                                </button>
-                              </div>
-                              <div className="open-bet-box">
-                                <button type="button" className="sky-color-box">
-                                  <span>
-                                    {data?.[keys]?.[1]?.ex?.availableToBack?.[0]
-                                      ?.price || "-"}
-                                  </span>
-                                  <br />
-                                </button>
-                                <button type="button">
-                                  <span>
-                                    {data?.[keys]?.[1]?.ex?.availableToLay?.[0]
-                                      ?.price || "-"}
-                                  </span>
-                                  <br />
-                                </button>
-                              </div>
+                        </div>
+                        <div className="col-12 col-sm-12 col-md-6 col-lg-6">
+                          <div className="game-box-rgt">
+                            <div className="open-bet-box">
+                              <button type="button" className="sky-color-box">
+                                <span>
+                                  {data?.[keys]?.[0]?.ex?.availableToBack[0]
+                                    ?.price || "-"}
+                                </span>
+                                <br />
+                              </button>
+                              <button type="button">
+                                <span>
+                                  {data?.[keys]?.[0]?.ex?.availableToLay?.[0]
+                                    ?.price || "-"}
+                                </span>
+                                <br />
+                              </button>
+                            </div>
+                            <div className="open-bet-box">
+                              <button type="button" className="sky-color-box">
+                                <span>
+                                  {data?.[keys]?.[2]?.ex?.availableToBack?.[0]
+                                    ?.price || "-"}
+                                </span>
+                                <br />
+                              </button>
+                              <button type="button">
+                                <span>
+                                  {data?.[keys]?.[2]?.ex?.availableToLay?.[0]
+                                    ?.price || "-"}
+                                </span>
+                                <br />
+                              </button>
+                            </div>
+                            <div className="open-bet-box">
+                              <button type="button" className="sky-color-box">
+                                <span>
+                                  {data?.[keys]?.[1]?.ex?.availableToBack?.[0]
+                                    ?.price || "-"}
+                                </span>
+                                <br />
+                              </button>
+                              <button type="button">
+                                <span>
+                                  {data?.[keys]?.[1]?.ex?.availableToLay?.[0]
+                                    ?.price || "-"}
+                                </span>
+                                <br />
+                              </button>
                             </div>
                           </div>
                         </div>
                       </div>
-                    );
-                  })}
+                    </div>
+                  );
+                })}
             </div>
           </section>
         );
