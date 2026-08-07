@@ -33,8 +33,13 @@ const baseQuery = async (args, api, extraOptions) => {
     let payload = {
       ...body,
       token: generatedToken,
-      site: Settings.siteUrl,
     };
+
+    if (!body?.site) {
+      if (Settings.site) {
+        payload.site = Settings.site;
+      }
+    }
     if (Settings.language) {
       payload.language = localStorage.getItem("language") || "english";
     }
