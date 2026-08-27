@@ -9,6 +9,8 @@ import {
   usePgPaymentMutation,
 } from "../../../redux/features/deposit/event.api";
 import images from "../../../assets/images";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const PaymentMethod = ({
   setUploadTransaction,
@@ -19,6 +21,7 @@ const PaymentMethod = ({
   setTabs,
   tabs,
 }) => {
+  const { getLanguage } = useLanguage();
   const paymentMethodRef = useRef();
   const [depositData, setDepositData] = useState({});
   const [handlePgPayment] = usePgPaymentMutation();
@@ -197,7 +200,12 @@ const PaymentMethod = ({
                   })}
               {isFetched && paymentMethods?.length === 0 && (
                 <div className="py-10 flex items-center justify-center w-full">
-                  <h2>No payment method available right now.</h2>
+                  <h2>
+                    {getLanguage(
+                      LanguageKey.NO_PAYMENT_METHOD_AVAILABLE_RIGHT_NOW,
+                    )}
+                    .
+                  </h2>
                 </div>
               )}
             </div>
@@ -207,12 +215,12 @@ const PaymentMethod = ({
             {tabs === "bank" && (
               <div className="w-full mt-2.5 rounded-[10px] bg-bg_Quaternary px-3 py-[15px]">
                 <div className=" font-medium mt-[4px] text-base leading-5">
-                  Payment Details
+                  {getLanguage(LanguageKey.PAYMENT_DETAILS)}
                 </div>
                 <div className="mt-2 w-full">
                   <span className="flex flex-col items-start justify-start">
                     <span className="text-AccountDetailsHeadings text-[10px]  leading-4 sm:text-xs md:text-sm">
-                      Account
+                      {getLanguage(LanguageKey.ACCOUNT_NUMBER)}
                     </span>
                     <div className="flex items-center justify-between w-full  text-base font-medium leading-5 tracking-wide">
                       <span> {depositData?.accountNumber}</span>
@@ -256,7 +264,7 @@ const PaymentMethod = ({
                 <div className="mt-2.5 w-full">
                   <span className="flex flex-col items-start justify-start">
                     <span className="text-AccountDetailsHeadings text-[10px]  leading-4 sm:text-xs md:text-sm">
-                      IFSC
+                      {getLanguage(LanguageKey.IFSC_CODE)}
                     </span>
                     <div className="flex items-center justify-between w-full  text-base font-medium leading-5 tracking-wide">
                       <span> {depositData?.ifsc}</span>
@@ -298,7 +306,7 @@ const PaymentMethod = ({
                 <div className="mt-2.5 w-full">
                   <span className="flex flex-col items-start justify-start">
                     <span className="text-AccountDetailsHeadings text-[10px]  leading-4 sm:text-xs md:text-sm">
-                      Account Name
+                      {getLanguage(LanguageKey.ACCOUNT_NAME)}
                     </span>
                     <div
                       onClick={() =>
@@ -342,7 +350,7 @@ const PaymentMethod = ({
                 <div className="mt-2.5 w-full">
                   <span className="flex flex-col items-start justify-start">
                     <span className="text-AccountDetailsHeadings text-[10px]  leading-4 sm:text-xs md:text-sm">
-                      Bank Name
+                      {getLanguage(LanguageKey.BANK_NAME)}
                     </span>
                     <div className="flex items-center justify-between w-full  text-base font-medium leading-5 tracking-wide">
                       <span> {depositData?.bankName}</span>
@@ -388,12 +396,12 @@ const PaymentMethod = ({
             {tabs === "upi" && (
               <div className="w-full mt-2.5 rounded-[10px] bg-bg_Quaternary px-3 py-[15px]">
                 <div className=" font-medium mt-[4px] text-base leading-5">
-                  Payment Details
+                  {getLanguage(LanguageKey.PAYMENT_DETAILS)}
                 </div>
                 <div className="mt-2 w-full">
                   <span className="flex flex-col items-start justify-start">
                     <span className="text-AccountDetailsHeadings text-[10px]  leading-4 sm:text-xs md:text-sm">
-                      Display Name
+                      {getLanguage(LanguageKey.DISPLAY_NAME)}
                     </span>
                     <div className="flex items-center justify-between w-full  text-base font-medium leading-5 tracking-wide">
                       <span> {depositData?.upiAccountName}</span>
@@ -437,7 +445,7 @@ const PaymentMethod = ({
                 <div className="mt-2.5 w-full">
                   <span className="flex flex-col items-start justify-start">
                     <span className="text-AccountDetailsHeadings text-[10px]  leading-4 sm:text-xs md:text-sm">
-                      UPI Details
+                      {getLanguage(LanguageKey.UPI_DETAILS)}
                     </span>
                     <div className="flex items-center justify-between w-full  text-base font-medium leading-5 tracking-wide">
                       <span> {depositData?.upiId}</span>
@@ -483,7 +491,7 @@ const PaymentMethod = ({
             {tabs === "qr" && (
               <div className="w-full mt-2.5 rounded-[10px] bg-bg_Quaternary px-3 py-[15px]">
                 <div className=" font-medium mt-[4px] text-base leading-5">
-                  QR code for payment
+                  {getLanguage(LanguageKey.QR_CODE_FOR_PAYMENT)}
                 </div>
                 <div className="mt-2 w-full">
                   <div className="flex items-center justify-center my-3">
@@ -503,7 +511,7 @@ const PaymentMethod = ({
                   {depositData?.qrDisplayName && (
                     <span className="flex flex-col items-start justify-start">
                       <span className="text-AccountDetailsHeadings text-[10px]  leading-4 sm:text-xs md:text-sm">
-                        Display Name
+                        {getLanguage(LanguageKey.DISPLAY_NAME)}
                       </span>
                       <div className="flex items-center justify-between w-full  text-base font-medium leading-5 tracking-wide">
                         <span> {depositData?.qrDisplayName}</span>
@@ -552,7 +560,7 @@ const PaymentMethod = ({
                 {depositData?.token && (
                   <span className="flex flex-col items-start justify-start">
                     <span className="text-AccountDetailsHeadings text-[10px]  leading-4 sm:text-xs md:text-sm">
-                      Wallet Address
+                      {getLanguage(LanguageKey.WALLET_ADDRESS)}
                     </span>
                     <div className="flex items-center justify-between w-full  text-base font-medium leading-5 tracking-wide">
                       <span> {depositData?.token}</span>
@@ -596,7 +604,7 @@ const PaymentMethod = ({
 
                 <span className="flex flex-col items-start justify-start">
                   <span className="text-AccountDetailsHeadings text-[10px]  leading-4 sm:text-xs md:text-sm">
-                    Amount
+                    {getLanguage(LanguageKey.AMOUNT)}
                   </span>
                   <div className="flex items-center justify-between w-full  text-base font-medium leading-5 tracking-wide">
                     <span> USDT {depositData?.depositAmount}</span>
@@ -640,7 +648,7 @@ const PaymentMethod = ({
                 </span>
 
                 <div className=" font-medium mt-[4px] text-base leading-5">
-                  QR code for payment
+                  {getLanguage(LanguageKey.QR_CODE_FOR_PAYMENT)}
                 </div>
                 <div className="mt-2 w-full">
                   <div className="flex items-center justify-center my-3">
@@ -709,7 +717,7 @@ const PaymentMethod = ({
                 type="submit"
                 className="inline-block leading-normal relative overflow-hidden transition duration-150 ease-in-out bg-bg_Primary flex items-center justify-center gap-x-2 w-full text-primary h-10 text-base rounded-md font-[500] leading-4 disabled:bg-bg_Quinary cursor-pointer"
               >
-                <span>I have made the payment</span>
+                <span>{getLanguage(LanguageKey.I_HAVE_MADE_THE_PAYMENT)}</span>
               </button>
             </div>
           )}

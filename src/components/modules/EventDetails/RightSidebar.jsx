@@ -4,8 +4,11 @@ import { useParams } from "react-router-dom";
 import { Settings } from "../../../api";
 import BetSlip from "./BetSlip";
 import OpenBets from "./OpenBets";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const RightSidebar = ({ score, showTv }) => {
+  const { getLanguage } = useLanguage();
   const { eventId, eventTypeId } = useParams();
   const [sportsVideo, { data: iframe }] = useVideoMutation();
   useEffect(() => {
@@ -25,7 +28,9 @@ const RightSidebar = ({ score, showTv }) => {
       <div data-v-4efaf06d className="placed-bet-sec">
         {score && iframe?.result?.url && score?.hasVideo && showTv && (
           <div data-v-4efaf06d="" className="placed-bet-head open-bet">
-            <span data-v-4efaf06d="">Live Stream</span>
+            <span data-v-4efaf06d="">
+              {getLanguage(LanguageKey.LIVE_STREAM)}
+            </span>
           </div>
         )}
         {score && iframe?.result?.url && score?.hasVideo && showTv && (
@@ -42,7 +47,7 @@ const RightSidebar = ({ score, showTv }) => {
         )}
 
         <div data-v-4efaf06d className="placed-bet-head">
-          <span data-v-4efaf06d>Place Bet</span>
+          <span data-v-4efaf06d>{getLanguage(LanguageKey.PLACE_BET)}</span>
         </div>
 
         <BetSlip />

@@ -4,8 +4,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { filterLiveVirtual } from "../../../utils/filter-live-virtual";
 import LiveVirtual from "./LiveVirtual";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const Sports = () => {
+  const { getLanguage } = useLanguage();
   const [liveVirtual, setLiveVirtual] = useState([]);
   const { id } = useParams();
   const { group } = useSelector((state) => state.global);
@@ -44,7 +47,7 @@ const Sports = () => {
   return (
     <>
       <div style={{ width: "100%" }} className="list-sport-title">
-        <span> Inplay</span>
+        <span> {getLanguage(LanguageKey.IN_PLAY)}</span>
       </div>
       {categories?.map((category) => {
         // const filteredData = Object.entries(data)
@@ -120,7 +123,7 @@ const Sports = () => {
                               </div>
                               {data?.[keys]?.inPlay === 1 && (
                                 <div className="game-date-inplay-box">
-                                  <span>Live</span>
+                                  <span>{getLanguage(LanguageKey.LIVE)}</span>
                                 </div>
                               )}
 

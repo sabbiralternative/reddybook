@@ -1,17 +1,18 @@
 import { useRef, useState } from "react";
 import useCloseModalClickOutside from "../../../hooks/closeModal";
-import { useLanguage } from "../../../context/LanguageProvider";
 import { useGetLanguage } from "../../../hooks/language.hook";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setShowLanguageModal } from "../../../redux/features/global/globalSlice";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const Language = () => {
   const dispatch = useDispatch();
   const [selectedLan, setSelectedLag] = useState(
     localStorage.getItem("language") || null,
   );
-  const { setLanguage } = useLanguage();
+  const { setLanguage, getLanguage } = useLanguage();
   const { data } = useGetLanguage();
 
   const languages = data?.CRICKET;
@@ -72,11 +73,14 @@ const Language = () => {
           <div className="sm:flex sm:items-start">
             <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
               <h3 className="text-lg font-medium leading-6 text-text_color_primary1">
-                Select Language
+                {getLanguage(LanguageKey.SELECT_LANGUAGE)}
               </h3>
               <div className="mt-2">
                 <p className="text-sm text-text_color_primary1">
-                  Choose your preferred language from the list below:
+                  {getLanguage(
+                    LanguageKey.CHOOSE_YOUR_PREFERRED_LANGUAGE_FROM_THE_LIST_BELOW,
+                  )}
+                  :
                 </p>
               </div>
             </div>
@@ -124,14 +128,14 @@ const Language = () => {
             type="button"
             className="relative overflow-hidden inline-flex justify-center w-full px-4 py-2 text-base font-medium text-text_color_primary2 bg-primary border border-transparent rounded-md shadow-sm  focus:outline-none  sm:ml-3 sm:w-auto sm:text-sm text-primary"
           >
-            Confirm
+            {getLanguage(LanguageKey.CONFIRM)}
           </button>
           <button
             onClick={closeModal}
             type="button"
             className="relative overflow-hidden inline-flex justify-center w-full px-4 py-2  text-base font-medium text-primary bg-primary  rounded-md shadow-sm hover:bg-bg_color_secondary hover:border-border_color_brand_primary focus:outline-none focus:ring-2 focus:ring-offset-2  sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
           >
-            Cancel
+            {getLanguage(LanguageKey.CANCEL)}
           </button>
         </div>
       </div>

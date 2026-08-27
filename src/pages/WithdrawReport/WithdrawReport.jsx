@@ -7,8 +7,11 @@ import Complaint from "../../components/modals/Complaint/Complaint";
 import ShowImage from "../../components/modals/ShowImage/ShowImage";
 import { Settings } from "../../api";
 import SidebarLayout from "../../layout/SidebarLayout";
+import useLanguage from "../../hooks/use-language";
+import { LanguageKey } from "../../const";
 
 const WithdrawReport = () => {
+  const { getLanguage } = useLanguage();
   const [deleteWithdraw] = useBankAccountMutation();
   const [complaintId, setComplaintId] = useState(null);
   const [image, setImage] = useState("");
@@ -81,7 +84,7 @@ const WithdrawReport = () => {
                                 >
                                   <div className="flex justify-between items-start text-[10px] font-bold h-full">
                                     <div className="text-base px-3 py-1">
-                                      Withdraw
+                                      {getLanguage(LanguageKey.WITHDRAW)}
                                     </div>
                                     <div
                                       className={`px-3 py-1 text-x xs:text-xs sm:text-sm font-medium text-primary rounded-bl h-full   
@@ -141,14 +144,19 @@ const WithdrawReport = () => {
                                               }
                                               className="px-2 py-1 text-xs xs:text-xs sm:text-sm font-medium text-primary rounded-tl rounded-tr h-fit tracking-normal"
                                             >
-                                              Cancel Withdraw
+                                              {getLanguage(
+                                                LanguageKey.CANCEL_WITHDRAWAL,
+                                              )}
                                             </button>
                                           )}
 
                                         {data.status === "PENDING" &&
                                           data?.reject_request === 1 && (
                                             <p className="px-2 py-1 text-xs xs:text-xs sm:text-sm font-medium text-primary rounded-tl rounded-tr h-fit tracking-normal">
-                                              Withdraw delete request sent.
+                                              {getLanguage(
+                                                LanguageKey.WITHDRAW_DELETE_REQUEST_SENT,
+                                              )}
+                                              .
                                             </p>
                                           )}
                                         {Settings.complaint && (
@@ -162,7 +170,9 @@ const WithdrawReport = () => {
                                             }
                                             className="px-2 py-1 text-xs xs:text-xs sm:text-sm font-medium text-primary rounded-tl h-fit tracking-normal"
                                           >
-                                            Report Issue
+                                            {getLanguage(
+                                              LanguageKey.REPORT_ISSUE,
+                                            )}
                                           </button>
                                         )}
                                       </div>
@@ -180,7 +190,7 @@ const WithdrawReport = () => {
                   </>
                 ) : (
                   <div className="flex items-center justify-center pt-20">
-                    <p>No transaction yet!</p>
+                    <p>{getLanguage(LanguageKey.NO_TRANSACTION_YET)}!</p>
                   </div>
                 )}
               </div>

@@ -2,15 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/features/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { Settings } from "../../../api";
-import { useLanguage } from "../../../context/LanguageProvider";
-import { languageValue } from "../../../utils/language";
 import { LanguageKey } from "../../../const";
 import { handleCopyToClipBoard } from "../../../utils/handleCopyToClipBoard";
 import { setShowLanguageModal } from "../../../redux/features/global/globalSlice";
+import useLanguage from "../../../hooks/use-language";
 
 const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
   const closePopupForForever = localStorage.getItem("closePopupForForever");
-  const { valueByLanguage } = useLanguage();
+  const { getLanguage } = useLanguage();
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -94,12 +93,15 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
         <li className="menu-rgt-icons">
           <div className="balance-row">
             <div className="balance-text-left">
-              Wallet Amount <small>(Inclusive bonus)</small>
+              {getLanguage(LanguageKey.WALLET_AMOUNT)}{" "}
+              <small>(Inclusive bonus)</small>
             </div>
             <div className="balance-price">{availBalance}</div>
           </div>
           <div className="balance-row">
-            <div className="balance-text-left">Net Exposure</div>
+            <div className="balance-text-left">
+              {getLanguage(LanguageKey.EXPOSURE)}
+            </div>
             <div className="balance-price">{deductedExposure}</div>
           </div>
         </li>
@@ -166,7 +168,9 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
               className="dropdown-item"
             >
               <i className="bi bi-people" />
-              <span className="menu-rgt-text"> Customer Support</span>
+              <span className="menu-rgt-text">
+                {getLanguage(LanguageKey.CUSTOMER_SUPPORT)}
+              </span>
             </a>
           </li>
         )}
@@ -180,7 +184,7 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             <i className="bi bi-people" />
             <span className="menu-rgt-text">
               {" "}
-              {languageValue(valueByLanguage, LanguageKey.DEPOSIT)}
+              {getLanguage(LanguageKey.DEPOSIT)}
             </span>
           </Link>
         </li>
@@ -193,7 +197,7 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             <i className="bi bi-bar-chart-steps" />
             <span className="menu-rgt-text">
               {" "}
-              {languageValue(valueByLanguage, LanguageKey.WITHDRAW)}
+              {getLanguage(LanguageKey.WITHDRAW)}
             </span>
           </Link>
         </li>
@@ -204,7 +208,10 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             className="dropdown-item"
           >
             <i className="bi bi-bar-chart-steps" />
-            <span className="menu-rgt-text"> Deposit Report</span>
+            <span className="menu-rgt-text">
+              {" "}
+              {getLanguage(LanguageKey.DEPOSIT_STATEMENT)}
+            </span>
           </Link>
         </li>
         <li className="menu-rgt-icons">
@@ -214,7 +221,10 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             className="dropdown-item"
           >
             <i className="bi bi-people" />
-            <span className="menu-rgt-text"> Withdraw Report</span>
+            <span className="menu-rgt-text">
+              {" "}
+              {getLanguage(LanguageKey.WITHDRAW_STATMENT)}
+            </span>
           </Link>
         </li>
         <li className="menu-rgt-icons">
@@ -224,7 +234,9 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             className="dropdown-item"
           >
             <i className="bi bi-file-text" />
-            <span className="menu-rgt-text"> Open Bets</span>
+            <span className="menu-rgt-text">
+              {getLanguage(LanguageKey.OPEN_BETS)}
+            </span>
           </Link>
         </li>
         <li className="menu-rgt-icons">
@@ -234,7 +246,9 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             className="dropdown-item"
           >
             <i className="bi bi-bar-chart" />
-            <span className="menu-rgt-text"> Betting Profit & Loss</span>
+            <span className="menu-rgt-text">
+              {getLanguage(LanguageKey.BETTING_PROFIT_AND_LOSS)}
+            </span>
           </Link>
         </li>
         <li className="menu-rgt-icons">
@@ -246,7 +260,7 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             <i className="bi bi-people" />
             <span className="menu-rgt-text">
               {" "}
-              {languageValue(valueByLanguage, LanguageKey.MY_BANK_DETAILS)}
+              {getLanguage(LanguageKey.MY_BANK_DETAILS)}
             </span>
           </Link>
         </li>
@@ -258,7 +272,10 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
               className="dropdown-item"
             >
               <i className="bi bi-people" />
-              <span className="menu-rgt-text"> Affiliate</span>
+              <span className="menu-rgt-text">
+                {" "}
+                {getLanguage(LanguageKey.AFFILIATE)}
+              </span>
             </Link>
           </li>
         )}
@@ -269,7 +286,10 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             className="dropdown-item"
           >
             <i className="bi bi-people" />
-            <span className="menu-rgt-text"> Promotions</span>
+            <span className="menu-rgt-text">
+              {" "}
+              {getLanguage(LanguageKey.PROMOTIONS)}
+            </span>
           </Link>
         </li>
         <li className="menu-rgt-icons">
@@ -281,7 +301,7 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             <i className="bi bi-people" />
             <span className="menu-rgt-text">
               {" "}
-              {languageValue(valueByLanguage, LanguageKey.BONUS_STATEMENT)}
+              {getLanguage(LanguageKey.BONUS_STATEMENT)}
             </span>
           </Link>
         </li>
@@ -292,7 +312,9 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             className="dropdown-item"
           >
             <i className="bi bi-people" />
-            <span className="menu-rgt-text"> Lossback Bonus</span>
+            <span className="menu-rgt-text">
+              {getLanguage(LanguageKey.LOSSBACK_BONUS)}
+            </span>
           </Link>
         </li>
         {closePopupForForever && (
@@ -303,7 +325,9 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
               className="dropdown-item"
             >
               <i className="bi bi-people" />
-              <span className="menu-rgt-text"> App Only Bonus</span>
+              <span className="menu-rgt-text">
+                {getLanguage(LanguageKey.APP_ONLY_BONUS)}
+              </span>
             </Link>
           </li>
         )}
@@ -314,7 +338,9 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             className="dropdown-item"
           >
             <i className="bi bi-person" />
-            <span className="menu-rgt-text">My Profile</span>
+            <span className="menu-rgt-text">
+              {getLanguage(LanguageKey.PROFILE)}
+            </span>
           </a>
         </li>
 
@@ -324,7 +350,9 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             className="dropdown-item"
           >
             <i className="bi bi-bullseye" />
-            <span className="menu-rgt-text">Stake Settings</span>
+            <span className="menu-rgt-text">
+              {getLanguage(LanguageKey.STAKE_SETTING)}
+            </span>
           </a>
         </li>
         {Settings.language && (
@@ -338,7 +366,9 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
               data-bs-target="#language_selection_pop_up"
             >
               <i className="bi bi-globe" />
-              <span className="menu-rgt-text">Language</span>
+              <span className="menu-rgt-text">
+                {getLanguage(LanguageKey.LANGUAGE)}
+              </span>
             </a>
           </li>
         )}
@@ -351,7 +381,7 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
             <i className="bi bi-lock" />
             <span className="menu-rgt-text">
               {" "}
-              {languageValue(valueByLanguage, LanguageKey.CHANGE_PASSWORD)}{" "}
+              {getLanguage(LanguageKey.CHANGE_PASSWORD)}{" "}
             </span>
           </a>
         </li>
@@ -359,7 +389,9 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
           <li className="menu-rgt-icons">
             <a onClick={handleDownloadAPK} className="dropdown-item">
               <i className="bi bi-people" />
-              <span className="menu-rgt-text"> Download APK</span>
+              <span className="menu-rgt-text">
+                {getLanguage(LanguageKey.DOWNLOAD_APK)}
+              </span>
             </a>
           </li>
         )}
@@ -367,7 +399,9 @@ const Dropdown = ({ availBalance, deductedExposure, setShowDropdown }) => {
       <li onClick={handleLogout} className="menu-rgt-icons">
         <a className="dropdown-item signout-btn">
           <i className="bi bi-box-arrow-right" />
-          <span className="menu-rgt-text">Sign Out</span>
+          <span className="menu-rgt-text">
+            {getLanguage(LanguageKey.LOGOUT)}
+          </span>
         </a>
       </li>
     </ul>

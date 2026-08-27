@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Settings } from "../../../api";
-// import { useLanguage } from "../../../context/LanguageProvider";
 import { useLogo } from "../../../context/ApiProvider";
 import { useDispatch } from "react-redux";
 import { useLoginMutation } from "../../../redux/features/auth/authApi";
@@ -15,12 +14,11 @@ import {
 import { useForm } from "react-hook-form";
 import { setUser } from "../../../redux/features/auth/authSlice";
 import toast from "react-hot-toast";
-import { useLanguage } from "../../../context/LanguageProvider";
-import { languageValue } from "../../../utils/language";
 import { LanguageKey } from "../../../const";
+import useLanguage from "../../../hooks/use-language";
 
 const Login = () => {
-  const { valueByLanguage } = useLanguage();
+  const { getLanguage } = useLanguage();
   const [userName, setUserName] = useState(null);
   const [password, setPassword] = useState(null);
   const navigate = useNavigate();
@@ -199,7 +197,7 @@ const Login = () => {
                             aria-controls="phone-login"
                             aria-selected="true"
                           >
-                            Mobile Number
+                            {getLanguage(LanguageKey.MOBILE_NUMBER)}
                           </button>
                         </li>
                       )}
@@ -224,7 +222,7 @@ const Login = () => {
                           aria-selected="false"
                           tabIndex={-1}
                         >
-                          User ID
+                          {getLanguage(LanguageKey.USER_ID)}
                         </button>
                       </li>
                     </ul>
@@ -475,7 +473,7 @@ const Login = () => {
                         onClick={showForgotPassword}
                         data-bs-toggle="modal"
                       >
-                        Forgot Password?
+                        {getLanguage(LanguageKey.FORGOT_PASSWORD)}?
                       </a>
                     </div>
                     <div data-v-39abe11c className="login-cmn-btn">
@@ -484,23 +482,24 @@ const Login = () => {
                         data-v-39abe11c
                         type="button"
                       >
-                        <span data-v-39abe11c>Login with Demo ID</span>
+                        <span data-v-39abe11c>
+                          {getLanguage(LanguageKey.DEMO_LOGIN)}
+                        </span>
                         {/**/}
                       </button>
                       <button data-v-39abe11c type="submit">
                         <span data-v-39abe11c>
                           {" "}
-                          {languageValue(
-                            valueByLanguage,
-                            LanguageKey.LOGIN,
-                          )}{" "}
+                          {getLanguage(LanguageKey.LOGIN)}{" "}
                         </span>
                         {/**/}
                       </button>
                     </div>
                     <div data-v-39abe11c className="download-btnWrap">
                       <a data-v-39abe11c className="downloadApp-btn">
-                        <span data-v-39abe11c>Download APK</span>
+                        <span data-v-39abe11c>
+                          {getLanguage(LanguageKey.DOWNLOAD_APK)}
+                        </span>
                         <svg
                           width={20}
                           height={20}
@@ -587,7 +586,7 @@ const Login = () => {
                         onClick={showRegister}
                         data-bs-toggle="modal"
                       >
-                        Register
+                        {getLanguage(LanguageKey.REGISTER)}
                       </a>
                     </p>
                   </div>

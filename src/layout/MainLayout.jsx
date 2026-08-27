@@ -23,6 +23,8 @@ const MainLayout = () => {
   });
   return (
     <div>
+      <meta name="description" content={Settings.metaDescription} />
+      <meta name="keywords" content={Settings.metaKeywords} />
       {showMobileSidebar && (
         <div className="mobile-offcanvass">
           <div className="offcanvas offcanvas-start show" ref={ref}>

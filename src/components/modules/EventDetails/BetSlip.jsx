@@ -19,8 +19,11 @@ import {
   handleDecreasePrice,
   handleIncreasePrice,
 } from "../../../utils/editBetSlipPrice";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const BetSlip = () => {
+  const { getLanguage } = useLanguage();
   const [profit, setProfit] = useState(0);
   const { eventTypeId } = useParams();
   const dispatch = useDispatch();
@@ -278,7 +281,7 @@ const BetSlip = () => {
                 type="button"
                 className="stake-1"
               >
-                min stake
+                {getLanguage(LanguageKey.MIN_STAKE)}
               </button>
             </div>
             <div
@@ -295,7 +298,7 @@ const BetSlip = () => {
               className="stake-small-box"
             >
               <button data-v-4efaf06d type="button" className="stake-2">
-                max stake
+                {getLanguage(LanguageKey.MAX_STAKE)}
               </button>
             </div>
             {/* <div data-v-4efaf06d className="stake-small-box">
@@ -305,12 +308,15 @@ const BetSlip = () => {
             </div> */}
             <div data-v-4efaf06d className="stake-small-box">
               <button data-v-4efaf06d type="button" className="stake-4">
-                clear
+                {getLanguage(LanguageKey.CLEAR)}
               </button>
             </div>
           </div>
           <div data-v-4efaf06d className="stake-min-max">
-            <p data-v-4efaf06d>Min Bet: 100 Max Bet: 5000</p>
+            <p data-v-4efaf06d>
+              {getLanguage(LanguageKey.MIN)}: 100 {getLanguage(LanguageKey.MAX)}
+              : 5000
+            </p>
           </div>
           <div data-v-4efaf06d className="cancel-placed-btn">
             <div data-v-4efaf06d className="cancel-btn">
@@ -323,7 +329,7 @@ const BetSlip = () => {
                 type="button"
                 className="close-btn-1"
               >
-                Cancel
+                {getLanguage(LanguageKey.CANCEL)}
               </button>
             </div>
             <div data-v-4efaf06d className="placed-btn">
@@ -345,12 +351,14 @@ const BetSlip = () => {
                       role="status"
                     >
                       <span data-v-4efaf06d="" className="visually-hidden">
-                        Loading...
+                        {getLanguage(LanguageKey.LOADING)}...
                       </span>
                     </div>
                   </div>
                 ) : (
-                  <span data-v-4efaf06d>Place Bet</span>
+                  <span data-v-4efaf06d>
+                    {getLanguage(LanguageKey.PLACE_BET)}
+                  </span>
                 )}
 
                 {/**/}

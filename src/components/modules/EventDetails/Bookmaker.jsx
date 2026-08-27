@@ -12,8 +12,11 @@ import { isGameSuspended } from "../../../utils/isOddSuspended";
 import { handleCashOutPlaceBet } from "../../../utils/handleCashoutPlaceBet";
 import { Settings } from "../../../api";
 import BetSlip from "./BetSlip";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const Bookmaker = ({ data }) => {
+  const { getLanguage } = useLanguage();
   const [speedCashOut, setSpeedCashOut] = useState(null);
   const { eventId } = useParams();
   const [teamProfit, setTeamProfit] = useState([]);
@@ -276,7 +279,7 @@ const Bookmaker = ({ data }) => {
                         }`}
                       >
                         <span className="text-white whitespace-nowrap">
-                          CASHOUT
+                          {getLanguage(LanguageKey.CASHOUT)}
                           {/* {teamProfitForGame?.profit?.toString()?.length >
                                                 2 && <br className="lg:hidden" />} */}
                           {teamProfitForGame?.profit &&
@@ -303,7 +306,7 @@ const Bookmaker = ({ data }) => {
                         style={{ background: "#82371b" }}
                       >
                         <span className="text-white whitespace-nowrap">
-                          Speed Cashout
+                          {getLanguage(LanguageKey.SPEED_CASHOUT)}
                         </span>
                       </button>
                     )}
@@ -312,8 +315,8 @@ const Bookmaker = ({ data }) => {
               </div>
               <div data-v-4efaf06d className="min-max-head">
                 <div data-v-4efaf06d className="minmax-value-top">
-                  Min : {game?.minLiabilityPerBet} | Max :{" "}
-                  {game?.maxLiabilityPerBet}
+                  {getLanguage(LanguageKey.MIN)} : {game?.minLiabilityPerBet} |
+                  {getLanguage(LanguageKey.MAX)} : {game?.maxLiabilityPerBet}
                 </div>
                 {/* <div
                   data-v-4efaf06d
@@ -576,7 +579,7 @@ const Bookmaker = ({ data }) => {
                           </div>
                           {runner?.status === "SUSPENDED" && (
                             <span className="suspended__div">
-                              <b>SUSPENDED</b>
+                              <b>{getLanguage(LanguageKey.SUSPENDED)}</b>
                             </span>
                           )}
                         </div>

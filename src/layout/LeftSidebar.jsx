@@ -7,13 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleDownloadAPK } from "../utils/handleDownloadAPK";
 import { setShowMobileSidebar } from "../redux/features/global/globalSlice";
 import { useLogo } from "../context/ApiProvider";
-import { useLanguage } from "../context/LanguageProvider";
-import { languageValue } from "../utils/language";
 import { LanguageKey } from "../const";
 import { eventNameList } from "../static/event-name-list";
+import useLanguage from "../hooks/use-language";
 
 const LeftSidebar = () => {
-  const { valueByLanguage } = useLanguage();
+  const { getLanguage } = useLanguage();
   const { logo } = useLogo();
   const dispatch = useDispatch();
   const [showWarning, setShowWarning] = useState(false);
@@ -100,7 +99,7 @@ const LeftSidebar = () => {
                   </span>
                   <span className="sports-name-h">
                     {" "}
-                    {languageValue(valueByLanguage, LanguageKey.CRICKET)}{" "}
+                    {getLanguage(LanguageKey.CRICKET)}{" "}
                   </span>
                 </span>
               </button>
@@ -135,7 +134,7 @@ const LeftSidebar = () => {
                   </span>
                   <span className="sports-name-h">
                     {" "}
-                    {languageValue(valueByLanguage, LanguageKey.FOOTBALL)}{" "}
+                    {getLanguage(LanguageKey.FOOTBALL)}{" "}
                   </span>
                 </span>
               </button>
@@ -170,7 +169,7 @@ const LeftSidebar = () => {
                   </span>
                   <span className="sports-name-h">
                     {" "}
-                    {languageValue(valueByLanguage, LanguageKey.CRICKET)}{" "}
+                    {getLanguage(LanguageKey.CRICKET)}{" "}
                   </span>
                 </span>
               </button>
@@ -305,7 +304,7 @@ const LeftSidebar = () => {
                   </span>
                   <span className="sports-name-h">
                     {" "}
-                    {languageValue(valueByLanguage, LanguageKey.KABADDI)}{" "}
+                    {getLanguage(LanguageKey.KABADDI)}{" "}
                   </span>
                 </span>
               </button>

@@ -3,8 +3,11 @@ import { useBankAccountQuery } from "../../../hooks/bankAccount";
 import NewAccount from "./NewAccount";
 import AddUSDTAccount from "./AddUSDTAccount";
 import OldAccount from "./OldAccount";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const BankAccounts = ({ amount }) => {
+  const { getLanguage } = useLanguage();
   const { data: bankAccounts, refetch: refetchBankAccounts } =
     useBankAccountQuery({
       type: "getBankAccounts",
@@ -23,7 +26,9 @@ const BankAccounts = ({ amount }) => {
     <div className="w-full md:mt-[0px] lg:overflow-auto ">
       <div className="px-2 pb-2 flex flex-col items-start justify-start gap-y-2 mt-1 md:mt-[0px]">
         <div className="w-full flex flex-col gap-2 pt-2 pb-1 px-4 rounded-lg bg-bg_Quaternary">
-          <div className=" font-medium text-base leading-5">Withdraw Funds</div>
+          <div className=" font-medium text-base leading-5">
+            {getLanguage(LanguageKey.WITHDRAW_FUNDS)}
+          </div>
           <div className="w-full flex flex-col text-xs text-text_Ternary transition-all ease-in-out duration-100">
             <div className="text-xs md:text-sm  pt-1 font-medium leading-4">
               1. This form is for withdrawing the amount from the main wallet
@@ -62,7 +67,9 @@ const BankAccounts = ({ amount }) => {
           </div>
         </div>
         <div className="text-base text-text_Ternary font-roboto w-full font-medium flex flex-col items-start justify-start gap-y-1">
-          <span className="">Please fill in all required fields*</span>
+          <span className="">
+            {getLanguage(LanguageKey.PLEASE_FILL_IN_ALL_REQUIRED_FIELDS)}*
+          </span>
           <div className=" text-sm w-full">
             <div
               id="step-selectMode"
@@ -77,7 +84,7 @@ const BankAccounts = ({ amount }) => {
                 } undefined`}
                 style={{ zIndex: 10 }}
               >
-                Add Bank Account
+                {getLanguage(LanguageKey.ADD_BANK_ACCOUNT)}
               </button>
 
               <button
@@ -89,7 +96,7 @@ const BankAccounts = ({ amount }) => {
                 } undefined`}
                 style={{ zIndex: 10 }}
               >
-                Add USDT Wallet
+                {getLanguage(LanguageKey.ADD_USDT_WALLET)}
               </button>
               <button
                 onClick={() => setTabs("oldAccount")}
@@ -98,7 +105,7 @@ const BankAccounts = ({ amount }) => {
                 } `}
                 style={{ zIndex: 10 }}
               >
-                Use Previous Account
+                {getLanguage(LanguageKey.USE_PREVIOUS_ACCOUNT)}
               </button>
               <div
                 className={`w-[30%] absolute z-10 h-full transition-all ease-in-out p-1 ${

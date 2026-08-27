@@ -3,8 +3,11 @@ import ProfileLayout from "../../layout/ProfileLayout";
 import { useEditButtonValuesMutation } from "../../redux/features/events/events";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import useLanguage from "../../hooks/use-language";
+import { LanguageKey } from "../../const";
 
 const StakeSetting = () => {
+  const { getLanguage } = useLanguage();
   const [editButtonValue] = useEditButtonValuesMutation();
   const navigate = useNavigate();
   const stakes = JSON.parse(localStorage.getItem("buttonValue"));
@@ -66,7 +69,7 @@ const StakeSetting = () => {
               })}
             </div>
             <div className="stack-save-btn">
-              <button type="submit">Save</button>
+              <button type="submit">{getLanguage(LanguageKey.SAVE)}</button>
             </div>
           </div>
         </div>

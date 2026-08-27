@@ -19,8 +19,11 @@ import FootballScore from "../../components/modules/EventDetails/FootballScore";
 import OpenBets from "../../components/modules/EventDetails/OpenBets";
 import Premium from "../../components/modules/EventDetails/Premium";
 import ToggleButtons from "../../components/modules/EventDetails/ToggleButtons";
+import useLanguage from "../../hooks/use-language";
+import { LanguageKey } from "../../const";
 
 const EventDetails = () => {
+  const { getLanguage } = useLanguage();
   const [fancyPremiumTab, setFancyPremiumTab] = useState("");
   const [showTv, setShowTv] = useState(true);
   const [tab, setTab] = useState("market");
@@ -219,7 +222,7 @@ const EventDetails = () => {
                           }`}
                           onClick={() => setTab("market")}
                         >
-                          Market
+                          {getLanguage(LanguageKey.MARKET)}
                         </button>
                         <button
                           className={`active:opacity-70 px-2 tracking-wide text-white font-bold leading-none relative overflow-hidden text-[11px] transition-all duration-150 ease-in-out rounded-md text-center flex items-center justify-center flex-row h-[26px]  shadow-[0_2px_6px_rgba(0,0,0,0.35)] border border-white/20 loss ${
@@ -229,7 +232,7 @@ const EventDetails = () => {
                           }`}
                           onClick={() => setTab("open-bets")}
                         >
-                          Open Bets
+                          {getLanguage(LanguageKey.OPEN_BETS)}
                         </button>
                       </div>
                     )}

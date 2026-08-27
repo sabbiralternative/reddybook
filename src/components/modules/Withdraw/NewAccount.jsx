@@ -6,8 +6,11 @@ import { useSelector } from "react-redux";
 import { useBankAccountMutation } from "../../../redux/features/deposit/event.api";
 import { API, Settings } from "../../../api";
 import { AxiosSecure } from "../../../lib/AxiosSecure";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const NewAccount = ({ setTabs, refetchBankAccounts }) => {
+  const { getLanguage } = useLanguage();
   const [addNewBank] = useBankAccountMutation();
   const [isFormValid, setIsFormValid] = useState(false);
   const [mobile, setMobile] = useState(null);
@@ -133,7 +136,8 @@ const NewAccount = ({ setTabs, refetchBankAccounts }) => {
         <div className="w-full relative h-full">
           <div className="flex flex-col w-full">
             <div className="ml-1 text-sm">
-              UPI ID (Optional)
+              {getLanguage(LanguageKey.UPI_ID)} (
+              {getLanguage(LanguageKey.OPTIONAL)})
               <span className="text-text_Primary"></span>
             </div>
             <div className="relative">
@@ -155,7 +159,8 @@ const NewAccount = ({ setTabs, refetchBankAccounts }) => {
         </div>
         <div className="flex flex-col w-full">
           <div className="ml-1 text-sm">
-            Account Name <span className="text-text_Primary">*</span>
+            {getLanguage(LanguageKey.ACCOUNT_NAME)}{" "}
+            <span className="text-text_Primary">*</span>
           </div>
           <div className="relative">
             <input
@@ -178,7 +183,8 @@ const NewAccount = ({ setTabs, refetchBankAccounts }) => {
         </div>
         <div className="flex flex-col w-full">
           <div className="ml-1 text-sm">
-            Account No <span className="text-text_Primary">*</span>
+            {getLanguage(LanguageKey.ACCOUNT_NO)}{" "}
+            <span className="text-text_Primary">*</span>
           </div>
           <div className="relative">
             <input
@@ -201,7 +207,7 @@ const NewAccount = ({ setTabs, refetchBankAccounts }) => {
         </div>
         <div className="flex flex-col w-full">
           <div className="ml-1 text-sm">
-            Confirm Account No
+            {getLanguage(LanguageKey.CONFIRM_ACCOUNT_NO)}
             <span className="text-text_Primary">*</span>
           </div>
           <div className="relative">
@@ -226,7 +232,8 @@ const NewAccount = ({ setTabs, refetchBankAccounts }) => {
         <div className="w-full relative h-full">
           <div className="flex flex-col w-full">
             <div className="ml-1 text-sm">
-              IFSC Code <span className="text-text_Primary">*</span>
+              {getLanguage(LanguageKey.IFSC_CODE)}{" "}
+              <span className="text-text_Primary">*</span>
             </div>
             <div className="relative">
               <input
@@ -253,7 +260,8 @@ const NewAccount = ({ setTabs, refetchBankAccounts }) => {
           <div className="flex flex-col gap-1 w-full">
             <div title="passwordInput" className="w-full  ">
               <div className="ml-1  lg:text-sm">
-                Mobile <span className="text-text_Primary">*</span>
+                {getLanguage(LanguageKey.MOBILE_NUMBER)}{" "}
+                <span className="text-text_Primary">*</span>
               </div>
               <div className="flex w-full items-center py-2 bg-auth rounded-lg border">
                 {/* <span
@@ -278,7 +286,9 @@ const NewAccount = ({ setTabs, refetchBankAccounts }) => {
                       className="inline-block leading-normal relative overflow-hidden transition duration-150 ease-in-out -bold h-fit bg-bg_Primary text-primary transition-all ease-in-out text-xs whitespace-nowrap mr-1 py-1 px-3 rounded active:scale-[0.98] active:opacity-95 disabled:bg-bg_Slate500 disabled:opacity-50 font-medium relative flex items-center justify-center cursor-pointer"
                       type="button"
                     >
-                      <span className=" ">Retry in {timer}</span>
+                      <span className=" ">
+                        {getLanguage(LanguageKey.RETRY_IN)} {timer}
+                      </span>
                       {/* <span className="shimmer"></span> */}
                     </button>
                   ) : (
@@ -288,7 +298,9 @@ const NewAccount = ({ setTabs, refetchBankAccounts }) => {
                         className="inline-block leading-normal relative overflow-hidden transition duration-150 ease-in-out -bold h-fit bg-bg_Primary text-primary transition-all ease-in-out text-xs whitespace-nowrap mr-1 py-1 px-3 rounded active:scale-[0.98] active:opacity-95 disabled:bg-bg_Slate500 disabled:opacity-50 font-medium relative flex items-center justify-center cursor-pointer"
                         type="button"
                       >
-                        <span className=" ">Get OTP Message</span>
+                        <span className=" ">
+                          {getLanguage(LanguageKey.GET_OTP_ON_MESSAGE)}
+                        </span>
                         <span className="shimmer"></span>
                       </button>
                     </div>
@@ -302,7 +314,8 @@ const NewAccount = ({ setTabs, refetchBankAccounts }) => {
           <div className="flex flex-col gap-1 w-full">
             <div title="passwordInput" className="w-full  uppercase">
               <div className=" ml-1  lg:text-sm">
-                OTP <span className="text-text_Primary">*</span>
+                {getLanguage(LanguageKey.OTP)}{" "}
+                <span className="text-text_Primary">*</span>
               </div>
               <div className="flex w-full items-center border p-1 bg-auth rounded-lg mt-2">
                 <input
@@ -367,7 +380,7 @@ const NewAccount = ({ setTabs, refetchBankAccounts }) => {
           disabled={!isFormValid}
           className="inline-block leading-normal relative overflow-hidden transition duration-150 ease-in-out bg-bg_Primary w-full text-primary h-10 text-base shadow-lg  rounded-md font-medium leading-4 disabled:opacity-70 flex gap-x-1 items-center justify-center cursor-pointer"
         >
-          <span>SUBMIT</span>
+          <span>{getLanguage(LanguageKey.SUBMIT)}</span>
         </button>
       </div>
     </form>

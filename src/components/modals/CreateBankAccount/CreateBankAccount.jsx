@@ -6,8 +6,11 @@ import { useBankAccountMutation } from "../../../redux/features/deposit/event.ap
 import useCloseModalClickOutside from "../../../hooks/closeModal";
 import { AxiosSecure } from "../../../lib/AxiosSecure";
 import { API, Settings } from "../../../api";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const CreateBankAccount = ({ refetchBankAccounts, setShowAddBank }) => {
+  const { getLanguage } = useLanguage();
   const addBankRef = useRef();
   const [addNewBank] = useBankAccountMutation();
   const [isFormValid, setIsFormValid] = useState(false);
@@ -135,7 +138,7 @@ const CreateBankAccount = ({ refetchBankAccounts, setShowAddBank }) => {
         className="z-2 popUpBoxShadow popUpOpenAnimation absolute w-[90%] sm:w-[85%] md:w-[70%] lg:w-[450px] rounded-[5px] bg-bg_Quaternary p-2 xs:p-5 rounded-md"
       >
         <h2 className="mb-5 text-base md:text-xl font-medium">
-          Add New Account
+          {getLanguage(LanguageKey.ADD_NEW_ACCOUNT)}
         </h2>
         <div
           onClick={() => setShowAddBank(false)}
@@ -177,7 +180,8 @@ const CreateBankAccount = ({ refetchBankAccounts, setShowAddBank }) => {
             >
               <div title="loginFormMonileUserIdInput" className="w-full">
                 <div className=" uppercase text-[10px] md:text-xs lg:text-sm ml-1">
-                  UPI ID (Optional)
+                  {getLanguage(LanguageKey.UPI_ID)} (
+                  {getLanguage(LanguageKey.OPTIONAL)})
                 </div>
                 <div className="flex w-full items-center py-3.5 bg-auth rounded-lg border">
                   <input
@@ -198,7 +202,7 @@ const CreateBankAccount = ({ refetchBankAccounts, setShowAddBank }) => {
               <div className="flex flex-col gap-1">
                 <div title="passwordInput" className="w-full  uppercase">
                   <div className="text-[10px] ml-1 md:text-xs lg:text-sm">
-                    Account Name
+                    {getLanguage(LanguageKey.ACCOUNT_NAME)}
                   </div>
                   <div className="flex w-full items-center py-2 px-2 bg-auth rounded-lg border">
                     <input
@@ -220,7 +224,7 @@ const CreateBankAccount = ({ refetchBankAccounts, setShowAddBank }) => {
               <div className="flex flex-col gap-1">
                 <div title="passwordInput" className="w-full  uppercase">
                   <div className="text-[10px] ml-1 md:text-xs lg:text-sm">
-                    Account No
+                    {getLanguage(LanguageKey.ACCOUNT_NO)}
                   </div>
                   <div className="flex w-full items-center py-2 px-2 bg-auth rounded-lg border">
                     <input
@@ -241,7 +245,7 @@ const CreateBankAccount = ({ refetchBankAccounts, setShowAddBank }) => {
               <div className="flex flex-col gap-1">
                 <div title="passwordInput" className="w-full  uppercase">
                   <div className="text-[10px] ml-1 md:text-xs lg:text-sm">
-                    Confirm Account No
+                    {getLanguage(LanguageKey.CONFIRM_ACCOUNT_NO)}
                   </div>
                   <div className="flex w-full items-center py-2 px-2 bg-auth rounded-lg border">
                     <input
@@ -262,7 +266,7 @@ const CreateBankAccount = ({ refetchBankAccounts, setShowAddBank }) => {
               <div className="flex flex-col gap-1">
                 <div title="passwordInput" className="w-full  uppercase">
                   <div className="text-[10px] ml-1 md:text-xs lg:text-sm">
-                    IFSC Code
+                    {getLanguage(LanguageKey.IFSC_CODE)}
                   </div>
                   <div className="flex w-full items-center py-2 px-2 bg-auth rounded-lg border">
                     <input
@@ -284,7 +288,7 @@ const CreateBankAccount = ({ refetchBankAccounts, setShowAddBank }) => {
                 <div className="flex flex-col gap-1">
                   <div title="passwordInput" className="w-full  uppercase">
                     <div className="text-[10px] ml-1 md:text-xs lg:text-sm">
-                      Mobile
+                      {getLanguage(LanguageKey.MOBILE_NUMBER)}
                     </div>
                     <div className="flex w-full items-center py-2 bg-auth rounded-lg border">
                       {/* <span
@@ -308,7 +312,9 @@ const CreateBankAccount = ({ refetchBankAccounts, setShowAddBank }) => {
                             className="inline-block leading-normal relative overflow-hidden transition duration-150 ease-in-out  h-fit bg-bg_Primary text-primary transition-all ease-in-out text-xs whitespace-nowrap mr-1 py-1 px-3 rounded active:scale-[0.98] active:opacity-95 disabled:bg-bg_Slate500 disabled:opacity-50 font-medium relative flex items-center justify-center !cursor-text"
                             type="button"
                           >
-                            <span className=" ">Retry in {timer}</span>
+                            <span className=" ">
+                              {getLanguage(LanguageKey.RETRY_IN)} {timer}
+                            </span>
                             {/* <span className="shimmer"></span> */}
                           </button>
                         ) : (
@@ -318,7 +324,9 @@ const CreateBankAccount = ({ refetchBankAccounts, setShowAddBank }) => {
                               className="inline-block leading-normal relative overflow-hidden transition duration-150 ease-in-out  h-fit bg-bg_Primary text-primary transition-all ease-in-out text-xs whitespace-nowrap mr-1 py-1 px-3 rounded active:scale-[0.98] active:opacity-95 disabled:bg-bg_Slate500 disabled:opacity-50 font-medium relative flex items-center justify-center cursor-pointer"
                               type="button"
                             >
-                              <span className=" ">Get OTP Message</span>
+                              <span className=" ">
+                                {getLanguage(LanguageKey.GET_OTP_ON_MESSAGE)}
+                              </span>
                               <span className="shimmer"></span>
                             </button>
                           </div>

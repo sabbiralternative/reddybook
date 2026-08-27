@@ -3,8 +3,11 @@ import { useSelector } from "react-redux";
 import { Settings } from "../../api";
 import ProfileLayout from "../../layout/ProfileLayout";
 import useBalance from "../../hooks/balance";
+import useLanguage from "../../hooks/use-language";
+import { LanguageKey } from "../../const";
 
 const Overview = () => {
+  const { getLanguage } = useLanguage();
   const { user, memberId } = useSelector((state) => state.auth);
   const { data } = useBalance();
 
@@ -25,7 +28,9 @@ const Overview = () => {
               <div className="row">
                 <div className="col-4 col-sm-4 col-md-4 col-lg-3">
                   <div className="user-lft-side">
-                    <span className="user-side-text">User Id</span>
+                    <span className="user-side-text">
+                      {getLanguage(LanguageKey.USER_ID)}
+                    </span>
                     <span className="right-colons">:</span>
                   </div>
                 </div>

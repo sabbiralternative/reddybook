@@ -4,8 +4,11 @@ import { useChangePasswordMutation } from "../../redux/features/auth/authApi";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import useLanguage from "../../hooks/use-language";
+import { LanguageKey } from "../../const";
 
 const ChangePassword = () => {
+  const { getLanguage } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPass, setShowNewPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
@@ -160,7 +163,7 @@ const ChangePassword = () => {
             </div> */}
             <div data-v-74a6c3ae className="stack-save-btn">
               <button data-v-74a6c3ae type="submit">
-                Change Password
+                {getLanguage(LanguageKey.CHANGE_PASSWORD)}
               </button>
             </div>
           </form>

@@ -6,8 +6,11 @@ import { useBankAccountMutation } from "../../../redux/features/deposit/event.ap
 import useCloseModalClickOutside from "../../../hooks/closeModal";
 import { AxiosSecure } from "../../../lib/AxiosSecure";
 import { API, Settings } from "../../../api";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const CreateUSDTAccount = ({ refetchBankAccounts, setShowUSDTModal }) => {
+  const { getLanguage } = useLanguage();
   const addUSDTRef = useRef();
   const [addNewUSDTAccount] = useBankAccountMutation();
   const [isFormValid, setIsFormValid] = useState(false);
@@ -118,7 +121,7 @@ const CreateUSDTAccount = ({ refetchBankAccounts, setShowUSDTModal }) => {
         className="z-2 popUpBoxShadow popUpOpenAnimation absolute w-[90%] sm:w-[85%] md:w-[70%] lg:w-[450px] rounded-[5px] bg-bg_Quaternary p-2 xs:p-5 rounded-md"
       >
         <h2 className="mb-5 text-base md:text-xl font-medium">
-          Add New USDT Account
+          {getLanguage(LanguageKey.ADD_NEW_USDT_ACCOUNT)}
         </h2>
         <div
           onClick={() => setShowUSDTModal(false)}
@@ -161,7 +164,7 @@ const CreateUSDTAccount = ({ refetchBankAccounts, setShowUSDTModal }) => {
               <div className="flex flex-col gap-1">
                 <div title="passwordInput" className="w-full  uppercase">
                   <div className="text-[10px] ml-1 md:text-xs lg:text-sm">
-                    USDT Type
+                    {getLanguage(LanguageKey.USDT_TYPE)}
                   </div>
                   <div className="flex w-full items-center gap-x-3 py-2 px-2 bg-auth rounded-lg border">
                     <div className="flex items-center gap-x-2">
@@ -202,7 +205,7 @@ const CreateUSDTAccount = ({ refetchBankAccounts, setShowUSDTModal }) => {
               <div className="flex flex-col gap-1">
                 <div title="passwordInput" className="w-full  uppercase">
                   <div className="text-[10px] ml-1 md:text-xs lg:text-sm">
-                    Wallet Address
+                    {getLanguage(LanguageKey.WALLET_ADDRESS)}
                   </div>
                   <div className="flex w-full items-center py-2 px-2 bg-auth rounded-lg border">
                     <input
@@ -224,7 +227,7 @@ const CreateUSDTAccount = ({ refetchBankAccounts, setShowUSDTModal }) => {
                 <div className="flex flex-col gap-1">
                   <div title="passwordInput" className="w-full  uppercase">
                     <div className="text-[10px] ml-1 md:text-xs lg:text-sm">
-                      Mobile
+                      {getLanguage(LanguageKey.MOBILE_NUMBER)}
                     </div>
                     <div className="flex w-full items-center py-2 bg-auth rounded-lg border">
                       {/* <span
@@ -248,7 +251,9 @@ const CreateUSDTAccount = ({ refetchBankAccounts, setShowUSDTModal }) => {
                             className="inline-block leading-normal relative overflow-hidden transition duration-150 ease-in-out  h-fit bg-bg_Primary text-primary transition-all ease-in-out text-xs whitespace-nowrap mr-1 py-1 px-3 rounded active:scale-[0.98] active:opacity-95 disabled:bg-bg_Slate500 disabled:opacity-50 font-medium relative flex items-center justify-center !cursor-text"
                             type="button"
                           >
-                            <span className=" ">Retry in {timer}</span>
+                            <span className=" ">
+                              {getLanguage(LanguageKey.RETRY_IN)} {timer}
+                            </span>
                             {/* <span className="shimmer"></span> */}
                           </button>
                         ) : (
@@ -258,7 +263,9 @@ const CreateUSDTAccount = ({ refetchBankAccounts, setShowUSDTModal }) => {
                               className="inline-block leading-normal relative overflow-hidden transition duration-150 ease-in-out  h-fit bg-bg_Primary text-primary transition-all ease-in-out text-xs whitespace-nowrap mr-1 py-1 px-3 rounded active:scale-[0.98] active:opacity-95 disabled:bg-bg_Slate500 disabled:opacity-50 font-medium relative flex items-center justify-center cursor-pointer"
                               type="button"
                             >
-                              <span className=" ">Get OTP Message</span>
+                              <span className=" ">
+                                {getLanguage(LanguageKey.GET_OTP_ON_MESSAGE)}
+                              </span>
                               <span className="shimmer"></span>
                             </button>
                           </div>

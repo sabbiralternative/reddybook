@@ -4,8 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGroupQuery } from "../../../hooks/group";
 import { filterLiveVirtual } from "../../../utils/filter-live-virtual";
 import LiveVirtual from "./LiveVirtual";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const Upcoming = () => {
+  const { getLanguage } = useLanguage();
   const [liveVirtual, setLiveVirtual] = useState([]);
   const { id } = useParams();
   const { group } = useSelector((state) => state.global);
@@ -39,7 +42,7 @@ const Upcoming = () => {
   return (
     <>
       <div style={{ width: "100%" }} className="list-sport-title">
-        <span> Upcoming</span>
+        <span> {getLanguage(LanguageKey.UP_COMING)}</span>
       </div>
       {categories?.map((category) => {
         // const filteredData = Object.entries(data)

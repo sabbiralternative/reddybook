@@ -8,8 +8,11 @@ import toast from "react-hot-toast";
 import "./OpenBets.css";
 import { useCurrentBets } from "../../../hooks/currentBets";
 import useSBCashOut from "../../../hooks/sb_cashout";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const OpenBets = ({ sportsBook }) => {
+  const { getLanguage } = useLanguage();
   const navigate = useNavigate();
   const { eventId, eventTypeId } = useParams();
   const { data: myBets, refetch: refetchCurrentBets } = useCurrentBets(eventId);
@@ -90,7 +93,9 @@ const OpenBets = ({ sportsBook }) => {
           id="matched_1"
           className="open-bets-header"
         >
-          <span className="open-bets-header-title">Matched Bets</span>
+          <span className="open-bets-header-title">
+            {getLanguage(LanguageKey.MATCHED_BETS)}
+          </span>
           <div className="open-bets-header-icon">
             {openBets ? (
               <MdOutlineKeyboardArrowUp size={20} />
@@ -106,9 +111,15 @@ const OpenBets = ({ sportsBook }) => {
             <div className="bets-list">
               {/* Column Headers */}
               <div className="bets-column-headers">
-                <span className="col-header market">Market</span>
-                <span className="col-header center">Odds</span>
-                <span className="col-header center">Stake</span>
+                <span className="col-header market">
+                  {getLanguage(LanguageKey.MARKET)}
+                </span>
+                <span className="col-header center">
+                  {getLanguage(LanguageKey.ODDS)}
+                </span>
+                <span className="col-header center">
+                  {getLanguage(LanguageKey.STAKE)}
+                </span>
               </div>
 
               {/* Bet Rows */}
@@ -153,7 +164,9 @@ const OpenBets = ({ sportsBook }) => {
                             type="button"
                             className="cashout-btn"
                           >
-                            <span className="cashout-label">Cashout</span>
+                            <span className="cashout-label">
+                              {getLanguage(LanguageKey.CASHOUT)}
+                            </span>
                             {price && (
                               <span className="cashout-separator">:</span>
                             )}

@@ -4,8 +4,11 @@ import toast from "react-hot-toast";
 import useCloseModalClickOutside from "../../../hooks/closeModal";
 import { AxiosSecure } from "../../../lib/AxiosSecure";
 import { API } from "../../../api";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const Complaint = ({ setComplaintId, method, complaintId }) => {
+  const { getLanguage } = useLanguage();
   const complaintRef = useRef();
   const { register, handleSubmit } = useForm();
 
@@ -83,7 +86,7 @@ const Complaint = ({ setComplaintId, method, complaintId }) => {
             >
               <div title="loginFormMonileUserIdInput" className="w-full">
                 <div className=" uppercase text-[10px] md:text-xs lg:text-sm ml-1">
-                  Complaint
+                  {getLanguage(LanguageKey.COMPLAINT)}
                 </div>
                 <div className="flex w-full items-center py-3.5 bg-auth rounded-lg border">
                   <textarea
@@ -101,7 +104,7 @@ const Complaint = ({ setComplaintId, method, complaintId }) => {
                   type="submit"
                   className="inline-block leading-normal relative overflow-hidden transition duration-150 ease-in-out w-full text-primary bg-primary shadow-lg rounded-md xs:text-[15px] px-5 py-2 flex items-center justify-center gap-x-2  font-medium text-base cursor-pointer"
                 >
-                  <span>Submit</span>
+                  <span>{getLanguage(LanguageKey.SUBMIT)}</span>
                 </button>
               </div>
             </form>

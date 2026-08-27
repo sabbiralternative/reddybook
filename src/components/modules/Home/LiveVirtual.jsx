@@ -1,4 +1,8 @@
+import { LanguageKey } from "../../../const";
+import useLanguage from "../../../hooks/use-language";
+
 const LiveVirtual = ({ setLiveVirtual, category }) => {
+  const { getLanguage } = useLanguage();
   const onChangeLiveVirtual = (type, eventTypeId, isChecked) => {
     const obj = { type, eventTypeId, isChecked };
 
@@ -30,7 +34,7 @@ const LiveVirtual = ({ setLiveVirtual, category }) => {
           className="filter-checkbox"
           defaultValue="Order one"
         />
-        <label>LIVE</label>
+        <label>{getLanguage(LanguageKey.LIVE)}</label>
       </li>
       <li>
         <input
@@ -41,7 +45,7 @@ const LiveVirtual = ({ setLiveVirtual, category }) => {
           className="filter-checkbox"
           defaultValue="Order Two"
         />
-        <label>VIRTUAL</label>
+        <label>{getLanguage(LanguageKey.VIRTUAL)}</label>
       </li>
     </ul>
   );

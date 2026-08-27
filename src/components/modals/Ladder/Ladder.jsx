@@ -1,7 +1,10 @@
 import { useRef } from "react";
 import useCloseModalClickOutside from "../../../hooks/closeModal";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const Ladder = ({ ladderData, setLadderData, marketName }) => {
+  const { getLanguage } = useLanguage();
   const ladderRef = useRef();
   useCloseModalClickOutside(ladderRef, () => {
     setLadderData([]);
@@ -24,7 +27,7 @@ const Ladder = ({ ladderData, setLadderData, marketName }) => {
           <table className="w-full table-auto font-lato">
             <thead>
               <tr>
-                <th className="text-center">Runs</th>
+                <th className="text-center">{getLanguage(LanguageKey.RUN)}</th>
                 <th className="text-center">P&amp;L</th>
               </tr>
             </thead>
@@ -58,7 +61,7 @@ const Ladder = ({ ladderData, setLadderData, marketName }) => {
   "
           >
             <span className=" text-primary font-semibold fonn-lato text-base">
-              OK
+              {getLanguage(LanguageKey.OK)}
             </span>
           </button>
         </div>

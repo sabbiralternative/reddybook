@@ -15,8 +15,11 @@ import { API, Settings } from "../../../api";
 import { AxiosSecure } from "../../../lib/AxiosSecure";
 import toast from "react-hot-toast";
 import { setUser } from "../../../redux/features/auth/authSlice";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const ForgotPassword = () => {
+  const { getLanguage } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
@@ -226,7 +229,7 @@ const ForgotPassword = () => {
                                 id="otp-btn"
                                 className="thm-btn otp-btn get-otp-btn send_otp_btn"
                               >
-                                <span>Get OTP</span>
+                                <span>{getLanguage(LanguageKey.GET_OTP)}</span>
                               </button>
                             </div>
                           </div>
@@ -320,12 +323,14 @@ const ForgotPassword = () => {
                           className="btn thm-but main-btn"
                           id="submitBtn"
                         >
-                          <span>Update Password</span>
+                          <span>
+                            {getLanguage(LanguageKey.CHANGE_PASSWORD)}
+                          </span>
                         </button>
                         <p className="forpass-in">
                           Remember your password?
                           <a onClick={showLogin} data-bs-toggle="modal">
-                            Login
+                            {getLanguage(LanguageKey.LOGIN)}
                           </a>
                         </p>
                         <div className="create-new-acc">
@@ -334,7 +339,7 @@ const ForgotPassword = () => {
                             onClick={showRegister}
                             data-bs-toggle="modal"
                           >
-                            Create New Account
+                            {getLanguage(LanguageKey.REGISTER)}
                           </a>
                         </div>
                       </form>

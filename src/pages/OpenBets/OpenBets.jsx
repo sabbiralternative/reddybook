@@ -6,8 +6,11 @@ import {
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
 import SidebarLayout from "../../layout/SidebarLayout";
+import useLanguage from "../../hooks/use-language";
+import { LanguageKey } from "../../const";
 
 const OpenBets = () => {
+  const { getLanguage } = useLanguage();
   const navigate = useNavigate();
   const { data: myBets } = useCurrentBets();
   const [openBets, setOpenBets] = useState(true);
@@ -33,7 +36,9 @@ const OpenBets = () => {
                     id="matched_1"
                     className="px-3 py-2 cursor-pointer w-full flex items-center justify-between bg-primary rounded"
                   >
-                    <span className="text-primary text-xs">Open Bets</span>
+                    <span className="text-primary text-xs">
+                      {getLanguage(LanguageKey.OPEN_BETS)}
+                    </span>
                     <div className="flex items-center justify-center autoAnimate text-primary">
                       {openBets ? (
                         <MdOutlineKeyboardArrowUp size={20} />
@@ -87,7 +92,8 @@ const OpenBets = () => {
                                   id="tiem_Date_of_order_0_1724640350689"
                                   className="text-xs px-3 py-2 text-center bg-bg_Ternary8 font-lato font-normal rounded-b-md"
                                 >
-                                  PLACED - {bet?.placeDate}
+                                  {getLanguage(LanguageKey.PLACED_DATE)} -{" "}
+                                  {bet?.placeDate}
                                 </div>
                               </div>
                             );
@@ -101,7 +107,7 @@ const OpenBets = () => {
                     orderedBets?.length === 0 && (
                       <div className="w-full origin-top scaleVerticalOpen">
                         <div className="w-full font-medium text-sm bg-bg_Quaternary rounded px-4 py-3 shadow text-text_Ternary">
-                          You have no Open Bets.
+                          {getLanguage(LanguageKey.YOU_HAVE_NO_OPEN_BETS)}.
                         </div>
                       </div>
                     )}

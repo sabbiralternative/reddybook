@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { AxiosSecure } from "../lib/AxiosSecure";
 import { API } from "../api";
 
@@ -33,8 +33,3 @@ const LanguageProvider = ({ children }) => {
 };
 
 export default LanguageProvider;
-
-export const useLanguage = () => {
-  const language = useContext(LanguageContext);
-  return language;
-};

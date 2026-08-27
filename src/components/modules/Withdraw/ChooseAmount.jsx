@@ -1,6 +1,9 @@
+import { LanguageKey } from "../../../const";
+import useLanguage from "../../../hooks/use-language";
 import useWithdrawBreakdown from "../../../hooks/withdrawBreakdown";
 
 const ChooseAmount = ({ setShowBanks, setAmount, amount }) => {
+  const { getLanguage } = useLanguage();
   const { data: withdrawBreakdown } = useWithdrawBreakdown();
 
   const handleShowBank = () => {
@@ -16,7 +19,9 @@ const ChooseAmount = ({ setShowBanks, setAmount, amount }) => {
   return (
     <div className="px-2 pb-2 flex flex-col items-start justify-start gap-y-2 mt-1 md:mt-[0px] w-full">
       <div className="w-full flex flex-col gap-2 pt-2 pb-1 px-4 rounded-lg bg-bg_Quaternary">
-        <div className=" font-medium text-base leading-5">Withdraw Funds</div>
+        <div className=" font-medium text-base leading-5">
+          {getLanguage(LanguageKey.WITHDRAW_FUNDS)}
+        </div>
         <div className="w-full flex flex-col text-xs text-text_Ternary transition-all ease-in-out duration-100">
           <div className="text-xs md:text-sm  pt-1 font-medium leading-4">
             1. This form is for withdrawing the amount from the main wallet
@@ -55,7 +60,9 @@ const ChooseAmount = ({ setShowBanks, setAmount, amount }) => {
         </div>
       </div>
       <div className="text-base text-text_Ternary font-roboto w-full font-medium flex flex-col items-start justify-start gap-y-1">
-        <span className="">Please fill in all required fields*</span>
+        <span className="">
+          {getLanguage(LanguageKey.PLEASE_FILL_IN_ALL_REQUIRED_FIELDS)}*
+        </span>
       </div>
       <div
         className="w-full flex flex-col items-start justify-start gap-y-4"
@@ -64,11 +71,13 @@ const ChooseAmount = ({ setShowBanks, setAmount, amount }) => {
         <div className="rounded-lg bg-bg_Quaternary py-2 px-3.5 pb-5 flex flex-col items-start justify-start w-full gap-y-2">
           <div className="w-full flex items-start justify-start gap-y-[0.5] flex-col">
             <span className="text-sm mt-1 bg-primary rounded  shadow-md text-primary px-2 py-1 my-1">
-              Available to withdrawal : ₹ {withdrawBreakdown?.mainWallet}
+              {getLanguage(LanguageKey.AVAILABLE_TO_WITHDRAW)} : ₹{" "}
+              {withdrawBreakdown?.mainWallet}
             </span>
             <div className="flex flex-col w-full">
               <div className="ml-1 text-sm">
-                Amount <span className="text-text_Primary">*</span>
+                {getLanguage(LanguageKey.AMOUNT)}{" "}
+                <span className="text-text_Primary">*</span>
               </div>
               <div className="relative">
                 <span className="px-2 absolute top-1/2 -translate-y-1/2 w-max">
@@ -85,7 +94,8 @@ const ChooseAmount = ({ setShowBanks, setAmount, amount }) => {
                   value={amount}
                 />
                 <span className="px-2 absolute top-1/2 -translate-y-1/2 right-0">
-                  Minimum {withdrawBreakdown?.minimumWithdraw}
+                  {getLanguage(LanguageKey.MIN)}{" "}
+                  {withdrawBreakdown?.minimumWithdraw}
                 </span>
               </div>
               <div className="text-xs ml-1 text-text_Primary"></div>
@@ -140,7 +150,7 @@ const ChooseAmount = ({ setShowBanks, setAmount, amount }) => {
                 : "cursor-pointer"
             }`}
           >
-            <span>Continue to select account</span>
+            <span>{getLanguage(LanguageKey.CONTINUE_TO_SELECT_ACCOUNT)}</span>
           </div>
         </div>
       </div>

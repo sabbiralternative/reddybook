@@ -8,8 +8,11 @@ import { useExposure } from "../../../hooks/exposure";
 import useBalance from "../../../hooks/balance";
 import useCloseModalClickOutside from "../../../hooks/closeModal";
 import { useIndexMutation } from "../../../hooks";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const SpeedCashOut = ({ speedCashOut, setSpeedCashOut }) => {
+  const { getLanguage } = useLanguage();
   const closePopupForForever = localStorage.getItem("closePopupForForever");
   const { eventTypeId, eventId } = useParams();
   const { refetch: refetchCurrentBets } = useCurrentBets(eventId);
@@ -119,7 +122,7 @@ const SpeedCashOut = ({ speedCashOut, setSpeedCashOut }) => {
                         _ngcontent-ng-c526813732=""
                         className=""
                       >
-                        Speed Cashout
+                        {getLanguage(LanguageKey.SPEED_CASHOUT)}
                       </h3>
                     </div>
                     <div
@@ -201,7 +204,9 @@ const SpeedCashOut = ({ speedCashOut, setSpeedCashOut }) => {
                         }}
                         _ngcontent-ng-c526813732=""
                       >
-                        We are deducting 3% fee on speed cashout
+                        {getLanguage(
+                          LanguageKey.WE_ARE_DEDUCTING_THREE_PERCENT_FEE_ON_SPEED_CASHOUT,
+                        )}
                       </p>
                       <div
                         style={{ padding: "0px" }}
@@ -220,7 +225,7 @@ const SpeedCashOut = ({ speedCashOut, setSpeedCashOut }) => {
                           _ngcontent-ng-c526813732=""
                           className="btn secondary-btn text-primary"
                         >
-                          Speed Cash : {amount}
+                          {getLanguage(LanguageKey.SPEED_CASH)} : {amount}
                         </button>
                       </div>
                     </div>

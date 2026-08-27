@@ -3,8 +3,11 @@ import toast from "react-hot-toast";
 import RemoveAccount from "./RemoveAccount";
 import WithdrawSuccess from "./WithdrawSuccess";
 import { useBankAccountMutation } from "../../../redux/features/deposit/event.api";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const OldAccount = ({ amount, bankAccounts }) => {
+  const { getLanguage } = useLanguage();
   const [withdrawCoin] = useBankAccountMutation();
   const [bankId, setBankId] = useState("");
   const [removeBank, setRemoveBank] = useState("");
@@ -147,7 +150,11 @@ const OldAccount = ({ amount, bankAccounts }) => {
               disabled={!bankId || disable}
               className="inline-block leading-normal relative overflow-hidden transition duration-150 ease-in-out bg-bg_Primary w-full text-primary h-10 text-base shadow-lg  rounded-md font-medium leading-4 disabled:opacity-70 flex gap-x-1 items-center justify-center cursor-pointer"
             >
-              <span>{bankId ? "SUBMIT" : "Please select bank account"}</span>
+              <span>
+                {bankId
+                  ? getLanguage(LanguageKey.SUBMIT)
+                  : getLanguage(LanguageKey.PLEASE_SELECT_BANK_ACCOUNT)}
+              </span>
             </button>
           </div>
         </form>
@@ -535,7 +542,7 @@ const OldAccount = ({ amount, bankAccounts }) => {
                   </svg>
                 </div>
                 <span className="text-text_Ternary font-normal text-center">
-                  No Accounts Added.
+                  {getLanguage(LanguageKey.NO_ACCOUNT_ADDED)}.
                 </span>
               </div>
             </div>

@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const WithdrawSuccess = ({ setWithdrawSuccess, amount }) => {
+  const { getLanguage } = useLanguage();
   const navigate = useNavigate();
   return (
     <div
@@ -476,11 +479,11 @@ const WithdrawSuccess = ({ setWithdrawSuccess, amount }) => {
             </defs>
           </svg>
           <h6 className="text-xl  font-bold leading-5 text-text_Ternary">
-            Congratulations!
+            {getLanguage(LanguageKey.CONGRATULATIONS)}!
           </h6>
           <span className="text-sm leading-5 text-text_Ternary">
             <span className="font-normal  text-gray/80">
-              We have your request to Withdraw{" "}
+              {getLanguage(LanguageKey.WE_HAVE_YOUR_REQUEST_TO_WITHDRAW)}{" "}
             </span>
             <span className="font-medium ">₹ {amount}.</span>
           </span>
@@ -493,7 +496,7 @@ const WithdrawSuccess = ({ setWithdrawSuccess, amount }) => {
               className="inline-block leading-normal relative overflow-hidden transition duration-150 ease-in-out  bg-[var(--primary-color)] text-primary w-full py-2 px-2.5 text-base shadow-lg rounded-[4px] font-medium leading-4 cursor-pointer"
               type="button"
             >
-              Go Back
+              {getLanguage(LanguageKey.GO_BACK)}
             </button>
           </div>
         </div>

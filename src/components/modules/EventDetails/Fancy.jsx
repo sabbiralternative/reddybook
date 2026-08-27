@@ -10,8 +10,11 @@ import {
 import toast from "react-hot-toast";
 import Ladder from "../../modals/Ladder/Ladder";
 import BetSlip from "./BetSlip";
+import useLanguage from "../../../hooks/use-language";
+import { LanguageKey } from "../../../const";
 
 const Fancy = ({ data }) => {
+  const { getLanguage } = useLanguage();
   const fancyData = data?.filter(
     (fancy) =>
       fancy.btype === "FANCY" &&
@@ -419,10 +422,12 @@ const Fancy = ({ data }) => {
                                   className="max-min-bet-rgt-box"
                                 >
                                   <span data-v-4efaf06d>
-                                    Min : {game?.minLiabilityPerBet}
+                                    {getLanguage(LanguageKey.MIN)} :{" "}
+                                    {game?.minLiabilityPerBet}
                                   </span>
                                   <span data-v-4efaf06d>
-                                    Max : {game?.maxLiabilityPerBet}
+                                    {getLanguage(LanguageKey.MAX)} :{" "}
+                                    {game?.maxLiabilityPerBet}
                                   </span>
                                 </div>
                               </div>
@@ -436,7 +441,7 @@ const Fancy = ({ data }) => {
                                     windowWidth < 768 ? "100%" : "33.33333333%",
                                 }}
                               >
-                                <b>SUSPENDED</b>
+                                <b>{getLanguage(LanguageKey.SUSPENDED)}</b>
                               </span>
                             )}
                           </div>
