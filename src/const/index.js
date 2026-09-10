@@ -438,6 +438,8 @@ export const LanguageKey = {
   MULTI_MARKET: "MULTI_MARKET",
   FAVORITES: "FAVORITES",
   LANGUAGE: "LANGUAGE",
+  BY_USERNAME: "BY_USERNAME",
+  BY_PHONE: "BY_PHONE",
 };
 export const EVENT_NAMES = {
   4: "CRICKET",

@@ -17,8 +17,12 @@ import toast from "react-hot-toast";
 import { setUser } from "../../../redux/features/auth/authSlice";
 import { LanguageKey } from "../../../const";
 import useLanguage from "../../../hooks/use-language";
+import { FaMobileAlt, FaRegUser } from "react-icons/fa";
 
 const Register = () => {
+  const [tab, setTab] = useState(
+    Settings.registration_mobile ? "mobile" : "username",
+  );
   const { getLanguage } = useLanguage();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
@@ -83,7 +87,7 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     const registerData = {
-      username: "",
+      username: data?.username,
       password: data?.password,
       confirmPassword: data?.confirmPassword,
       mobile: mobile,
@@ -92,6 +96,8 @@ const Register = () => {
       referralCode: referralCode || data?.referralCode,
       orderId: OTP.orderId,
       otpMethod: OTP.otpMethod,
+      registration_mobile: Settings.registration_mobile,
+      registration_username: Settings.registration_username,
     };
 
     const result = await handleRegister(registerData).unwrap();
@@ -157,72 +163,156 @@ const Register = () => {
                       </div>
                       <div id="msgFromServer" />
                       <input type="hidden" id="csrf-token" />
-                      <div className="number-var mak-gin sign-up-body">
-                        <div className="input-wrap sign-up-row">
-                          <div className="contact-info-wrapper">
-                            <div className="country-code-flag-top-wrapper">
-                              <div className="country-code-flag-top-sec">
-                                <img
-                                  loading="lazy"
-                                  src="https://flagcdn.com/in.svg"
-                                />{" "}
-                                <span>+91</span>
-                                <i className="fa-solid fa-caret-down" />
-                              </div>
-                              <ul className="country-code-flag-sec">
-                                <li>
-                                  <img
-                                    loading="lazy"
-                                    src="https://flagcdn.com/bd.svg"
-                                  />{" "}
-                                  <span>+880</span>
-                                </li>
-                                <li>
-                                  <img
-                                    loading="lazy"
-                                    src="https://flagcdn.com/ae.svg"
-                                  />{" "}
-                                  <span>+971</span>
-                                </li>
-                                <li>
-                                  <img
-                                    loading="lazy"
-                                    src="https://flagcdn.com/np.svg"
-                                  />{" "}
-                                  <span>+977</span>
-                                </li>
-                                <li>
-                                  <img
-                                    loading="lazy"
-                                    src="https://flagcdn.com/pk.svg"
-                                  />{" "}
-                                  <span>+92</span>
-                                </li>
-                              </ul>
-                            </div>
-                            <div className="input-left">
-                              <input
-                                type="tel"
-                                className="form-control"
-                                id="mobile"
-                                placeholder="Enter Mobile Number*"
-                                maxLength={10}
-                                onChange={(e) => handleMobileNo(e)}
-                                value={mobile}
-                              />
-                            </div>
-                            <button
-                              disabled={Settings.otp && mobile?.length < 10}
-                              onClick={getOtp}
-                              type="button"
-                              id="otp-btn"
-                              className="thm-btn otp-btn get-otp-btn send_otp_btn"
+                      {Settings.registration_mobile &&
+                        Settings.registration_username && (
+                          <div
+                            style={{
+                              width: "100%",
+                              background:
+                                "color-mix(in srgb, var(--primary-color) 30%, transparent)",
+                              marginBottom: "12px",
+                            }}
+                          >
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "flex-start",
+                                position: "relative",
+                                width: "100%",
+                              }}
                             >
-                              <span>{getLanguage(LanguageKey.GET_OTP)}</span>
-                            </button>
+                              <div
+                                onClick={() => setTab("mobile")}
+                                style={{
+                                  cursor: "pointer",
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  padding: "5px",
+                                  width: "100%",
+                                  gap: "6px",
+                                  color: "white",
+                                  background:
+                                    tab === "mobile"
+                                      ? "var(--primary-color)"
+                                      : undefined,
+                                }}
+                              >
+                                <FaMobileAlt />
+
+                                <span>{getLanguage(LanguageKey.BY_PHONE)}</span>
+                              </div>
+
+                              <div
+                                onClick={() => setTab("username")}
+                                style={{
+                                  cursor: "pointer",
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  padding: "5px",
+                                  width: "100%",
+                                  gap: "6px",
+                                  color: "white",
+                                  background:
+                                    tab === "username"
+                                      ? "var(--primary-color)"
+                                      : undefined,
+                                }}
+                              >
+                                <FaRegUser />
+
+                                <span>
+                                  {getLanguage(LanguageKey.BY_USERNAME)}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      {tab === "mobile" && Settings.registration_mobile && (
+                        <div className="number-var mak-gin sign-up-body">
+                          <div className="input-wrap sign-up-row">
+                            <div className="contact-info-wrapper">
+                              <div className="country-code-flag-top-wrapper">
+                                <div className="country-code-flag-top-sec">
+                                  <img
+                                    loading="lazy"
+                                    src="https://flagcdn.com/in.svg"
+                                  />{" "}
+                                  <span>+91</span>
+                                  <i className="fa-solid fa-caret-down" />
+                                </div>
+                                <ul className="country-code-flag-sec">
+                                  <li>
+                                    <img
+                                      loading="lazy"
+                                      src="https://flagcdn.com/bd.svg"
+                                    />{" "}
+                                    <span>+880</span>
+                                  </li>
+                                  <li>
+                                    <img
+                                      loading="lazy"
+                                      src="https://flagcdn.com/ae.svg"
+                                    />{" "}
+                                    <span>+971</span>
+                                  </li>
+                                  <li>
+                                    <img
+                                      loading="lazy"
+                                      src="https://flagcdn.com/np.svg"
+                                    />{" "}
+                                    <span>+977</span>
+                                  </li>
+                                  <li>
+                                    <img
+                                      loading="lazy"
+                                      src="https://flagcdn.com/pk.svg"
+                                    />{" "}
+                                    <span>+92</span>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div className="input-left">
+                                <input
+                                  type="tel"
+                                  className="form-control"
+                                  id="mobile"
+                                  placeholder="Enter Mobile Number*"
+                                  maxLength={10}
+                                  onChange={(e) => handleMobileNo(e)}
+                                  value={mobile}
+                                />
+                              </div>
+                              <button
+                                disabled={Settings.otp && mobile?.length < 10}
+                                onClick={getOtp}
+                                type="button"
+                                id="otp-btn"
+                                className="thm-btn otp-btn get-otp-btn send_otp_btn"
+                              >
+                                <span>{getLanguage(LanguageKey.GET_OTP)}</span>
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      )}
+
+                      {tab === "username" && Settings.registration_username && (
+                        <div className="mak-gin password-inpt">
+                          <input
+                            {...register("username", { required: true })}
+                            type="text"
+                            className="form-control toggle-password"
+                            placeholder="Enter Username"
+                            aria-describedby="password"
+                          />
+                        </div>
+                      )}
 
                       {/* <div className="code-hyper">
                         <a href="javascript:void(0)">Want to set UserID?</a>
