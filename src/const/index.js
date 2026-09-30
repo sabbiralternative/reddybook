@@ -440,6 +440,7 @@ export const LanguageKey = {
   LANGUAGE: "LANGUAGE",
   BY_USERNAME: "BY_USERNAME",
   BY_PHONE: "BY_PHONE",
+  FANTASY_11: "FANTASY_11",
 };
 export const EVENT_NAMES = {
   4: "CRICKET",
