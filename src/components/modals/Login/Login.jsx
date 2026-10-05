@@ -7,6 +7,7 @@ import { useLoginMutation } from "../../../redux/features/auth/authApi";
 import useCloseModalClickOutside from "../../../hooks/closeModal";
 import {
   setShowBanner,
+  setShowChangePasswordModal,
   setShowForgotPasswordModal,
   setShowLoginModal,
   setShowRegisterModal,
@@ -63,7 +64,7 @@ const Login = () => {
       if (result?.result?.changePassword) {
         dispatch(setShowLoginModal(false));
         localStorage.setItem("changePassword", true);
-        navigate("/change-password");
+        dispatch(setShowChangePasswordModal(true));
       }
       if (!result?.result?.changePassword && token && user) {
         dispatch(setShowLoginModal(false));

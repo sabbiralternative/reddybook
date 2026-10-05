@@ -28,6 +28,7 @@ import AppPopup from "./AppPopUp";
 import DownloadAPK from "../../modals/DownloadAPK/DownloadAPK";
 import { LanguageKey } from "../../../const";
 import useLanguage from "../../../hooks/use-language";
+import ChangePassword from "../../modals/ChangePassword/ChangePassword";
 
 const Navbar = () => {
   const { getLanguage, setLanguage } = useLanguage();
@@ -49,6 +50,7 @@ const Navbar = () => {
     showAppPopUp,
     closePopupForForever,
     showAPKModal,
+    showChangePasswordModal,
   } = useSelector((state) => state.global);
   const { token, user } = useSelector((state) => state.auth);
 
@@ -109,6 +111,7 @@ const Navbar = () => {
       {showLoginModal && <Login />}
       {showRegisterModal && <Register />}
       {showForgotPasswordModal && <ForgotPassword />}
+      {showChangePasswordModal && <ChangePassword />}
       <header
         ref={headerRef}
         className="header-wapper header-search "

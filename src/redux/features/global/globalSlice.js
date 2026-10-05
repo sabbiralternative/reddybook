@@ -6,6 +6,7 @@ const initialState = {
   showLoginModal: false,
   showRegisterModal: false,
   showForgotPasswordModal: false,
+  showChangePasswordModal: false,
   selectedCategory: "ALL",
   showLanguageModal: false,
   showNotification: false,
@@ -67,6 +68,9 @@ const stateSlice = createSlice({
     setHeaderHeight: (state, action) => {
       state.headerHeight = action.payload;
     },
+    setShowChangePasswordModal: (state, action) => {
+      state.showChangePasswordModal = action.payload;
+    },
   },
 });
 
@@ -86,6 +90,7 @@ export const {
   setShowAPKModal,
   setShowAppPopUp,
   setHeaderHeight,
+  setShowChangePasswordModal,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;
