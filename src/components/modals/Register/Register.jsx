@@ -136,7 +136,12 @@ const Register = () => {
         tabIndex={-1}
         aria-labelledby="exampleModalLabel"
         data-bs-backdrop="static"
-        style={{ display: "block" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
         aria-modal="true"
         role="dialog"
       >
@@ -157,7 +162,15 @@ const Register = () => {
                   <div className="forget-login">
                     <div className="login-now">
                       <div className="login-flow-heading">
-                        <div className="web-logo">
+                        <div
+                          className="web-logo"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginBottom: "20px",
+                          }}
+                        >
                           <img loading="lazy" src={logo} alt="logo" />
                         </div>
                       </div>

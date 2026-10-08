@@ -158,11 +158,20 @@ const Login = () => {
                   className="login-body-lft"
                 >
                   <div data-v-39abe11c className="login-flow-heading">
-                    <div data-v-39abe11c className="web-logo">
+                    <div
+                      data-v-39abe11c
+                      className="web-logo"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: "20px",
+                      }}
+                    >
                       <img
                         style={{
-                          height: Settings.logoHeight,
-                          width: Settings.logoWidth,
+                          height: Settings.logo_height,
+                          width: Settings.logo_width,
                           objectFit: "contain",
                         }}
                         data-v-39abe11c
